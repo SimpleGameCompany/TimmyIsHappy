@@ -1,5 +1,5 @@
 canvas {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -8,6 +8,7 @@ canvas {
 
 .canvasContainer {
     position: relative;
+    padding: 0px;
 }
 
 #gameCanvas {
@@ -15,5 +16,6 @@ canvas {
 }
 
 #gameCanvas-hitbox {
+    position: absolute;
     z-index: 0;
 }

@@ -287,26 +287,21 @@ class HitableObject extends SpriteObject {
        * @param {CanvasRenderingContext2D} hitbox 
        */
   Update(timeDelta, hitbox) {
-      if (this._activeHit) {
-    super.Update(timeDelta, hitbox);
-    if (this._activeHit) {
-      hitbox.fillStyle = this.hitColor;
-      hitbox.fillRect(
-        this.position.x,
-        this.position.y,
-        this.width,
-        this.height
-      );
+        if (this._activeHit) {
+            super.Update(timeDelta, hitbox);
+            if (this._activeHit) {
+                hitbox.fillStyle = this.hitColor;
+                hitbox.fillRect(
+                    this.position.x,
+                    this.position.y,
+                    this.width,
+                    this.height
+                );
+            }
+        }
+        
     }
-  }
-        hitbox.fillRect(
-          this.position.x,
-          this.position.y,
-          this.width,
-          this.height
-        );
-      }
-    }
+}
   
 
 class TextObject {
