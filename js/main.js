@@ -47,7 +47,7 @@ function LoadObjects(ev){
         gameObjects[i] = [];
     }
     let timmy = new SpriteObject("player", new Vector2(50,350),"none",300,300);
-    let back = new SpriteObject("a",new Vector2(0,0),"assets/img/back.jpeg",720,3000);
+    let back = new SpriteObject("a",new Vector2(0,0),"assets/img/Back.jpeg",720,3000);
     let animation = new Animation("assets/img/Timmy_spritesheet.png",8,138,400,0.1);
     back.velocity = new Vector2(-100,0);
     timmy.AddAnimation(animation,"idle");
