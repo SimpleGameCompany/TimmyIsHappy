@@ -121,6 +121,7 @@ class SpriteObject {
      */
   constructor(name, position, imgSrc, height, width) {
     this._position = position;
+    this._anchor = new Vector2(0,0);
     this.name = name;
     this.sprite = new Image(width, height);
     this.sprite.src = imgSrc;
@@ -168,11 +169,19 @@ class SpriteObject {
   set height(h) {
     this._height = h;
   }
+
   set width(w) {
     this._width = w;
   }
   set position(pos) {
     this._position = pos;
+  }
+
+  set anchor(v){
+    this._anchor.x = v.x;
+    this._anchor.y = v.y;
+    this._position.x = this._position.x - this._anchor.x*this._width;
+    this._position.y = this._position.y - this._anchor.y*this._height;
   }
 
   set velocity(vector) {
@@ -283,24 +292,21 @@ class HitableObject extends SpriteObject {
   
   /**
        
-       * @param {number} timeDelta 
-       * @param {CanvasRenderingContext2D} hitbox 
-       */
+  * @param {number} timeDelta 
+  * @param {CanvasRenderingContext2D} hitbox 
+  */
   Update(timeDelta, hitbox) {
-        if (this._activeHit) {
-            super.Update(timeDelta, hitbox);
-            if (this._activeHit) {
-                hitbox.fillStyle = this.hitColor;
-                hitbox.fillRect(
-                    this.position.x,
-                    this.position.y,
-                    this.width,
-                    this.height
-                );
-            }
-        }
-        
+    super.Update(timeDelta, hitbox);
+    if (this._activeHit) {
+      hitbox.fillStyle = this.hitColor;
+      hitbox.fillRect(
+        this.position.x,
+        this.position.y,
+        this.width,
+        this.height
+      );
     }
+  }
 }
   
 
