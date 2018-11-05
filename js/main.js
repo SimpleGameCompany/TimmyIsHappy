@@ -10,114 +10,103 @@ class Obstacule extends HitableObject{
      * @param {SpriteObject} jugador
      
      */
-    constructor(name, position, imgSrc, height, width,jugador){
+    constructor(name, position, imgSrc, height, width,jugador, hitnumber){
         super(name, position, imgSrc, height, width);
         this._player = jugador;
+        this._hitnumber = hitnumber;
+        this.GeneralClick = function(e){
+            hitnumber --;
+            if(hitnumber == 0){
+                this.deactivate();
+                canvasManager.clickObjects.delete(this.hitColor);
+                this.SetAnimation("clicked");
+            }
+        }
     }
 }
 
 class Alcantarilla extends Obstacule{
-    constructor(name, position, imgSrc, height, width, jugador){
-        super(name, position, imgSrc, height, width, jugador);
+    constructor(name, position, imgSrc, height, width, jugador, hitnumber){
+        super(name, position, imgSrc, height, width, jugador, hitnumber);
         this.OnClick = function(e){
-            this.deactivate();
-            canvasManager.clickObjects.delete(this.hitColor);
-            this.SetAnimation("clicked");
+            this.GeneralClick(e);
         }
     }
 }
 
 class ObjetoVolador extends Obstacule{
-    constructor(name, position, imgSrc, height, width, jugador){
-        super(name, position, imgSrc, height, width, jugador);
+    constructor(name, position, imgSrc, height, width, jugador, hitnumber){
+        super(name, position, imgSrc, height, width, jugador, hitnumber);
         this.OnClick = function(e){
-            this.deactivate();
-            canvasManager.clickObjects.delete(this.hitColor);
-            this.SetAnimation("clicked");
+            this.GeneralClick(e);
         }
     }
 }
 
 class Caca extends Obstacule{
-    constructor(name, position, imgSrc, height, width, jugador){
-        super(name, position, imgSrc, height, width, jugador);
-        this.clicks = 0;
+    constructor(name, position, imgSrc, height, width, jugador, hitnumber){
+        super(name, position, imgSrc, height, width, jugador, hitnumber);
         this.OnClick = function(e){
-            clicks ++;
-            if(clicks == 2){
-                this.deactivate();
-                canvasManager.clickObjects.delete(this.hitColor);
-                this.SetAnimation("clicked");
-            }
+            this.GeneralClick(e);
         }
     }
 }
 
 class Paloma extends Obstacule{
-    constructor(name, position, imgSrc, height, width, jugador){
-        super(name, position, imgSrc, height, width, jugador);
-        this.clicks = 0;
+    constructor(name, position, imgSrc, height, width, jugador, hitnumber){
+        super(name, position, imgSrc, height, width, jugador, hitnumber);
         this.OnClick = function(e){
-            this.deactivate();
-            canvasManager.clickObjects.delete(this.hitColor);
-            this.SetAnimation("clicked");
+            this.GeneralClick(e);
         }
     }
 }
 
 class Coche extends Obstacule{
-    constructor(name, position, imgSrc, height, width, jugador){
-        super(name, position, imgSrc, height, width, jugador);
+    constructor(name, position, imgSrc, height, width, jugador, hitnumber, speed){
+        super(name, position, imgSrc, height, width, jugador, hitnumber);
 
-        this.velocity.add(new Vector2(-10,0));
+        this.velocity = this.velocity.add(speed);
 
-        this.OnClick = function(e){
-            this.deactivate();
-            canvasManager.clickObjects.delete(this.hitColor);
-            this.SetAnimation("clicked");
+        functionOnClick = function(e){
+            this.GeneralClick(e);
         }
     }
 }
 
 class Perro extends Obstacule{
-    constructor(name, position, imgSrc, height, width, jugador){
-        super(name, position, imgSrc, height, width, jugador);
-        this.ladridos = 0;
-        this.stopped = false;
-        this.clicks = 0;
+    constructor(name, position, imgSrc, height, width, jugador, hitnumber, speed, ladridos){
+        super(name, position, imgSrc, height, width, jugador, hitnumber);
+        this._ladridos = ladridos;
+        this._stopped = false;
         this.interval;
+        this.acceleration = speed;
 
         this.OnClick = function(e){
-            clicks++;
-            if(clicks == 2){
-                if(interval){
+            if(this.hitnumber == 0){
+                if(this.interval){
                     clearInterval(interval);
                 }
-                this.deactivate();
-                canvasManager.clickObjects.delete(this.hitColor);
-                this.SetAnimation("clicked");
+                this.GeneralClick(e);
             }
         }
     }
 
     Update(timeDelta, hitbox){
-        if(ladridos == 2){
+        if(this._ladridos == 0){
             clearInterval(interval);
-            this.velocity = new Vector2(-130,0);
-            super.Update(timeDelta, hitbox);
-        }else if(this.position <= 700 && !stopped){
-            interval = setInterval(Ladrar,1000);
+            this.velocity = this.velocity.add(this.acceleration);
+        }else if(this.position.x <= 700 && !this._stopped){
+            this.interval = setInterval(this.Ladrar,1000);
             this.velocity = new Vector2(0,0);
-            super.Update(timeDelta, hitbox);
             this.stopped = true;
-        }else{
-            super.Update(timeDelta, hitbox);
         }
+        super.Update(timeDelta, hitbox);
     }
 
     Ladrar() {
         this.SetAnimation("ladrar");
         this.ladridos++;
+        Console.log("Guau");
     }
 }
 
@@ -146,10 +135,18 @@ function LoadObjects(ev){
     let timmy = new SpriteObject("player", new Vector2(150,550),"none",300,300);
     let back = new SpriteObject("a",new Vector2(0,0),"assets/img/Back.jpeg",720,3000);
     let animation = new Animation("assets/img/Timmy_spritesheet.png",8,138,400,0.1);
+    let alcantarilla = new Alcantarilla("alcantarilla",new Vector2(1000,600),"assets/img/alcantarilla.png",50,100,timmy,1);
+    let perro = new Perro("perro",new Vector2(1000,600),"assets/img/perro.png",100,150,timmy,1,new Vector2(-30,0),2);
     back.velocity = new Vector2(-100,0);
+    alcantarilla.anchor = new Vector2(0.5,0.5);
+    alcantarilla.velocity = back.velocity;
+    perro.anchor = new Vector2(0.5,0.5);
+    perro.velocity = back.velocity
     timmy.AddAnimation(animation,"idle");
     timmy.SetAnimation("idle");
     timmy.anchor = new Vector2(0.5,0.5);
+    gameObjects[4].push(alcantarilla);
+    gameObjects[4].push(perro);
     gameObjects[4].push(timmy);
     gameObjects[0].push(back);
 }
