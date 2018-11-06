@@ -89,6 +89,7 @@ class Perro extends Obstacule{
             if(this.interval){
                 clearInterval(this.interval);
             }
+            this.velocity = new Vector2(30,0);
             this._dead = true;
         }
         
@@ -139,7 +140,7 @@ function LoadObjects(ev){
     let back = new SpriteObject("a",new Vector2(0,0),"assets/img/Back.jpeg",720,3000);
     let animation = new Animation("assets/img/Timmy_spritesheet.png",8,138,400,0.1);
     let alcantarilla = new Alcantarilla("alcantarilla",new Vector2(1000,600),"assets/img/alcantarilla.png",50,100,timmy,1);
-    let perro = new Perro("perro",new Vector2(1000,600),"assets/img/perro.png",100,150,timmy,1,new Vector2(-30,0), 2);
+    let perro = new Perro("perro",new Vector2(1500,600),"assets/img/perro.png",100,-150,timmy,2,new Vector2(-30,0), 2);
     back.velocity = new Vector2(-100,0);
     alcantarilla.anchor = new Vector2(0.5,0.5);
     alcantarilla.velocity = back.velocity;
@@ -149,9 +150,9 @@ function LoadObjects(ev){
     timmy.SetAnimation("idle");
     timmy.anchor = new Vector2(0.5,0.5);
     gameObjects[4].push(alcantarilla);
-    gameObjects[4].push(perro);
     gameObjects[4].push(timmy);
-    gameObjects[0].push(back);
+    gameObjects[4].push(perro);
+    gameObjects[3].push(back);
 }
 
 function LoadLevel(){}

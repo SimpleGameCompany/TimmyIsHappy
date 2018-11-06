@@ -16,6 +16,6 @@ canvas {
 }
 
 #gameCanvas-hitbox {
-    position: relative;
+    position: absolute;
     z-index: 0;
 }
