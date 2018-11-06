@@ -89,7 +89,7 @@ class Perro extends Obstacule{
             if(this.interval){
                 clearInterval(this.interval);
             }
-            this.velocity = new Vector2(30,0);
+            this.velocity = new Vector2(50,0);
             this._dead = true;
         }
         
@@ -99,9 +99,8 @@ class Perro extends Obstacule{
         if(this._ladridos == 0 && !this._dead){
             clearInterval(this.interval);
             this.velocity = this.velocity.add(this.acceleration);
-        }else if(this.position.x <= 700 && !this._stopped && !this._dead){
+        }else if(this.position.x <= 1200 && !this._stopped && !this._dead){
             this.interval = setInterval(this.Ladrar.bind(this),1000);
-            this.velocity = new Vector2(0,0);
             this._stopped = true;
         }
         super.Update(timeDelta, hitbox);
@@ -121,7 +120,7 @@ window.addEventListener("load",function(ev){
     canvasManager = new CanvasManager("gameCanvas",1280,720);
     canvasManager.ClearCanvas();
     LoadObjects(ev);
-    StartGame();
+    LoadLevel("nivel1",gameObjects);
 })
 window.addEventListener("keydown",function(ev){
     if(ev.key=="e"){
@@ -131,38 +130,55 @@ window.addEventListener("keydown",function(ev){
     }
 })
 
-document.addEventListener("dblclick",function(ev){
+/*document.addEventListener("dblclick",function(ev){
     ev.preventDefault();
-})
+})*/
+
+var timmy; 
+var speed = -50;
 
 function LoadObjects(ev){
     gameObjects = [];
     for (let i = 0; i < 5; i++) {
         gameObjects[i] = [];
     }
-    let timmy = new SpriteObject("player", new Vector2(150,550),"none",300,300);
+    timmy = new SpriteObject("player", new Vector2(150,550),"none",300,300);
     let back = new SpriteObject("a",new Vector2(0,0),"assets/img/Back.jpeg",720,3000);
     let animation = new Animation("assets/img/Timmy_spritesheet.png",8,138,400,0.1);
-    let alcantarilla = new Alcantarilla("alcantarilla",new Vector2(1000,600),"assets/img/alcantarilla.png",50,100,timmy,1);
-    let perro = new Perro("perro",new Vector2(1500,600),"assets/img/perro.png",100,-150,timmy,2,new Vector2(-30,0), 2);
-    back.velocity = new Vector2(-100,0);
-    alcantarilla.anchor = new Vector2(0.5,0.5);
-    alcantarilla.velocity = back.velocity;
-    perro.anchor = new Vector2(0.5,0.5);
-    perro.velocity = back.velocity
+    back.velocity = new Vector2(speed,0);
     timmy.AddAnimation(animation,"idle");
     timmy.SetAnimation("idle");
     timmy.anchor = new Vector2(0.5,0.5);
-    gameObjects[4].push(alcantarilla);
     gameObjects[4].push(timmy);
-    gameObjects[4].push(perro);
     gameObjects[3].push(back);
 }
 
-function LoadLevel(){}
+function LoadLevel(jsonName,container){
+    $.getJSON("assets/files/"+jsonName+".json", function (json) {
+        for(var obj of json){
+            switch(obj.type){
+                case "perro":
+                    let perro = new Perro(obj.name,new Vector2(obj.positionx,obj.positiony),obj.img,obj.height,obj.width,timmy,obj.hitnumber,new Vector2(obj.accelerationx,obj.accelerationy), obj.ladridos);
+                    perro.anchor = new Vector2(0.5,0.5);
+                    perro.velocity = new Vector2(speed,0);
+                    container[obj.layer].push(perro);
+                break;
+                case "alcantarilla":
+                    let alcantarilla = new Alcantarilla(obj.name,new Vector2(obj.positionx,obj.positiony),obj.img,obj.height,obj.width,timmy,obj.hitnumber);
+                    alcantarilla.anchor = new Vector2(0.5,0.5);
+                    alcantarilla.velocity = new Vector2(speed,0);
+                    container[obj.layer].push(alcantarilla);
+                break;
+            }
+        }
+        StartGame(container);
+    });
+}
 
-function StartGame(){
+function StartGame(container){
     canvasManager.ClearCanvas();
-    canvasManager.AddList(gameObjects);
+    canvasManager.AddList(container);
     canvasManager.Start();
 }
+
+function StartLoad(){}
