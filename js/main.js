@@ -131,6 +131,10 @@ window.addEventListener("keydown",function(ev){
     }
 })
 
+/*document.addEventListener("dblclick",function(ev){
+    ev.preventDefault();
+})*/
+
 function LoadObjects(ev){
     gameObjects = [];
     for (let i = 0; i < 5; i++) {
