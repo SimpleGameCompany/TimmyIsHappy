@@ -469,6 +469,7 @@ class CanvasManager {
    * @param {MouseEvent} e
    */
   OnClick(e) {
+    
     const mousePos = {
       y: e.clientY - this.hitcanvas.offsetParent.offsetTop,
       x: e.clientX - this.hitcanvas.offsetParent.offsetLeft
