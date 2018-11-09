@@ -1,40 +1,41 @@
-#Timmy is Happy
+# Timmy is Happy
 
 * * *
 
-##Game Design Document
+## Game Design Document
 
 # Índice
 
-1. [Introduccion](#introduccion)
-1.1. Concepto
-1.2 Características principales
-1.3 Género
-1.4. Estilo Visual
-1.5. Alcance
-1.6. Jugabilidad
-1.7. Propósito y público objetivo
-2. [Mecánicas del juego](#mecanicas)
-2.1. Jugabilidad
-2.2. Flujo de juego (Game Loop)
-2.3. Personajes
-2.4. Movimiento
-2.5. Cámara
-2.6. Controles
-2.7. Niveles
-3. [Interfaz](#interfaz)
-3.1. Diagrama de Flujo
-3.2. Pantalla de Menú Principal
-3.3. Pantalla de Puntuaciones
-3.4. Pantalla de Créditos y Contacto
-3.5. Pantalla de Nivel
-3.6. Pantalla de Fin de Nivel (Game Over)
-4. [Arte y Sonido](#arteysonido)
-4.1. Arte
-4.2. Sonido
-5. [Roles](#roles)
+* 1\. [Introduccion](#introduccion)
+  + 1.1\. Concepto
+  + 1.2\. Características principales
+  + 1.3\. Género
+  + 1.4\. Estilo Visual
+  + 1.5\. Alcance
+  + 1.6\. Jugabilidad
+  + 1.7\. Propósito y público objetivo
+* 2\. [Mecánicas del juego](#mecanicas)
+  * 2.1\. Jugabilidad
+  * 2.2\. Flujo de juego (Game Loop)
+  * 2.3\. Personajes
+  * 2.4\. Movimiento
+  * 2.5\. Cámara
+  * 2.6\. Controles
+  * 2.7\. Niveles
+* 3\. [Interfaz](#interfaz)
+  * 3.1\. Diagrama de Flujo
+  * 3.2\. Pantalla de Menú Principal
+  * 3.3\. Pantalla de Puntuaciones
+  * 3.4\. Pantalla de Créditos y Contacto
+  * 3.5\. Pantalla de Nivel
+  * 3.6\. Pantalla de Fin de Nivel (Game Over)
+* 4\. [Arte y Sonido](#arteysonido)
+  * 4.1\. Arte
+  * 4.2\. Sonido
+* 5\. [Roles](#roles)
 
-<div id="introduccion">
+<div id="introduccion"></ol>
+
 # 1. Introducción 
 
 ***Timmy is happy*** es un videojuego de navegador, con estética 2D y de un único jugador, desarrollado en base al consorcio W3C (JavaScript, CSS y HTML). En este documento se van a plasmar los aspectos relacionados con el diseño fundamental del videojuego, de forma que nos sirva como carta de presentación ante futuros colaboradores.
@@ -93,7 +94,8 @@ Nuestro objetivo es obtener un juego 2D, de estética atractiva y llamativa, rá
 
 Es un juego apto para todos los públicos, tanto para los amantes de los juegos de móvil como para un perfil de jugador más ocasional o "casual", y disfrutable en cualquier momento (en viajes, en casa, etc). Nuestro objetivo sería cumplir un PEGI 12, puesto que hay violencia no implícita ni mostrada, pero de hecho su temática funciona sobre dicha violencia tanto del jugador hacia las “trampas” (mover un coche) como de las propias trampas (el coche va hacia Timmy).
 
-<div id="mecanicas">
+<div id="mecanicas"></>
+
 # 2. Mecánicas del juego
 
 En esta sección, trataremos todas las cuestiones referentes al funcionamiento básico y avanzado del juego, así como las distintas trampas que aparecen en el escenario, y se explicarán controles, mapa y desarrollo de la "partida típica".
@@ -195,7 +197,8 @@ Durante Timmy is Happy, tendremos tres tipos de niveles distintos, en el que pri
 
 * *Mapa de Noche:* Serían la dificultad máxima alcanzable, llevando enemigos más difíciles y surgiendo situaciones en las que la oscuridad obstruye la visión y es más difícil vislumbrar de las amenazas que vienen a por Timmy.
 
-<div id="interfaz">
+<div id="interfaz"></>
+
 # 3. Interfaz
 
 ## 3.1. Diagrama de Flujo
@@ -246,7 +249,8 @@ A continuación se muestra el esquema básico de la pantalla de Game Over:
 
 ![image alt text](image_8.png)
 
-<div id="arteysonido">
+<div id="arteysonido"></>
+
 # 4. Arte y Sonido
 
 ## 4.1. Arte
@@ -271,7 +275,8 @@ Los sonidos del juego deberán acompañar a su estilo visual, de forma que deber
 
 El sonido se irá incorporando conforme se tengan los recursos necesarios.
 
-<div id="roles">
+<div id="roles"></>
+
 # 5. Roles
 
 Para la realización del trabajo tendremos un equipo de 6 personas, siguiendo los siguientes roles:
