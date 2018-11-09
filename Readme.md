@@ -205,49 +205,49 @@ Durante Timmy is Happy, tendremos tres tipos de niveles distintos, en el que pri
 
 A continuación, se muestra el diagrama de flujo y transición entre pantallas durante el desarrollo del juego:
 
-## ![image alt text](image_0.png)
+## ![image alt text](assets/GDD/image_0.png)
 
 ## 3.2. Pantalla de Menú Principal
 
 A continuación se muestra el esquema básico de la pantalla de Menú Principal:
 
- ![image alt text](image_1.png)
+ ![image alt text](assets/GDD/image_1.png)
 
 ## 3.3. Pantalla de Puntuaciones
 
 A continuación, se muestra el esquema básico de la pantalla de Puntuaciones:
 
-![image alt text](image_2.png)
+![image alt text](assets/GDD/image_2.png)
 
 ## 3.4. Pantalla de Créditos y Contacto
 
 A continuación, se muestra el esquema básico de la pantalla de Contacto:
 
-![image alt text](image_3.png)
+![image alt text](assets/GDD/image_3.png)
 
 ## 3.5. Pantalla de Nivel
 
 A continuación, se muestra el esquema básico de la pantalla de un nivel típico del juego:
 
-![image alt text](image_4.png)
+![image alt text](assets/GDD/image_4.png)
 
 *Al avanzar por el nivel, encontramos trampas.*
 
-![image alt text](image_5.png)
+![image alt text](assets/GDD/image_5.png)
 
 *Al hacer click en una trampa, ésta cambia su estado (en este caso se desactiva).*
 
-![image alt text](image_6.png)
+![image alt text](assets/GDD/image_6.png)
 
 *Tras un tiempo avanzando por el nivel, llegamos al final, y entramos en la pantalla de paso al siguiente nivel.*
 
-![image alt text](image_7.png)
+![image alt text](assets/GDD/image_7.png)
 
 ## 3.6. Pantalla de Fin de Nivel (Game Over)
 
 A continuación se muestra el esquema básico de la pantalla de Game Over:
 
-![image alt text](image_8.png)
+![image alt text](assets/GDD/image_8.png)
 
 <div id="arteysonido"></>
 
@@ -259,13 +259,13 @@ El apartado artístico del videojuego será colorido y alegre, con un estilo de 
 
 A continuación, se muestran algunos bocetos conceptuales:
 
-![image alt text](image_9.png)
+![image alt text](assets/GDD/image_9.png)
 
-![image alt text](image_10.png)
+![image alt text](assets/GDD/image_10.png)
 
-![image alt text](image_11.png)
+![image alt text](assets/GDD/image_11.png)
 
-![image alt text](image_12.png)
+![image alt text](assets/GDD/image_12.png)
 
 El arte final se irá incorporando conforme se tengan los recursos necesarios.
 
