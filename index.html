@@ -1,82 +1,130 @@
 <html>
 <head>
-    <link href="style/bootstrap.min.css" rel="stylesheet">
+    <link href="style/bootstrap4.min.css" rel="stylesheet">
     <link href="style/main.css" rel="stylesheet">
-    <script src="js/library/jquery-3.3.1.min.js"></script>
-    <script src="js/library/bootstrap.min.js"></script>
-    <script src = "js/library/LightCanvas.js"></script>
-    <script src= "js/main.js"></script>
+    
     <title>Timmy Is Happy</title>
 </head>
 
 <body>
     <section>
-            <div id="title_row" class ="row" >
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
-                    <div class=" col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="background-color: green;text-align: center;">
-                            <h1>Timmy is Happy</h1>
-                    </div>
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
+                <div id="title_row" class ="row" >
+                        <div class="col-2"></div>
+                        <div class=" col-8" style="text-align: center;">
+                                <h1>Timmy is Happy</h1>
+                        </div>
+                        <div class="col-2"></div>
                 
-            </div>
-    
-            <div id="subtitle_row" class ="row">
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
-                    <div class=" col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" style="background-color: red; text-align: right;">
-                            <h3>How to play</h3>
+                </div>
+
+                
+
+            <div id="subtitle_row" class ="row justify-content-center">
+                    
+                    <div  class="col-4 pl-4" style=" text-align: right;">
+                            <h4 ><a class="navbar-brand js-scroll-trigger" href="#howto_section">How to play </a> </h4>
                     </div>
-                    <div class=" col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2" style="background-color: yellow;text-align: center;">
+                    <div class="col-1" style="text-align: center;">
                             <h3>|</h3> 
                     </div>
-                    <div class=" col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" style="background-color: purple;text-align: left;">
-                            <h3>Contact</h3>
+                    <div class="col-4" style="text-align: left;">
+                        <h4 ><a class="navbar-brand js-scroll-trigger" href="#contact_section">Contact</a> </h4>
                     </div>
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
+                    
                 
             </div>
     </section>
         
 
-    <section>
+    <section id="game_section">
             <div id="game_row"class="row">
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
-                    <div class="canvasContainer col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                    <div class="col-2"></div>
+                    <div class="canvasContainer col-8 mb-5 mt-2">
+                        <!--<img src="image_sample.png" class="img-fluid" style=" height: auto; width: 100%">-->
                         <canvas id="gameCanvas" width="1280" height="720"></canvas>
-                        <canvas id="gameCanvas-hitbox" width="1280" height="720"></canvas>
+                                <canvas id="gameCanvas-hitbox" width="1280" height="720"></canvas>
+                       
                     </div>
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
+                    <div class="col-2"></div>
             </div>
 
 
     </section>
 
-    <section>
-            <div id="how_row"class="row">
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"  style="background-color: red;">
+    <section id="howto_section">
+            <div id="how_row"class="row mt-5">
+                <div class="col-2"></div>
+                <div class="col-8"  style="">
                     <h1>How to play</h1>
-                    <p>Gaelic was commonly believed to have been brought to Scotland, in the 4th–5th centuries CE, by settlers from Ireland who founded the Gaelic kingdom of Dál Riata on Scotland's west coast in present-day Argyll.[7]:551[8]:66 However, this theory is no longer universally accepted. In his academic paper Were the Scots Irish?, archaeologist Dr Ewan Campbell says that there is no archaeological or placename evidence of a migration or takeover. [9] This lack of archaeological evidence was previously noted by Professor Leslie Alcock.[9] Archaeological evidence shows that Argyll was different from Ireland, before and after the supposed migration, but that it also formed part of the Irish Sea province with Ireland, being easily distinguished from the rest of Scotland.[10] Gaelic in Scotland was mostly confined to Dál Riata until the eighth century, when it began expanding into Pictish areas north of the Firth of Forth and the Firth of Clyde. By 900, Pictish appears to have become extinct, completely replaced by Gaelic.[11]:238–244 An exception might be made for the Northern Isles, however, where Pictish was more likely supplanted by Norse rather than by Gaelic.[12]
-                     In 1018, after the conquest of the Lothians by the Kingdom of Scotland, Gaelic reached its social, cultural, political, and geographic zenith.[13]:16–18 Colloquial speech in Scotland had been developing independently of that in Ireland since the eighth century.[14] For the first time, the entire region of modern-day Scotland was called Scotia in Latin, and Gaelic was the lingua Scotia.[11]:276[15]:554 In southern Scotland, Gaelic was strong in Galloway, adjoining areas to the north and west, West Lothian, and parts of western Midlothian. It was spoken to a lesser degree in north Ayrshire, Renfrewshire, the Clyde Valley and eastern Dumfriesshire. In south-eastern Scotland, there is no evidence that Gaelic was ever widely spoken.[citation needed]</p>
+                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras viverra venenatis purus in pretium. Maecenas sed consequat mi. Etiam feugiat, odio vel consectetur tempor, purus ex tempus odio, ac rutrum lectus turpis sed dui. Sed nibh sem, accumsan non felis quis, blandit laoreet sapien. Aenean eleifend lorem nec nibh tempor vulputate. In leo nunc, dictum finibus nunc et, commodo hendrerit orci. Vivamus et lorem congue, porta nulla id, sagittis dui. Nunc viverra lorem et felis interdum ultrices.
+
+                        Cras odio augue, eleifend ac scelerisque nec, blandit nec magna. Donec arcu eros, pulvinar sed sollicitudin nec, posuere ut quam. Praesent venenatis nec metus eget auctor. Fusce tincidunt, metus id suscipit facilisis, eros leo mattis metus, sit amet aliquam lacus purus at tortor. Quisque euismod finibus lorem, at auctor velit porta non. Donec placerat nisi id lectus vulputate, eu euismod neque rutrum. Sed a nulla scelerisque, aliquam turpis vitae, volutpat erat. Fusce tincidunt sapien sit amet semper convallis. Donec eu massa porttitor, ornare nulla ac, molestie libero. Aliquam pellentesque lobortis mauris ut eleifend.
+                        
+                        Suspendisse nibh dolor, mollis a metus id, tristique eleifend leo. Etiam congue tincidunt eros sed vestibulum. Suspendisse sit amet dignissim massa, at viverra magna. In est quam, dignissim id nibh quis, sollicitudin dapibus mi. Quisque euismod varius faucibus. Praesent efficitur, quam id imperdiet bibendum, urna tortor convallis turpis, vitae malesuada libero magna vitae erat. Vivamus tempus, risus mattis auctor condimentum, mauris nulla fermentum nisi, et bibendum metus lectus in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam vitae varius turpis. Aliquam erat volutpat. Quisque dictum velit ut arcu sagittis, at pretium metus hendrerit. Aliquam commodo diam feugiat mi cursus fringilla.
+                        
+                        Etiam id massa at massa varius gravida sit amet non elit. Praesent vel ante eget augue malesuada imperdiet. Maecenas varius et lorem vehicula malesuada. Duis fermentum auctor justo sit amet varius. Etiam faucibus turpis a massa interdum, in bibendum enim imperdiet. Donec sit amet ultrices felis, a sagittis elit. Curabitur suscipit nisi a ante laoreet, et pharetra leo tincidunt. In lacinia nisl vitae nibh maximus, quis finibus neque lacinia. Cras neque magna, dapibus at sem ac, rhoncus dignissim libero. Aenean varius ipsum laoreet nibh fringilla maximus. Nullam vitae lobortis mauris. Etiam id est vel tellus fringilla aliquam.
+                        
+                        Donec consectetur lectus et ultrices congue. Nunc sed felis volutpat, tempus orci quis, fringilla massa. Phasellus ullamcorper maximus malesuada. Pellentesque quam enim, tincidunt vitae tortor at, sollicitudin sagittis justo. Sed in lacus volutpat, luctus orci quis, dapibus nisl. Sed consectetur risus quis iaculis dapibus. Nam eu metus at dui condimentum maximus. Donec elementum augue lorem, quis laoreet quam ultrices ut. Praesent luctus velit ligula, in dictum eros rhoncus quis. Aliquam quam urna, posuere eu tortor ac, tincidunt maximus tortor.
+                        
+                        Integer ultricies interdum lacus, at consectetur felis mollis sed. Quisque eu fringilla est. Ut venenatis nulla in ipsum dictum, nec lacinia lorem congue. Pellentesque nec imperdiet dui, eu ultricies ligula. Praesent congue gravida pellentesque. Pellentesque et orci lorem. Fusce ultrices mi eget dui maximus commodo. Suspendisse dignissim rutrum sapien at pulvinar. Pellentesque blandit risus eu nisi ultricies posuere. Curabitur justo ipsum, congue ac lacus vitae, imperdiet faucibus augue.
+                        
+                        Quisque sed scelerisque mi, efficitur accumsan urna. Praesent faucibus tellus sed ipsum venenatis laoreet vehicula et velit. Quisque ex urna, finibus eget arcu a, cursus feugiat metus. Curabitur vel pharetra odio. Pellentesque commodo consectetur mauris, in commodo augue elementum vel. Etiam tincidunt aliquam augue ut tempor. Donec ut diam nibh. Duis lectus felis, ultricies id pulvinar malesuada, elementum ac turpis. Cras rutrum odio magna, a fringilla tortor malesuada nec. Etiam commodo et leo vel laoreet. Suspendisse venenatis in diam ac efficitur.
+                        
+                        Ut rhoncus eros in elementum condimentum. Sed rhoncus eros sit amet nisi sagittis vestibulum. Cras faucibus malesuada commodo. Cras facilisis maximus arcu vel faucibus. Phasellus auctor rutrum scelerisque. Fusce consequat, enim eu viverra fermentum, mi quam maximus metus, vitae sollicitudin nunc purus eget diam. Aenean consequat porttitor quam id cursus. Donec dignissim dapibus eros euismod suscipit. Aliquam aliquet bibendum varius. Sed luctus varius velit, id hendrerit sem blandit eu. Duis tempus pellentesque porta. Curabitur eget ultrices elit. Duis eu lacus vitae ipsum maximus rutrum sed ac nibh. Duis dictum mollis velit a tempus. Vivamus faucibus lectus in tellus vulputate faucibus. Cras eget est sit amet ante vestibulum tincidunt vitae non metus.
+                        
+                        Nulla pulvinar nulla nec condimentum sollicitudin. Maecenas cursus quam nunc, non vestibulum ante laoreet vel. Mauris tincidunt odio id lacinia molestie. Quisque lobortis faucibus eros et molestie. Maecenas venenatis augue vel congue ultricies. Donec a consequat sem. Nam finibus venenatis odio. Sed imperdiet tincidunt dui eget congue. Aliquam commodo lacus libero, nec condimentum sapien pretium vitae. Vestibulum nec sem ac elit ullamcorper aliquet.
+                        
+                        Nullam ac leo at felis euismod pulvinar eget sed orci. Pellentesque et facilisis quam. Morbi lobortis, ex ut hendrerit commodo, ipsum augue rhoncus velit, ut rhoncus tortor sapien et eros. Donec vulputate egestas diam a faucibus. Ut id nulla sed ipsum lacinia volutpat. Integer diam turpis, feugiat maximus elementum et, dapibus vitae neque. Nullam a consequat dui. Aliquam erat volutpat. Sed semper mi non mattis lacinia. Etiam dapibus lacinia justo, gravida sodales nisl aliquet a. Maecenas eu libero turpis. Proin turpis mauris, lacinia ut dolor ac, viverra convallis purus. Cras a risus nunc. Curabitur ac erat nisi. Duis eros diam, lacinia vel mi sit amet, euismod lacinia nisi. Maecenas suscipit pellentesque tellus, varius fermentum quam.
+                        
+                        Nulla dictum ante ac elit malesuada, eu mattis nunc consectetur. Nunc rutrum metus vitae odio maximus, at tempus nisi placerat. Nam eleifend luctus risus, a ultrices diam iaculis sed. Sed iaculis, enim ac blandit venenatis, quam elit blandit tortor, vel sodales elit dolor sit amet dolor. Pellentesque condimentum vel odio non lacinia. Maecenas erat orci, mattis ut nulla in, bibendum dictum erat. Praesent in tempor ex, vel gravida est.
+                        
+                        Quisque et laoreet augue, ut vestibulum lectus. Pellentesque imperdiet, dolor a gravida rhoncus, quam erat sollicitudin eros, ut varius metus enim id leo. Praesent maximus varius libero sit amet gravida. Etiam et rhoncus turpis. Ut eget egestas ligula, et euismod turpis. Mauris tincidunt sapien felis, eget condimentum tortor suscipit ut. Nunc auctor erat a odio feugiat blandit. Maecenas metus erat, ultrices vitae interdum sed, vestibulum et lorem. Curabitur quis risus mi. Pellentesque tempus velit at interdum molestie. Ut sit amet orci at diam elementum fermentum id non odio. Aliquam erat volutpat. Ut magna risus, convallis id magna sit amet, hendrerit ultricies elit.
+                        
+                        Curabitur consequat enim et turpis venenatis, nec tristique dolor posuere. Nullam quis dolor vel metus bibendum facilisis at nec nisl. Sed dui ante, tincidunt eget interdum ac, mattis sit amet turpis. Ut non egestas est. Vestibulum quis tempus lacus, ac consequat ex. Mauris quis metus bibendum sapien aliquet dignissim id id nulla. Vivamus egestas ipsum eget ex iaculis, in varius ante vulputate. Sed ac viverra lacus. Curabitur vulputate porttitor libero, eu mollis est facilisis at.
+                        
+                        Sed pretium, lectus tempus rutrum imperdiet, tellus risus efficitur ex, eget sodales purus enim in enim. Nullam id lorem eu urna feugiat vulputate non vitae nisl. Fusce dignissim sagittis eros, ornare malesuada dui euismod at. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse auctor, diam at facilisis fringilla, nisi odio finibus sem, a aliquam nisl felis ac tellus. Fusce tempus, felis et consequat porta, purus enim ultricies elit, ut suscipit leo arcu sit amet felis. Nulla eleifend dignissim tellus, id cursus neque lobortis cursus. Proin fermentum magna eu turpis luctus, a commodo eros dapibus.
+                        
+                        Donec molestie lorem at dolor suscipit auctor. In a ultrices lacus. Etiam sit amet tortor imperdiet, faucibus ligula ac, vestibulum tellus. Ut semper semper fermentum. Aenean a massa laoreet, malesuada ex ac, ornare leo. Morbi fermentum dapibus sapien, at consectetur felis viverra vel. Proin vulputate aliquet arcu, vel ultrices risus molestie quis. Integer nec efficitur mi, in vulputate magna. Donec sit amet urna id orci tristique vestibulum. Phasellus imperdiet neque libero, in cursus nibh pulvinar sed. Cras vehicula mattis leo.
+                        
+                        Phasellus at congue orci. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis et ornare massa. Nulla facilisi. Aenean rhoncus dolor orci, non varius lectus tincidunt sed. Mauris iaculis, elit eu euismod euismod, ipsum justo varius tellus, ut pretium est tortor eu orci. Ut efficitur consectetur sem, et tincidunt lectus condimentum vitae. Praesent commodo laoreet magna in fringilla. Proin tincidunt condimentum vehicula. Fusce dolor purus, fringilla sed consectetur ullamcorper, volutpat nec lacus.
+                        
+                        Phasellus nec aliquam elit. Ut ornare, turpis eu volutpat porta, nisl enim mattis orci, et tristique leo enim tempor orci. Donec cursus diam nibh, eget gravida dui pharetra malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc interdum eros non urna ultricies, ac laoreet diam facilisis. Praesent suscipit tortor quis nibh sollicitudin, eget blandit odio euismod. Nam ut tristique sapien.
+                        
+                        Sed mollis, nunc venenatis sodales commodo, nisi neque bibendum felis, ut ultrices quam erat sed quam. Mauris eget rutrum urna, ut mollis urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque lobortis erat lacus, vel imperdiet lacus fermentum nec. Nulla consectetur risus at ipsum finibus, ut facilisis nulla consequat. Suspendisse vulputate sit amet lectus ac scelerisque. Curabitur laoreet quam eget ligula gravida scelerisque. Maecenas eu arcu quis libero iaculis fringilla id faucibus nisl. Pellentesque malesuada ex nec turpis aliquet, sed tempor erat imperdiet. Nam tristique erat leo, vel blandit lectus congue ac.
+                        
+                        Aenean eu justo dolor. Phasellus sollicitudin velit justo, quis faucibus mauris malesuada ac. Sed mollis erat at rhoncus accumsan. Duis egestas, tortor sit amet lobortis faucibus, tortor libero dignissim sapien, in tristique dolor arcu sed turpis. Quisque condimentum nisl turpis. Ut id eros arcu. Sed eleifend neque in risus blandit aliquam. Pellentesque sit amet leo ornare, gravida mauris eu, varius dolor. Curabitur rutrum arcu ac purus pretium commodo. Etiam scelerisque enim eu elementum pellentesque. Curabitur aliquam turpis eget nulla egestas, eleifend pulvinar nisl semper. Ut eget vulputate enim. Pellentesque nisi dui, bibendum sit amet tempor in, ornare eu nulla.
+                        
+                        Nam eget purus rutrum, ultricies magna ac, semper quam. Mauris maximus feugiat venenatis. Quisque dictum sollicitudin dictum. Sed et magna ullamcorper lacus accumsan gravida. Etiam nec sagittis ex, sit amet elementum ipsum. Sed est arcu, pellentesque eu facilisis nec, vestibulum a nulla. Maecenas pulvinar ultricies libero, sed consectetur ligula ullamcorper eu. Duis congue, neque sit amet gravida lobortis, libero sapien posuere enim, vel euismod justo nisl nec neque. Etiam lacinia orci sit amet ornare tristique. Pellentesque rhoncus pellentesque sem, non ultrices tortor tincidunt in. Suspendisse facilisis venenatis egestas. Phasellus sit amet iaculis lectus. Duis gravida, dui nec dignissim efficitur, enim odio dignissim odio, in ultrices mi leo non turpis. Nulla venenatis interdum massa, at pulvinar nulla vestibulum eget. Aenean finibus turpis aliquet, mollis nulla nec, bibendum dui. Donec in porta mauris.
+                        
+                        Vivamus ac molestie mauris, vitae consequat magna. Pellentesque pretium nibh porttitor felis auctor sagittis. In dapibus nec dolor ut tempus. Nam sed mauris aliquet libero semper egestas. Praesent vel quam venenatis, fringilla arcu at, facilisis arcu. Cras imperdiet odio ac volutpat vestibulum. Pellentesque eu ultricies tellus. Pellentesque tempor sodales nisi ut molestie. Sed ipsum mauris, dignissim ut odio in, aliquet elementum tortor. Suspendisse porta dui eu efficitur fermentum. Aenean rhoncus quis ipsum non ultricies. Quisque vel massa ultrices, tincidunt lorem id, cursus metus. Aliquam ex turpis, facilisis eu feugiat sit amet, vehicula a ligula. Quisque vel pretium massa. Pellentesque ac lacus diam.
+                        
+                        Nullam mollis convallis tortor. Maecenas ut lacus leo. Donec vel tempus orci. Aliquam eget odio interdum, volutpat turpis vitae, consectetur mi. Donec in posuere est. Etiam eget nisl ac tellus convallis imperdiet sit amet nec tortor. Vivamus ullamcorper ac libero non consequat. Praesent non risus vitae nibh bibendum viverra. Mauris volutpat pulvinar massa. Donec non convallis nunc. Phasellus laoreet in ex eget tincidunt. Donec dapibus erat at libero faucibus fringilla. Sed ex lorem, auctor a dictum vel, molestie vitae ipsum. Etiam consequat nunc et sapien laoreet sodales. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus pretium viverra tortor, nec posuere magna.
+                        
+                        Cras pulvinar ligula purus, nec pharetra sapien interdum non. Vivamus eu sagittis libero, in accumsan arcu. Nam accumsan neque ac nisi luctus, ut luctus nisl lobortis. Sed luctus mauris nisi, condimentum cursus turpis feugiat non. Aenean turpis purus, ornare ut porttitor at, sagittis eu magna. Mauris semper mattis turpis eget auctor. Sed dui tortor, auctor aliquam tortor id, sollicitudin cursus massa. Suspendisse interdum nec risus vel porttitor. Nunc vel dignissim tortor, sit amet tincidunt justo. Cras non leo maximus, aliquam nisi a, accumsan felis. Aliquam eu turpis risus. Donec vehicula magna sapien, placerat egestas velit laoreet et. Proin quis ligula iaculis, rhoncus odio a, elementum arcu. Donec a hendrerit tellus. Morbi vitae rutrum diam.
+                        
+                        Vivamus luctus turpis quis neque mollis, sed efficitur dolor fringilla. Proin auctor sem ut lectus pretium, eu aliquet velit semper. Curabitur in ipsum elit. Quisque hendrerit urna in tortor dictum, id sodales erat hendrerit. Cras fermentum sodales felis, non pretium erat cursus eu. Ut augue tellus, tempus et nisl eget, elementum venenatis dui. Aenean rhoncus commodo leo at pulvinar. Morbi ac quam non lectus pulvinar congue. Nam accumsan sit amet risus eu porttitor. Donec laoreet metus quis augue pulvinar lobortis.
+                        
+                        Nam sit amet ipsum ligula. Cras ut ipsum leo. Cras nunc urna, sollicitudin sit amet augue in, semper posuere nisl. Praesent diam odio, convallis ac nisl at, imperdiet auctor turpis. Nullam bibendum suscipit laoreet. Praesent consequat sagittis dolor at ornare. Mauris id eros vitae sapien euismod venenatis sed vitae risus. Duis auctor malesuada euismod. Donec quis aliquam augue. Pellentesque ante ligula, luctus non sapien vitae, scelerisque blandit lectus. Phasellus condimentum, lectus accumsan fermentum blandit, nisi nisl lobortis turpis, vel fermentum ex nisi sit amet quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
                 </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>    
+                <div class="col-2"></div>    
             </div>
     </section>
 
 
-    <section>
+    <section id="contact_section">
             <div id="team_row"class="row">
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"  style="background-color: tomato;">
+                <div class="col-2"></div>
+                <div class="col-8"  style="background-color: tomato;">
                     <h1>Team</h1>
                     <table class ="table">
                             <thead>
                                     <tr>
-                                      <th scope="col">Raquel</th>
-                                      <th scope="col">Alejandro</th>
-                                      <th scope="col">Andrés</th>
-                                      <th scope="col">Pablo</th>
-                                      <th scope="col">Jose</th>
-                                      <th scope="col">Guille</th>
+                                      <td scope="col">Raquel</td>
+                                      <td scope="col">Alejandro</td>
+                                      <td scope="col">Andrés</td>
+                                      <td scope="col">Pablo</td>
+                                      <td scope="col">Jose</td>
+                                      <td scope="col">Guille</td>
                                     </tr>
                             </thead>
                             <tbody>
@@ -86,15 +134,42 @@
                                         <td>icons</td>
                                         <td>icon</td>
                                         <td>icon</td>
-                                            <td>icon</td>
+                                        <td>icon</td>
                                     </tr>
                             </tbody>
                     </table>    
                 
                 </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>    
+                <div class="col-2"></div>    
             </div>
     </section>
 
+    <!--Resto de Scripts para Juego-->
+    <script src="js/library/jquery-3.3.1.min.js"></script>
+    <script src="js/library/bootstrap4.min.js"></script>
+    <script src = "js/library/LightCanvas.js"></script>
+    <script src= "js/main.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <!--Plugins para Scroll-->
+    <script src="js/library/jquery-easing/jquery.easing.min.js"></script>
+
+    <!--Script para que el scroll funcione-->
+    <script src="js/library/creative.js"></script>
+
+    
+
+
+
         
 </body>
+
+</html>
