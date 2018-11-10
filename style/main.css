@@ -1,9 +1,17 @@
 canvas {
-    position: relative;
     top: 0;
     left: 0;
     width: 100%;
     height: auto;
+}
+
+.loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 2;
 }
 
 .canvasContainer {
@@ -12,6 +20,7 @@ canvas {
 }
 
 #gameCanvas {
+    position: relative;
     z-index: 1;
 }
 

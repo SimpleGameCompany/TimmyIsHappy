@@ -1,26 +1,12 @@
 [
     {
-        "type":"perro",
-        "nombre":"perro",
-        "positionx":1000,
-        "positiony":600,
-        "img":"assets/img/perro.png",
-        "height":100,
-        "width":150,
-        "hitnumber":2,
-        "accelerationx":-30,
-        "accelerationy":0,
-        "ladridos":3,
-        "layer":4
-    },
-    {
-        "type":"alcantarilla",
+        "type":"coche",
         "nombre":"alcantarilla",
         "positionx":1000,
-        "positiony":600,
+        "positiony":750,
         "img":"assets/img/alcantarilla.png",
-        "height":50,
-        "width":100,
+        "height":557,
+        "width":184,
         "hitnumber":1,
         "layer":3
     }

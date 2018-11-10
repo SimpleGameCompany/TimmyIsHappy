@@ -421,7 +421,7 @@ class CanvasManager {
     }
   }
   AddList(objectList) {
-        for(let i = 0;i<5;i++){
+        for(let i = 0;i<objectList.length;i++){
             for(let obj of objectList[i]){
                 this.AddObject(obj,i);
             }
