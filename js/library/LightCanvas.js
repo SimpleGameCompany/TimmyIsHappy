@@ -486,8 +486,8 @@ class CanvasManager {
   OnClick(e) {
     
     const mousePos = {
-      y: e.clientY - this.hitcanvas.offsetParent.offsetTop,
-      x: e.clientX - this.hitcanvas.offsetParent.offsetLeft
+      y: e.clientY - this.hitcanvas.offsetParent.offsetTop + document.body.scrollTop,
+      x: e.clientX - this.hitcanvas.offsetParent.offsetLeft + document.body.scrollLeft
     };
 
     let relationH = this.targetHeight / this.hitcanvas.offsetHeight;
