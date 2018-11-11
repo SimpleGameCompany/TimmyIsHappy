@@ -210,9 +210,17 @@ class SpriteObject {
    * @param {CanvasRenderingContext2D} renderCanvas
    */
   Render(renderCanvas) {
-    let xAbsolute = this.position.x + this.width;
-    let yAbsolute = this.position.y + this.height;
+    let xAbsoluteRight = this.position.x + this.width*(1-this._anchor.x);
+    let yAbsoluteDown = this.position.y + this.height*(1-this._anchor.y);
+    let yAbsoluteUp = this.position.y - this._height*(this._anchor.y);
+    let xAbsoluteLeft = this.position.x - this.width*this._anchor.x;
+
+
     //We only render if our Object is at the screen
+
+
+    if((xAbsoluteRight < 0 || xAbsoluteLeft > 1280) || (yAbsoluteDown < 0 || yAbsoluteUp>720)){}
+    else{
     if (this.actualAnim == null)
       renderCanvas.drawImage(
         this.sprite,
@@ -222,6 +230,7 @@ class SpriteObject {
         this.height
       );
     else this.actualAnim.RenderFrame(renderCanvas, this.position);
+    }
   }
 
   /**
@@ -443,7 +452,10 @@ class CanvasManager {
     for (let objLayer of this.objectList) {
       for (let obj of objLayer) {
         if (obj.active) {
+
           obj.Render(this.canvasScene);
+
+
           obj.Update(timeDelta, this.hitScene);
         }
       }
