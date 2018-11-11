@@ -168,7 +168,8 @@ document.addEventListener("dblclick",function(ev){
 
 var timmy; 
 var speed = -50;
-
+var transparencyPause;
+var pauseContinue;
 function LoadObjects(ev){
     gameObjects = [];
     for (let i = 0; i < 5; i++) {
@@ -200,6 +201,17 @@ function LoadObjects(ev){
 
     let road = new Scrollable("road",new Vector2(0,0),"none",720,1280,"assets/img/Carretera_spritesheet.png",4,speed);
     gameObjects[0].push(road);
+
+    let opciones = new HitableObject("opciones",new Vector2(1280,0),"assets/img/opciones.png",50,50);
+    opciones.anchor = new Vector2(1,0);
+    opciones.OnClick = PauseGame;
+    gameObjects[4].push(opciones);
+
+    transparencyPause = new SpriteObject("transparencia",new Vector2(0,0),"assets/img/fondo.png",720,1280);
+    pauseContinue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
+    pauseContinue.OnClick = function(ev){canvasManager.ClearCanvas();canvasManager.AddList(gameObjects)}
+    pauseContinue.anchor = new Vector2(0.5,0.5);
+
 }
 
 function LoadLevel(jsonName,container){
@@ -241,18 +253,18 @@ function LoadLevel(jsonName,container){
                 break;
             }
         }
-        StartGame(container);
+        StartGame(container,1000);
     });
 }
 
-function StartGame(container){
+function StartGame(container,loadTime){
     canvasManager.ClearCanvas();
     canvasManager.AddList(container);
     canvasManager.RenderAndUpdate(0);
     setTimeout(function(){
         StopLoad();
         canvasManager.Start();
-    },1000);
+    },loadTime);
 }
 
 function StartLoad(){
@@ -261,4 +273,14 @@ function StartLoad(){
 
 function StopLoad(){
     loading.hide();
+}
+
+
+function PauseGame(ev){
+    let fondo = new SpriteObject("fondo",new Vector2(0,0),canvasManager.canvasElement.toDataURL(),720,1280);
+    canvasManager.ClearCanvas();
+    canvasManager.AddObject(fondo,2);
+    canvasManager.AddObject(transparencyPause,3);
+    canvasManager.AddObject(pauseContinue,4);
+    
 }

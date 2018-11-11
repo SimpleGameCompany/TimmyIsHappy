@@ -177,6 +177,9 @@ class SpriteObject {
     this._position = pos;
   }
 
+  /**
+   * @param {Vector2} v
+   */
   set anchor(v){
     this._anchor.x = v.x;
     this._anchor.y = v.y;
