@@ -1,13 +1,10 @@
 [
     {
-        "type":"coche",
-        "nombre":"alcantarilla",
+        "name":"alcantarilla",
         "positionx":1000,
-        "positiony":750,
-        "img":"assets/img/alcantarilla.png",
-        "height":557,
-        "width":184,
-        "hitnumber":1,
-        "layer":3
+        "positiony":600,
+        "height":50,
+        "width":100,
+        "hitnumber":1
     }
 ]
