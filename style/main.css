@@ -28,3 +28,20 @@ canvas {
     position: absolute;
     z-index: 0;
 }
+
+
+.box-team img {
+	margin-bottom: 30px;
+}
+
+.box-team, .box-team img {
+    text-align: center;
+}
+.box-team img {
+    float: none;
+    margin:0 auto;
+    padding: 10%
+}
+.box-team {
+    margin-bottom: 30px;
+}
