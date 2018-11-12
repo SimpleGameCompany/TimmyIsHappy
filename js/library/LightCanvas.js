@@ -65,6 +65,53 @@ class Vector2 {
   }
 }
 
+class AudioObject{
+
+
+  constructor(audioSrc){
+    this._audioElement = new Audio(audioSrc);
+    this._isLoad = false;
+    this._audioElement.oncanplay = this.SetPlayTrue.bind(this);
+    this._audioElement.load();
+  }
+
+  PlayOneShot(){
+    if(this._isLoad){
+    this._audioElement.loop = false;
+    this._audioElement.play();
+    }else {
+      setTimeout(this.PlayOneShot.bind(this),10);
+    }
+  }
+
+  PlayOnLoop(){
+    this._audioElement.pause();
+    if(this._isLoad){     
+      this._audioElement.loop = true;
+      this._audioElement.play();
+      }else {
+        setTimeout(this.PlayOnLoop.bind(this),10);
+      }
+  }
+
+  SetPlayTrue(ev){
+    this._isLoad = true;
+  }
+
+  ChangeAudioSrc (src){
+    this._audioElement.src = src;
+    this._isLoad = false;
+    this._audioElement.load();
+  }
+
+  set volume (volumeAmount){
+    this._audioElement.volume = volumeAmount;
+  }
+  get volume(){return this._audioElement.volume;}
+
+}
+
+
 class Animation {
   constructor(imgSrc, frames, wFrame, hFrame, time) {
     this._image = new Image(wFrame * frames, hFrame * frames);

@@ -148,6 +148,7 @@ var gameObjects;
 var loading;
 window.addEventListener("load",function(ev){
     loading = $(".loading");
+   
     canvasManager = new CanvasManager("gameCanvas",1280,720);
     canvasManager.ClearCanvas();
     StartLoad();
@@ -263,6 +264,9 @@ function StartGame(container,loadTime){
     canvasManager.RenderAndUpdate(0);
     setTimeout(function(){
         StopLoad();
+        let audio = new AudioObject("assets/audio/SmashMouth-AllStar_64kb.mp3");
+        //Hay que meter algun click antes de empezar
+        audio.PlayOneShot();
         canvasManager.Start();
     },loadTime);
 }
@@ -278,6 +282,7 @@ function StopLoad(){
 
 function PauseGame(ev){
     let fondo = new SpriteObject("fondo",new Vector2(0,0),canvasManager.canvasElement.toDataURL(),720,1280);
+    
     canvasManager.ClearCanvas();
     canvasManager.AddObject(fondo,2);
     canvasManager.AddObject(transparencyPause,3);
