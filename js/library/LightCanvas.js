@@ -94,8 +94,14 @@ class AudioObject{
       }
   }
 
+  Stop(){
+    this._audioElement.pause();
+    this._audioElement.currentTime = 0.0;
+  }
+
   SetPlayTrue(ev){
     this._isLoad = true;
+    this._audioElement.pau
   }
 
   ChangeAudioSrc (src){
@@ -113,7 +119,7 @@ class AudioObject{
 
 
 class Animation {
-  constructor(imgSrc, frames, wFrame, hFrame, time) {
+  constructor(imgSrc, frames, wFrame, hFrame, time, initialFrame) {
     this._image = new Image(wFrame * frames, hFrame * frames);
     this._image.src = imgSrc;
     this._frames = frames;
@@ -122,6 +128,7 @@ class Animation {
     this._actualFrame = 0;
     this._timeFrames = time;
     this.incrementalTime = 0;
+    this._initialFrame = initialFrame
   }
 
   /**
@@ -130,7 +137,7 @@ class Animation {
   RenderFrame(renderCanvas, position) {
     renderCanvas.drawImage(
       this._image,
-      this._wFrame * this.actualFrame,
+      this._initialFrame + (this._wFrame * this.actualFrame),
       0,
       this._wFrame,
       this._hFrame,
