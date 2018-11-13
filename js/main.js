@@ -27,36 +27,54 @@ class Obstacle extends HitableObject{
 }
 
 class Sewer extends Obstacle{
-    constructor(name, position, imgSrc, height, width, player, hits){
+    constructor(name, position, imgSrc, height, width, player, hits, open){
         super(name, position, imgSrc, height, width, player, hits);
+        this._open = open;
+        this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg");
+        this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg");
+    }
+    OnClick(e){
+        this._openAudio.PlayOneShot();
+        super.OnClick(e);
     }
 }
 
 class FlyingObject extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
+        this._deadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminatedogg.ogg");
+        this._loopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg");
+        this._spawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg");
     }
     OnClick(e){
+        this._deadAudio.PlayOneShot();
         super.OnClick(e);
     }
 }
 
-class Caca extends Obstacle{
+class Poop extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
+        this._deadAudio = new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg");
+        this._spawnAudio = new AudioObject("assets/audio/Caca/Caca_Spawn.ogg");
     }
 
     OnClick(e){
         super.OnClick(e);
+        if(this._hits){
+            this._deadAudio.PlayOneShot();
+        }
     }
 }
 
 class Dove extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
+        this._deadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg");
     }
 
     OnClick(e){
+        this._deadAudio.PlayOneShot();
         super.OnClick(e);
     }
 }
@@ -64,9 +82,13 @@ class Dove extends Obstacle{
 class Car extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
+        this._moveAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg");
+        this._claxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg");
+        this._deadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg");
     }
 
     OnClick(e){
+        this._deadAudio.PlayOneShot();
         super.OnClick(e);
     }
 }
@@ -78,11 +100,13 @@ class Dog extends Obstacle{
         this._stopped = false;
         this.interval;
         this._dead = false;
+        this._deadAudio = new AudioObject("assets/audio/Caca/Dog_Eliminated.ogg");
     }
 
     OnClick(e){
         super.OnClick(e);
         if(this._hits == 0){
+            this._deadAudio.PlayOneShot()
             if(this.interval){
                 clearInterval(this.interval);
             }
