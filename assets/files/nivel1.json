@@ -1,11 +1,11 @@
 [
     {
-        "type":"sewer",
-        "name":"sewer",
+        "type":"car",
+        "name":"car",
         "positionx":1000,
         "positiony":600,
-        "height":50,
-        "width":100,
+        "height":184,
+        "width":557,
         "hitnumber":1,
         "layer":3
     }

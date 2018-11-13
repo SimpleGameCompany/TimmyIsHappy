@@ -21,7 +21,7 @@ class Obstacle extends HitableObject{
         if(this._hits == 0){
             this.deactivate();
             canvasManager.clickObjects.delete(this.hitColor);
-            this.SetAnimation("clicked");
+            //this.SetAnimation("clicked");
         }
     }
 }
@@ -34,8 +34,17 @@ class Sewer extends Obstacle{
         this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg");
     }
     OnClick(e){
-        this._openAudio.PlayOneShot();
-        super.OnClick(e);
+        if(this._open){
+            this._open = !this._open;
+            this._closeAudio.PlayOneShot();
+            //canvasManager.clickObjects.delete(this.hitColor);
+            //this.SetAnimation("clicked");
+        }else{
+            this._open = !this._open;
+            this._openAudio.PlayOneShot();
+            //canvasManager.clickObjects.delete(this.hitColor);
+            //this.SetAnimation("clicked");
+        }
     }
 }
 
@@ -82,14 +91,25 @@ class Dove extends Obstacle{
 class Car extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._moveAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg");
+        this._loopAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg");
         this._claxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg");
         this._deadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg");
+        this._inCanvas = false;
     }
 
     OnClick(e){
+        this._loopAudio.Stop();
         this._deadAudio.PlayOneShot();
         super.OnClick(e);
+    }
+
+    Update(timeDelta, hitbox){
+        if(this.position.x-(this.width*this._anchor.x) <= 1280 && !this._inCanvas){
+            this._loopAudio.PlayOnLoop();
+            this._inCanvas = true;
+        }
+            super.Update(timeDelta,hitbox);
+        
     }
 }
 
@@ -290,7 +310,8 @@ function StartGame(container,loadTime){
         StopLoad();
         let audio = new AudioObject("assets/audio/SmashMouth-AllStar_64kb.mp3");
         //Hay que meter algun click antes de empezar
-        audio.PlayOneShot();
+        audio.volume = 0.05;
+        audio.PlayOnLoop();
         canvasManager.Start();
     },loadTime);
 }

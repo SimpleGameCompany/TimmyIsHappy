@@ -94,8 +94,14 @@ class AudioObject{
       }
   }
 
+  Stop(){
+    this._audioElement.pause();
+    this._audioElement.currentTime = 0.0;
+  }
+
   SetPlayTrue(ev){
     this._isLoad = true;
+    this._audioElement.pau
   }
 
   ChangeAudioSrc (src){
