@@ -68,8 +68,9 @@ class Vector2 {
 class AudioObject{
 
 
-  constructor(audioSrc){
+  constructor(audioSrc, loopBuffer){
     this._audioElement = new Audio(audioSrc);
+    this._loopBuffer = loopBuffer;
     this._isLoad = false;
     this._audioElement.oncanplay = this.SetPlayTrue.bind(this);
     this._audioElement.load();
@@ -86,12 +87,21 @@ class AudioObject{
 
   PlayOnLoop(){
     this._audioElement.pause();
-    if(this._isLoad){     
-      this._audioElement.loop = true;
+    if(this._isLoad){ 
+      this._audioElement.addEventListener('timeupdate', this.Loop.bind(this), false);    
+      //this._audioElement.loop = true;
       this._audioElement.play();
       }else {
         setTimeout(this.PlayOnLoop.bind(this),10);
       }
+  }
+
+  Loop(){
+    var buffer = this._loopBuffer;
+        if(this._audioElement.currentTime > this._audioElement.duration - buffer){
+            this._audioElement.currentTime = 0
+            this._audioElement.play()
+        }
   }
 
   Stop(){
