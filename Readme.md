@@ -15,7 +15,7 @@
   + 1.6\. [Jugabilidad](#Jugabilidad)
   + 1.7\. [Propósito y público objetivo](#Propositoypublicoobjetivo)
 * 2\. [Mecánicas del juego](#mecanicas)
-  * 2.1\. [Jugabilidad] (#Jugabilidad)
+  * 2.1\. [Jugabilidad](#Jugabilidad)
   * 2.2\. [Trampas](#Trampas)
   * 2.3\. [Flujo de juego (Game Loop)](#Flujodejuego(GameLoop))
   * 2.4\. [Personajes](#Personajes)
