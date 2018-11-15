@@ -16,12 +16,13 @@
   + 1.7\. Propósito y público objetivo
 * 2\. [Mecánicas del juego](#mecanicas)
   * 2.1\. Jugabilidad
-  * 2.2\. Flujo de juego (Game Loop)
-  * 2.3\. Personajes
-  * 2.4\. Movimiento
-  * 2.5\. Cámara
-  * 2.6\. Controles
-  * 2.7\. Niveles
+  * 2.2\. Trampas
+  * 2.3\. Flujo de juego (Game Loop)
+  * 2.4\. Personajes
+  * 2.5\. Movimiento
+  * 2.6\. Cámara
+  * 2.7\. Controles
+  * 2.8\. Niveles
 * 3\. [Interfaz](#interfaz)
   * 3.1\. Diagrama de Flujo
   * 3.2\. Pantalla de Menú Principal
@@ -58,7 +59,7 @@ Es un juego de estética 2D para navegador, en PC y dispositivos móviles, con c
 
 * **Cómodo:** en cualquier dispositivo móvil, al igual que en el navegador del PC, gracias a la sencillez de los controles mencionados.
 
-* **Temática divertida: **la naturaleza de la premisa del juego, así como de la sencillez de sus mecánicas, dan lugar a una dinámica final que busca provocar la sonrisa en el jugador, al mismo tiempo que atraparle en su jugabilidad.
+* **Temática divertida:** la naturaleza de la premisa del juego, así como de la sencillez de sus mecánicas, dan lugar a una dinámica final que busca provocar la sonrisa en el jugador, al mismo tiempo que atraparle en su jugabilidad.
 
 ## 1.3. Género
 
@@ -149,7 +150,60 @@ En esta sección, trataremos todas las cuestiones referentes al funcionamiento b
 
 * **Progresión del jugador:** finalmente, los esfuerzos del jugador se verán recompensados en forma de puntos y total de niveles completados (agrupados en días, cada 3 niveles constituyen un día). Este sistema animará al jugador a volver a jugar otra partida para superar su puntuación o la de sus amigos, asegurándonos de que el jugador siempre recurra al juego para buscar un reto mayor.
 
-## 2.2. Flujo de juego (Game Loop)
+## **2.2. Trampas**
+
+El núcleo de la jugabilidad serán las trampas. Los niveles tendrán un número determinado y asignado previamente de amenazas distribuidas por el escenario. La funcionalidad básica es el toque o la repetición de toques en la trampa para eliminarla o cambiar su estado a uno positivo. A continuación se detalla la lista de trampas, así como su comportamiento y tratamiento. Todas ellas tienen animaciones asignadas y sonidos para notificar su existencia o eliminación al jugador, para no depender solo de su estímulo visual.
+
+**Caca de perro**:
+
+1.  *Funcionalidad*: Esta trampa aparece a nivel del suelo y permanece quieta (se mueve a velocidad del escenario) todo el rato.
+2.  *Forma de neutralizar*: Un solo click la desactiva permanentemente.
+3.  *Animaciones*: La caca al ser pulsada, se convierte en un bolsita negra al haberse recogido con éxito.
+4.  *Arte:* Una caca de perro olorosa y una bolsita negra de plástico. 
+5.  *Sonido*: Un sonido al aparecer y un sonido de guardar en bolsita al eliminarla.
+
+**Alcantarilla:**
+
+1.  *Funcionalidad*: Esta trampa aparece a nivel del suelo y permanece quieta (se mueve a velocidad del escenario). Aparece en uno de dos estados, abierta o cerrada. Si llega a Timmy abierta, se pierde el juego (se cae). Si llega cerrada, la partida continúa.
+2.  *Forma de neutralizar*: No se puede eliminar, pero un click cambia su estado. La idea es hacer click si está abierta, y evitar hacer click si está cerrada.
+3.  *Animaciones*: Abrirse y cerrarse.
+4.  *Arte*: Una tapa de alcantarilla y su respectivo agujero.
+5.  *Sonido*: Abrir y cerrar una alcantarilla.
+
+**Perro**:
+
+1.  *Funcionalidad:* El perro aparece a nivel medio y  se mueve a velocidad de escenario. No ataca al jugador, sino que gruñe una vez por segundo, hasta dos. Al tercer segundo, ladra. A cuarto segundo, realiza un sprint (yendo a 65 puntos de velocidad respecto del escenario)hacia el jugador, siendo muy difícil su eliminación. Si alcanza al jugador se pierde la partida.
+2.  *Forma de neutralizar:* Una pulsación sobre el perro en cualquier momento causa su eliminación del mapa con una animación.
+3.  *Animaciones:* Ladrar, esprintar al jugador, salir volando hacia una dirección arbitraria (aérea) mientras rota.
+4.  *Arte*: Un perro.
+5.  *Sonido:* gruñido, ladridos, impacto.
+
+**Coche**:
+
+1.  *Funcionalidad:* Esta trampa aparece a nivel medio y se mueve un poco más rápido que el escenario (a 20 unidades más de su velocidad), y si no es neutralizado, atropella a Timmy haciendo que se pierda la partida.
+2.  *Forma de neutralizar*: Necesita de dos clicks para ser neutralizado.
+3.  *Animaciones*: El coche avanzando, el coche volando en dirección arbitraria, mientras rota y se escala negativamente (viaja hacia el fondo del escenario).
+4. *Arte*: Un coche parecido a un escarabajo.
+5. *Sonido*: Motor de coche, claxon.
+
+**Paloma**:
+
+1.  *Funcionalidad*: Esta trampa aparece a nivel alto y avanza a una velocidad ligeramente mayor al escenario (10 unidades más rápido que el escenario). El jugador pierde si se acerca mucho al jugador.
+2.  *Forma de neutralizar*: Un solo click la neutraliza.
+3.  *Animaciones*: Paloma volando, paloma volando en dirección arbitraria, cagarruta viajando hacia el jugador.
+4.  *Arte:* Una paloma y su cagarruta al acercarse.
+5.  *Sonido*: sonidos de Paloma y de plumas.
+
+**Avión**:
+
+1.  *Funcionalidad*: Esta trampa aparece a nivel alto y obstaculiza un tercio de la pantalla por la parte media superior izquierda de la pantalla, manteniéndose estático mientras vuela (no se mueve de la pantalla).
+2.  *Forma de neutralizar*: Dos clicks neutralizan el avión.
+3.  *Animaciones:* Avion volando hacia arriba, avión moviéndose en su sitio.
+4.  *Arte*: Avión.
+5.  *Sonido:* Turbinas del avión, avión accidentado.
+
+
+## 2.3. Flujo de juego (Game Loop)
 
 El Game Loop estándar de una partida consistirá en lo siguiente:
 
@@ -167,27 +221,27 @@ También habrá trampas al revés, que sólo se activan si el jugador las pulsa.
 
 Si Timmy llega a un final de nivel sin haber sido alcanzado por ninguna amenaza, pasará por un túnel. Durante este túnel, se notificará de que se ha superado el nivel, se mostrarán los datos de puntuación del nivel, y al hacer click en la pantalla, se continuará al siguiente. Al continuar, Timmy seguirá andando por el túnel hasta la salida, donde comenzará el siguiente nivel, con un aumento de dificultad. Cada nivel será una hora del día, y cuando pasen 3, se cambiará. Se notificará el cambio de día y será parte de la puntuación (Por ejemplo "¡Perdiste! Has aguantado: 3 días. Puntos: 3500.").
 
-## 2.3. Personajes
+## 2.4. Personajes
 
 * **Timmy**: Un chico despistado, que se nos muestra en pantalla paseando de forma distraída por la ajetreada ciudad. Siempre se mete en problemas por ir demasiado abstraído del mundo, y necesitaría un ángel de la guarda para no salir mal parado de sus problemas. Lo único que hace en el juego es andar de forma poco cuidadosa.
 
 * **Dios**: El jugador tomará el papel de Dios, que gestionará las amenazas que intentan dañar a Timmy, intentando eliminarlas de su camino. Será, por lo tanto, un ser amable que intenta ayudar a Timmy en todo momento, incluso aunque ello suponga causar algo de caos en la ciudad. Se desconoce por qué solo quiere proteger a Timmy.
 
-## 2.4. Movimiento
+## 2.5. Movimiento
 
 El movimiento del juego consistirá en el scroll lateral de la pantalla de derecha a izquierda, estando Timmy en la zona izquierda de la misma, y apareciendo las amenazas por la derecha. No hay movimiento del jugador en sí, sino que se deberá hacer click o pulsar (en móviles) en las diversas amenazas que aparecen para ir eliminándolas.
 
 Así, el único control como tal será el click o pulsación con el dedo, dependiendo del dispositivo, para hacer desaparecer (o aparecer) una amenaza. Esta sencillez en los controles nos permite, por un lado, crear una curva de aprendizaje asequible e intuitiva, y por otro, crear numerosas dinámicas jugables (activar trampa, desactivarla, activar una trampa de tipo indirecto, etc.) a partir de un mismo control.
 
-## 2.5. Cámara
+## 2.6. Cámara
 
 La cámara en Timmy is Happy será fija, siendo visible todo el escenario, y solo será el escenario el que se mueva. Por lo tanto la cámara no es controlable.
 
-## 2.6. Controles
+## 2.7. Controles
 
 Los controles constan únicamente del click o pulsación de la pantalla en móvil sobre la región de la pantalla. Por lo tanto, pulsar sobre un objeto cambiará su estado (eliminar un objeto, etc.).
 
-## 2.7. Niveles
+## 2.8. Niveles
 
 Durante Timmy is Happy, tendremos tres tipos de niveles distintos, en el que principalmente cambia la estética de los mismos. 
 
@@ -271,9 +325,44 @@ El arte final se irá incorporando conforme se tengan los recursos necesarios.
 
 ## 4.2. Sonido
 
-Los sonidos del juego deberán acompañar a su estilo visual, de forma que deberán tener un toque alegre, divertido y amigable, alejándonos de lo oscuro, lo profundo y lo macabro.
+Los sonidos del juego deberán acompañar a su estilo visual, de forma que deberán tener un toque alegre y divertido.
 
-El sonido se irá incorporando conforme se tengan los recursos necesarios.
+* *Boton_1*: Sonido para los botones de la aplicación, tales como los del menú.
+
+* *Boton_2*: Un sonido alternativo para menús o requeridos.
+
+* *Alcantarilla_Open*: Sonido de abrir la tapa de alcantarilla
+
+* *Alcantarilla_Close*: Sonido de cerrar la tapa de alcantarilla.
+
+* *Caca_Spawn*: Sonido de pisar una caca de perro para denotar la aparición de esta amenaza.
+
+* *Caca_Eliminated*:Sonido de recogida en una bolsa de la caca de perro. Para cuando se elimina la trampa "Caca de perro".
+
+* *Coche_Move*: Sonido loopeable del motor del coche cuando avance.
+
+* *Coche_Bocina*: Un claxon cuando está muy cerca de Timmy.
+
+* *Coche_Eliminated*: Un derrape para eliminar el coche de escena.
+
+* *Paloma_Spawn*: Un sonido de paloma al spawnear, un gorjeo.
+
+* *Paloma_Eliminated*: Manojo de plumas y aleteo cuando se elimina a la paloma.
+
+* *Avion_Spawn*: Cuando el avión aparece en la escena.
+
+* *Avion_Eliminated*: Suena el avión sobrevolar y estrellarse.
+
+* *Avion_Loop*: Sonido loopeable del avión en escena.
+
+* *Perro_Warn*: Un perro gruñendo y ladrando, para avisar de que va a atacaar.
+
+* *Perro_Attack*: El perro ladra, cuando ataca.
+
+* *Perro_Elimianted*: El perro huye, es eliminado.
+
+
+
 
 <div id="roles"></>
 
