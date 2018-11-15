@@ -7,32 +7,32 @@
 # Índice
 
 * 1\. [Introduccion](#introduccion)
-  + 1.1\. Concepto
-  + 1.2\. Características principales
-  + 1.3\. Género
-  + 1.4\. Estilo Visual
-  + 1.5\. Alcance
-  + 1.6\. Jugabilidad
-  + 1.7\. Propósito y público objetivo
+  + 1.1\. [Concepto](#Concepto)
+  + 1.2\. [Características principales](#Caracteristicasprincipales)
+  + 1.3\. [Género](#Genero)
+  + 1.4\. [Estilo Visual](#EstiloVisual)
+  + 1.5\. [Alcance](#Alcance)
+  + 1.6\. [Jugabilidad](#Jugabilidad)
+  + 1.7\. [Propósito y público objetivo](#Propositoypublicoobjetivo)
 * 2\. [Mecánicas del juego](#mecanicas)
-  * 2.1\. Jugabilidad
-  * 2.2\. Trampas
-  * 2.3\. Flujo de juego (Game Loop)
-  * 2.4\. Personajes
-  * 2.5\. Movimiento
-  * 2.6\. Cámara
-  * 2.7\. Controles
-  * 2.8\. Niveles
+  * 2.1\. [Jugabilidad] (#Jugabilidad)
+  * 2.2\. [Trampas](#Trampas)
+  * 2.3\. [Flujo de juego (Game Loop)](#Flujodejuego(GameLoop))
+  * 2.4\. [Personajes](#Personajes)
+  * 2.5\. [Movimiento](#Movimiento)
+  * 2.6\. [Cámara](#Camara)
+  * 2.7\. [Controles](#Controles)
+  * 2.8\. [Niveles](#Niveles)
 * 3\. [Interfaz](#interfaz)
-  * 3.1\. Diagrama de Flujo
-  * 3.2\. Pantalla de Menú Principal
-  * 3.3\. Pantalla de Puntuaciones
-  * 3.4\. Pantalla de Créditos y Contacto
-  * 3.5\. Pantalla de Nivel
-  * 3.6\. Pantalla de Fin de Nivel (Game Over)
+  * 3.1\. [Diagrama de Flujo](#DiagramadeFlujo)
+  * 3.2\. [Pantalla de Menú Principal](#PantalladeMenuPrincipal)
+  * 3.3\. [Pantalla de Puntuaciones](#PantalladePuntuaciones)
+  * 3.4\. [Pantalla de Créditos y Contacto](#pantalladeCreditosyContacto)
+  * 3.5\. [Pantalla de Nivel](#PantalladeNivel)
+  * 3.6\. [Pantalla de Fin de Nivel (Game Over)](#PantalladeFindeNivel(GameOver))
 * 4\. [Arte y Sonido](#arteysonido)
-  * 4.1\. Arte
-  * 4.2\. Sonido
+  * 4.1\. [Arte](#Arte)
+  * 4.2\. [Sonido](#Sonido)
 * 5\. [Roles](#roles)
 
 <div id="introduccion"></ol>
@@ -40,6 +40,8 @@
 # 1. Introducción 
 
 ***Timmy is happy*** es un videojuego de navegador, con estética 2D y de un único jugador, desarrollado en base al consorcio W3C (JavaScript, CSS y HTML). En este documento se van a plasmar los aspectos relacionados con el diseño fundamental del videojuego, de forma que nos sirva como carta de presentación ante futuros colaboradores.
+
+<div id="Concepto"></>
 
 ## **1.1. Concepto**
 
@@ -51,6 +53,8 @@ El modelo estructural del videojuego será el de un "Infinite Runner" en el que 
 
 Es un juego de estética 2D para navegador, en PC y dispositivos móviles, con coloridos gráficos y animaciones, e infinidad de horas jugables.
 
+<div id="Caracteristicasprincipales"></>
+
 ## 1.2. Características principales
 
 * **Controles sencillos**: Solo se requiere un toque en la pantalla o un click de ratón para jugar, lo que facilita una curva de aprendizaje intuitiva.
@@ -61,21 +65,29 @@ Es un juego de estética 2D para navegador, en PC y dispositivos móviles, con c
 
 * **Temática divertida:** la naturaleza de la premisa del juego, así como de la sencillez de sus mecánicas, dan lugar a una dinámica final que busca provocar la sonrisa en el jugador, al mismo tiempo que atraparle en su jugabilidad.
 
+<div id="Genero"></>
+
 ## 1.3. Género
 
 El género del juego es un "Infinite Runner", donde el personaje se mueve infinitamente en un escenario, que habitualmente se genera de forma modular y procedural. 
 
 En este caso, sin embargo, se acompañará con escenarios prefabricados, para poder ofrecer un reto constante que no dependa exclusivamente de la aleatoriedad para funcionar (ya que a menudo los algoritmos de este tipo de juegos resultan algo injustos por su carácter aleatorio). Un ejemplo similar de "Infinite Runner" sería el minijuego del T-Rex que aparece en la ventana de Google Chrome cuando no hay conexión a la red.
 
+<div id="EstiloVisual"></>
+
 ## 1.4. Estilo Visual
 
 La estética tendrá un estilo visual de temática cartoon, no realista, y será generalmente de aspecto amigable, colores pintorescos y animaciones exageradas, y contará con un arte propio y diferenciable.
+
+<div id="Alcance"></>
 
 ## 1.5. Alcance
 
 La idea principal del juego radica en la escalabilidad. La versión básica consistirá en un juego pequeño pero fácilmente escalable, para poder permitir una longeva vida del videojuego, si este tiene éxito comercial.
 
 Esta escalabilidad es posible gracias al sistema de niveles del juego, de forma que, en un futuro y si efectivamente el juego tiene cierto renombre, se pueden incluir nuevos niveles, dinámicas, estilos, etc.
+
+<div id="jugabilidad"></>
 
 ## 1.6. Jugabilidad
 
@@ -89,6 +101,8 @@ Los niveles serán realizados de forma progresiva y estarán colocados de manera
 
 Para la actual fecha límite, el objetivo es preparar con éxito **3 niveles.**
 
+<div id="Propositoypublicoobjetivo"></>
+
 ## 1.7. Propósito y público objetivo
 
 Nuestro objetivo es obtener un juego 2D, de estética atractiva y llamativa, rápido, dinámico y simple (que se pueda jugar con una sola mano), que sirva para entretener durante los momentos aburridos del jugador.
@@ -100,6 +114,8 @@ Es un juego apto para todos los públicos, tanto para los amantes de los juegos 
 # 2. Mecánicas del juego
 
 En esta sección, trataremos todas las cuestiones referentes al funcionamiento básico y avanzado del juego, así como las distintas trampas que aparecen en el escenario, y se explicarán controles, mapa y desarrollo de la "partida típica".
+
+<div id="Jugabilidad"></>
 
 ## 2.1. Jugabilidad
 
@@ -149,6 +165,8 @@ En esta sección, trataremos todas las cuestiones referentes al funcionamiento b
 
 
 * **Progresión del jugador:** finalmente, los esfuerzos del jugador se verán recompensados en forma de puntos y total de niveles completados (agrupados en días, cada 3 niveles constituyen un día). Este sistema animará al jugador a volver a jugar otra partida para superar su puntuación o la de sus amigos, asegurándonos de que el jugador siempre recurra al juego para buscar un reto mayor.
+
+<div id="Trampas"></>
 
 ## **2.2. Trampas**
 
@@ -202,6 +220,7 @@ El núcleo de la jugabilidad serán las trampas. Los niveles tendrán un número
 4.  *Arte*: Avión.
 5.  *Sonido:* Turbinas del avión, avión accidentado.
 
+<div id="Flujodejuego(GameLoop)"></>
 
 ## 2.3. Flujo de juego (Game Loop)
 
@@ -221,11 +240,15 @@ También habrá trampas al revés, que sólo se activan si el jugador las pulsa.
 
 Si Timmy llega a un final de nivel sin haber sido alcanzado por ninguna amenaza, pasará por un túnel. Durante este túnel, se notificará de que se ha superado el nivel, se mostrarán los datos de puntuación del nivel, y al hacer click en la pantalla, se continuará al siguiente. Al continuar, Timmy seguirá andando por el túnel hasta la salida, donde comenzará el siguiente nivel, con un aumento de dificultad. Cada nivel será una hora del día, y cuando pasen 3, se cambiará. Se notificará el cambio de día y será parte de la puntuación (Por ejemplo "¡Perdiste! Has aguantado: 3 días. Puntos: 3500.").
 
+<div id="Personajes"></>
+
 ## 2.4. Personajes
 
 * **Timmy**: Un chico despistado, que se nos muestra en pantalla paseando de forma distraída por la ajetreada ciudad. Siempre se mete en problemas por ir demasiado abstraído del mundo, y necesitaría un ángel de la guarda para no salir mal parado de sus problemas. Lo único que hace en el juego es andar de forma poco cuidadosa.
 
 * **Dios**: El jugador tomará el papel de Dios, que gestionará las amenazas que intentan dañar a Timmy, intentando eliminarlas de su camino. Será, por lo tanto, un ser amable que intenta ayudar a Timmy en todo momento, incluso aunque ello suponga causar algo de caos en la ciudad. Se desconoce por qué solo quiere proteger a Timmy.
+
+<div id="Movimiento"></>
 
 ## 2.5. Movimiento
 
@@ -233,13 +256,20 @@ El movimiento del juego consistirá en el scroll lateral de la pantalla de derec
 
 Así, el único control como tal será el click o pulsación con el dedo, dependiendo del dispositivo, para hacer desaparecer (o aparecer) una amenaza. Esta sencillez en los controles nos permite, por un lado, crear una curva de aprendizaje asequible e intuitiva, y por otro, crear numerosas dinámicas jugables (activar trampa, desactivarla, activar una trampa de tipo indirecto, etc.) a partir de un mismo control.
 
+<div id="Camara"></>
+
+
 ## 2.6. Cámara
 
 La cámara en Timmy is Happy será fija, siendo visible todo el escenario, y solo será el escenario el que se mueva. Por lo tanto la cámara no es controlable.
 
+<div id="Controles"></>
+
 ## 2.7. Controles
 
 Los controles constan únicamente del click o pulsación de la pantalla en móvil sobre la región de la pantalla. Por lo tanto, pulsar sobre un objeto cambiará su estado (eliminar un objeto, etc.).
+
+<div id="Niveles"></>
 
 ## 2.8. Niveles
 
@@ -255,11 +285,16 @@ Durante Timmy is Happy, tendremos tres tipos de niveles distintos, en el que pri
 
 # 3. Interfaz
 
+<div id="DiagramadeFlujo"></>
+
+
 ## 3.1. Diagrama de Flujo
 
 A continuación, se muestra el diagrama de flujo y transición entre pantallas durante el desarrollo del juego:
 
 ## ![image alt text](assets/GDD/image_0.png)
+
+<div id="PantalladeMenuPrincipal"></>
 
 ## 3.2. Pantalla de Menú Principal
 
@@ -267,17 +302,23 @@ A continuación se muestra el esquema básico de la pantalla de Menú Principal:
 
  ![image alt text](assets/GDD/image_1.png)
 
+<div id="PantalladePuntuaciones></>
+
 ## 3.3. Pantalla de Puntuaciones
 
 A continuación, se muestra el esquema básico de la pantalla de Puntuaciones:
 
 ![image alt text](assets/GDD/image_2.png)
 
+<div id="PantallasdeCreditosyContacto"></>
+
 ## 3.4. Pantalla de Créditos y Contacto
 
 A continuación, se muestra el esquema básico de la pantalla de Contacto:
 
 ![image alt text](assets/GDD/image_3.png)
+
+<div id="PantalladeNivel"></>
 
 ## 3.5. Pantalla de Nivel
 
@@ -297,6 +338,8 @@ A continuación, se muestra el esquema básico de la pantalla de un nivel típic
 
 ![image alt text](assets/GDD/image_7.png)
 
+<div id="PantalladeFindeNivel(GameOver)"></>
+
 ## 3.6. Pantalla de Fin de Nivel (Game Over)
 
 A continuación se muestra el esquema básico de la pantalla de Game Over:
@@ -306,6 +349,8 @@ A continuación se muestra el esquema básico de la pantalla de Game Over:
 <div id="arteysonido"></>
 
 # 4. Arte y Sonido
+
+<div id="Arte"></>
 
 ## 4.1. Arte
 
@@ -322,6 +367,8 @@ A continuación, se muestran algunos bocetos conceptuales:
 ![image alt text](assets/GDD/image_12.png)
 
 El arte final se irá incorporando conforme se tengan los recursos necesarios.
+
+<div id="Sonido"></>
 
 ## 4.2. Sonido
 
