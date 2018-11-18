@@ -315,9 +315,6 @@ function LoadLevel(jsonName,container){
                     }else{
                         sewer.SetAnimation("close");
                     }
-                    if(obj.open){
-                        
-                    }
                     container[obj.layer].push(sewer);
                 break;
                 case "car":
@@ -337,6 +334,26 @@ function LoadLevel(jsonName,container){
                     dove.AddAnimation(doveAnim,"idle");
                     dove.SetAnimation("idle");
                     container[obj.layer].push(dove);
+                break;
+                case "poop":
+                    let poop = new Poop(obj.name,new Vector2(obj.positionx,obj.positiony),"none", obj.height,obj.width,timmy,obj.hitnumber);
+                    let poopAnim = new Animation("assets/img/Caca_spritesheet.png",4,55,33,1/8,0);
+                    poop.anchor = new Vector2(0.5,0.5);
+                    poop.velocity = new Vector2(speed,0);
+                    poop.AddAnimation(poopAnim,"idle");
+                    poop.SetAnimation("idle");
+                    container[obj.layer].push(poop);
+                break;
+                case "plane":
+                    let plane = new FlyingObject(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,onj.width,obj.hitnumber);
+                    let planeAnim = new Animation("assets/img/Avion_spritesheet.png",4,480,1111,1/8,0);
+                    plane.anchor = new Vector2(0.5,0.5);
+                    plane.velocity = new Vector2(speed,0);
+                    plane.AddAnimation(planeAnim,"idle");
+                    plane.SetAnimation("idle");
+                    container[obj.layer].push(plane);
+                break; 
+                default:
                 break;
             }
         }
