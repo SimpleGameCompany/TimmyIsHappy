@@ -333,7 +333,7 @@ function LoadLevel(jsonName,container){
                     let dove = new Dove(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber);
                     let doveAnim = new Animation("assets/img/Paloma_spritesheet.png",8,90,150,1/12,0);
                     dove.anchor = new Vector2(0.5,0.5);
-                    dove.velocity = new Vector2(speed-20);
+                    dove.velocity = new Vector2(speed-20,0);
                     dove.AddAnimation(doveAnim,"idle");
                     dove.SetAnimation("idle");
                     container[obj.layer].push(dove);
