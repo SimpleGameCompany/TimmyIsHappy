@@ -25,6 +25,22 @@ class Obstacle extends HitableObject{
             //this.SetAnimation("clicked");
         }
     }
+
+    Update(timeDelta, hitbox){
+        super.Update(timeDelta, hitbox);
+        this.OnCollision(timeDelta, hitbox);
+    }
+
+    OnCollision(timeDelta, hitbox){
+        if(this._activeHit && this.position.x -(this._anchor.x*this.width) < this._player.position.x){
+            this.CollisionEvent(timeDelta, hitbox);
+        }
+    }
+    CollisionEvent(timeDelta, hitbox){
+        this._active = false
+        PauseGame(null);
+    }
+
 }
 
 class Sewer extends Obstacle{
@@ -220,6 +236,9 @@ var canvasManager;
 var menuObjects;
 var gameObjects;
 var loading;
+var loadingCount;
+var totalLoading;
+var imageCount;
 window.addEventListener("load",function(ev){
     loading = $(".loading");
    
@@ -246,6 +265,8 @@ var speed = -50;
 var transparencyPause;
 var pauseContinue;
 function LoadObjects(ev){
+    loadingCount = 0;
+    totalLoading = 0;
     gameObjects = [];
     for (let i = 0; i < 5; i++) {
         gameObjects[i] = [];
@@ -254,12 +275,14 @@ function LoadObjects(ev){
     timmy = new SpriteObject("player", new Vector2(70,525),"none",205,138);
     let animation = new Animation("assets/img/Timmy_spritesheet.png",8,138,205,1/8,0);
     timmy.AddAnimation(animation,"idle");
+    totalLoading++;
     timmy.SetAnimation("idle");
     timmy.anchor = new Vector2(0.5,0.5);
     gameObjects[2].push(timmy);
 
     let sun = new SpriteObject("sun",new Vector2(0,0),"none",720,1280);
     let sunAnim = new Animation("assets/img/Sol_spritesheet.png",8,1280,720,1/8,0);
+    totalLoading++;
     sun.velocity = new Vector2(0,0);
     sun.AddAnimation(sunAnim,"idle");
     sun.SetAnimation("idle");
@@ -267,16 +290,16 @@ function LoadObjects(ev){
 
     let clouds = new Scrollable("clouds",new Vector2(0,0),"none",720,2560,"assets/img/Nubes_spritesheet.png",4,speed/8,8);
     gameObjects[0].push(clouds);
-
+    totalLoading++;
     let mountains = new Scrollable("mountains",new Vector2(0,0),"none",720,5120,"assets/img/Fondo_spritesheet.png",3,speed/2,8);
     gameObjects[0].push(mountains);
-
+    totalLoading++;
     let sidewalks = new Scrollable("sidewalks",new Vector2(0,0),"none",720,1280,"assets/img/Aceras_spritesheet.png",4,speed,8);
     gameObjects[0].push(sidewalks);
-
+    totalLoading++;
     let road = new Scrollable("road",new Vector2(0,0),"none",720,1280,"assets/img/Carretera_spritesheet.png",4,speed,8);
     gameObjects[0].push(road);
-
+    totalLoading++;
     let opciones = new HitableObject("opciones",new Vector2(1280,0),"assets/img/opciones.png",50,50);
     opciones.anchor = new Vector2(1,0);
     opciones.OnClick = PauseGame;
@@ -290,12 +313,14 @@ function LoadObjects(ev){
 }
 
 function LoadLevel(jsonName,container){
+    
     $.getJSON("assets/files/"+jsonName+".json", function (json) {
         for(var obj of json){
             switch(obj.type){
                 case "dog":
                     let dog = new Dog(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber, obj.ladridos);
                     let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet.png",8,557,184,1/8,0);
+                    totalLoading +=1;
                     dog.anchor = new Vector2(0.5,0.5);
                     dog.velocity = new Vector2(speed,0);
                     dog.AddAnimation(dogRunning,"run");
@@ -306,6 +331,7 @@ function LoadLevel(jsonName,container){
                     let sewer = new Sewer(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber, obj.open);
                     let openSewer = new Animation("assets/img/Alcantarilla_spritesheet.png",4,105,39,1/8,0);
                     let closeSewer = new Animation("assets/img/Alcantarilla_spritesheet.png",4,105,39,1/8,105*4);
+                    totalLoading +=2;
                     sewer.anchor = new Vector2(0.5,0.5);
                     sewer.velocity = new Vector2(speed,0);
                     sewer.AddAnimation(openSewer,"open");
@@ -320,7 +346,8 @@ function LoadLevel(jsonName,container){
                 case "car":
                     let car = new Car(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber);
                     let carAnim = new Animation("assets/img/Coche_spritesheet.png",8,557,184,1/12,0);
-                    car.anchor = new Vector2(0.5,0.5);
+                    totalLoading +=1;
+                    car.anchor = new Vector2(0,0.5);
                     car.velocity = new Vector2(speed - 20,0);
                     car.AddAnimation(carAnim,"idle");
                     car.SetAnimation("idle");
@@ -329,6 +356,7 @@ function LoadLevel(jsonName,container){
                 case "dove":
                     let dove = new Dove(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber);
                     let doveAnim = new Animation("assets/img/Paloma_spritesheet.png",8,90,150,1/12,0);
+                    totalLoading +=1;
                     dove.anchor = new Vector2(0.5,0.5);
                     dove.velocity = new Vector2(speed-20,0);
                     dove.AddAnimation(doveAnim,"idle");
@@ -337,7 +365,8 @@ function LoadLevel(jsonName,container){
                 break;
                 case "poop":
                     let poop = new Poop(obj.name,new Vector2(obj.positionx,obj.positiony),"none", obj.height,obj.width,timmy,obj.hitnumber);
-                    let poopAnim = new Animation("assets/img/Caca_spritesheet.png",4,55,33,1/8,0);
+                    let poopAnim = new Animation("assets/img/Caca_spritesheet.png",4,33,55,1/8,0);
+                    totalLoading +=1;
                     poop.anchor = new Vector2(0.5,0.5);
                     poop.velocity = new Vector2(speed,0);
                     poop.AddAnimation(poopAnim,"idle");
@@ -346,7 +375,8 @@ function LoadLevel(jsonName,container){
                 break;
                 case "plane":
                     let plane = new FlyingObject(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,onj.width,obj.hitnumber);
-                    let planeAnim = new Animation("assets/img/Avion_spritesheet.png",4,480,1111,1/8,0);
+                    let planeAnim = new Animation("assets/img/Avion_spritesheet.png",4,1111,480,1/8,0);
+                    totalLoading +=1;
                     plane.anchor = new Vector2(0.5,0.5);
                     plane.velocity = new Vector2(speed,0);
                     plane.AddAnimation(planeAnim,"idle");
@@ -357,7 +387,7 @@ function LoadLevel(jsonName,container){
                 break;
             }
         }
-        StartGame(container,1000);
+        StartGame(container,10);
     });
 }
 
@@ -366,13 +396,19 @@ function StartGame(container,loadTime){
     canvasManager.AddList(container);
     canvasManager.RenderAndUpdate(0);
     setTimeout(function(){
-        StopLoad();
-        let audio = new AudioObject("assets/audio/SmashMouth-AllStar_64kb.mp3",0);
-        //Hay que meter algun click antes de empezar
-        audio.volume = 0.05;
-        audio.PlayOnLoop();
-        canvasManager.Start();
+        GoGame(loadTime);    
     },loadTime);
+}
+
+function GoGame (loadtime){
+    if(loadingCount >= totalLoading){
+        canvasManager.RenderAndUpdate(0);
+        StopLoad();
+        canvasManager.Start();
+        
+    }else{
+        setTimeout(GoGame,loadtime,loadtime);
+    }
 }
 
 function StartLoad(){

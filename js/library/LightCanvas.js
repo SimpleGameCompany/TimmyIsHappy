@@ -131,6 +131,7 @@ class AudioObject{
 class Animation {
   constructor(imgSrc, frames, wFrame, hFrame, time, initialFrame) {
     this._image = new Image(wFrame * frames, hFrame * frames);
+    this._image.onload = function(){loadingCount++;}
     this._image.src = imgSrc;
     this._frames = frames;
     this._wFrame = wFrame;
@@ -441,7 +442,6 @@ class CanvasManager {
     this._targetWidth = w;
     this.heightRelation = h / this.canvasElement.height;
     this.widhthRelation = w / this.canvasElement.width;
-
     this.canvasScene = this.canvasElement.getContext("2d");
     this.hitcanvas = document.getElementById(canvasName + "-hitbox");
     this.canvasElement.addEventListener("click", this.OnClick.bind(this));
