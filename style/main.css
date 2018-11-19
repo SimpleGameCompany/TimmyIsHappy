@@ -45,3 +45,6 @@ canvas {
 .box-team {
     margin-bottom: 30px;
 }
+html{
+    overflow-x: hidden;
+}
