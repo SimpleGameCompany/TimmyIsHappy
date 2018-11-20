@@ -32,13 +32,13 @@ class Obstacle extends HitableObject{
     }
 
     OnCollision(timeDelta, hitbox){
-        if(this._activeHit && this.position.x -(this._anchor.x*this.width) < this._player.position.x){
+        if(this._activeHit && this.position.x - this._player.width < this._player.position.x){
             this.CollisionEvent(timeDelta, hitbox);
         }
     }
     CollisionEvent(timeDelta, hitbox){
         this._active = false
-        PauseGame(null);
+        //PauseGame(null);
     }
 
 }
@@ -69,20 +69,27 @@ class Sewer extends Obstacle{
 class FlyingObject extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._deadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminatedogg.ogg",0);
-        this._loopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
+        this._deadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
+        this._loopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.3);
         this._spawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
     }
     OnClick(e){
-        //this._deadAudio.PlayOneShot();
+        this._deadAudio.PlayOneShot();
         super.OnClick(e,this._deadAudio);
+        this._loopAudio.Stop();
+        this.velocity = new Vector2(100,-50);
     }
 
     Update(timeDelta, hitbox){
-        if(this.position.x-(this.width*this._anchor.x) <= 1280 && !this._inCanvas){
+        if(this.position.x <= 1280 && !this._inCanvas){
             this._spawnAudio.PlayOneShot();
-            this._loopAudio.PlayOnLoop();
             this._inCanvas = true;
+            this.velocity = new Vector2(speed-20,20)
+        }else if(this.position.x+this._width <= 1290 && !this._stopped){
+            this._loopAudio.PlayOnLoop();
+            setTimeout(this._spawnAudio.Stop.bind(this._spawnAudio),10);
+            this._stopped = true;
+            this.velocity = new Vector2(0,0);
         }
             super.Update(timeDelta,hitbox);
         
@@ -101,7 +108,7 @@ class Poop extends Obstacle{
     }
 
     Update(timeDelta, hitbox){
-        if(this.position.x-(this.width*this._anchor.x) <= 1280 && !this._inCanvas){
+        if(this.position.x <= 1280 && !this._inCanvas){
             this._spawnAudio.PlayOneShot();
             this._inCanvas = true;
         }
@@ -122,7 +129,7 @@ class Dove extends Obstacle{
     }
 
     Update(timeDelta, hitbox){
-        if(this.position.x-(this.width*this._anchor.x) <= 1280 && !this._inCanvas){
+        if(this.position.x <= 1280 && !this._inCanvas){
             this._spawnAudio.PlayOneShot();
             this._inCanvas = true;
         }
@@ -321,7 +328,7 @@ function LoadLevel(jsonName,container){
                     let dog = new Dog(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber, obj.ladridos);
                     let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet.png",8,557,184,1/8,0);
                     totalLoading +=1;
-                    dog.anchor = new Vector2(0.5,0.5);
+                    dog.anchor = new Vector2(0,0.5);
                     dog.velocity = new Vector2(speed,0);
                     dog.AddAnimation(dogRunning,"run");
                     dog.SetAnimation("run");
@@ -332,7 +339,7 @@ function LoadLevel(jsonName,container){
                     let openSewer = new Animation("assets/img/Alcantarilla_spritesheet.png",4,105,39,1/8,0);
                     let closeSewer = new Animation("assets/img/Alcantarilla_spritesheet.png",4,105,39,1/8,105*4);
                     totalLoading +=2;
-                    sewer.anchor = new Vector2(0.5,0.5);
+                    sewer.anchor = new Vector2(0,0.5);
                     sewer.velocity = new Vector2(speed,0);
                     sewer.AddAnimation(openSewer,"open");
                     sewer.AddAnimation(closeSewer,"close");
@@ -357,7 +364,7 @@ function LoadLevel(jsonName,container){
                     let dove = new Dove(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber);
                     let doveAnim = new Animation("assets/img/Paloma_spritesheet.png",8,90,150,1/12,0);
                     totalLoading +=1;
-                    dove.anchor = new Vector2(0.5,0.5);
+                    dove.anchor = new Vector2(0,0.5);
                     dove.velocity = new Vector2(speed-20,0);
                     dove.AddAnimation(doveAnim,"idle");
                     dove.SetAnimation("idle");
@@ -367,17 +374,17 @@ function LoadLevel(jsonName,container){
                     let poop = new Poop(obj.name,new Vector2(obj.positionx,obj.positiony),"none", obj.height,obj.width,timmy,obj.hitnumber);
                     let poopAnim = new Animation("assets/img/Caca_spritesheet.png",4,33,55,1/8,0);
                     totalLoading +=1;
-                    poop.anchor = new Vector2(0.5,0.5);
+                    poop.anchor = new Vector2(0,0.5);
                     poop.velocity = new Vector2(speed,0);
                     poop.AddAnimation(poopAnim,"idle");
                     poop.SetAnimation("idle");
                     container[obj.layer].push(poop);
                 break;
                 case "plane":
-                    let plane = new FlyingObject(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,onj.width,obj.hitnumber);
+                    let plane = new FlyingObject(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber);
                     let planeAnim = new Animation("assets/img/Avion_spritesheet.png",4,1111,480,1/8,0);
                     totalLoading +=1;
-                    plane.anchor = new Vector2(0.5,0.5);
+                    plane.anchor = new Vector2(0,0.5);
                     plane.velocity = new Vector2(speed,0);
                     plane.AddAnimation(planeAnim,"idle");
                     plane.SetAnimation("idle");

@@ -51,5 +51,15 @@
         "width":90,
         "hitnumber":1,
         "layer":3
+    },
+    {
+        "type":"plane",
+        "name":"plane",
+        "positionx":1300,
+        "positiony":-240,
+        "height":480,
+        "width":1111,
+        "hitnumber":1,
+        "layer":3
     }
 ]
