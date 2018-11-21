@@ -38,7 +38,7 @@ class Obstacle extends HitableObject{
     }
     CollisionEvent(timeDelta, hitbox){
         this._active = false
-        LoseGame();
+        //LoseGame();
         //PauseGame(null);
     }
 
@@ -71,7 +71,7 @@ class FlyingObject extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
         this._deadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
-        this._loopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.3);
+        this._loopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.2);
         this._spawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
     }
     OnClick(e){
@@ -83,12 +83,13 @@ class FlyingObject extends Obstacle{
 
     Update(timeDelta, hitbox){
         if(this.position.x <= 1280 && !this._inCanvas){
+            this._spawnAudio.volume = 0.6;
             this._spawnAudio.PlayOneShot();
             this._inCanvas = true;
             this.velocity = new Vector2(speed-20,20)
         }else if(this.position.x+this._width <= 1290 && !this._stopped){
             this._loopAudio.PlayOnLoop();
-            setTimeout(this._spawnAudio.Stop.bind(this._spawnAudio),10);
+            setTimeout(this._spawnAudio.Stop.bind(this._spawnAudio),50);
             this._stopped = true;
             this.velocity = new Vector2(0,0);
         }
@@ -249,7 +250,7 @@ var totalLoading;
 var imageCount;
 window.addEventListener("load",function(ev){
     loading = $(".loading");
-   loading.hide();
+    loading.hide();
     canvasManager = new CanvasManager("gameCanvas",1280,720);
     StartMenuGame();
     canvasManager.Start();
