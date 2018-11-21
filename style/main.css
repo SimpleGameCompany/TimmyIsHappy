@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "dumb3d";
+    src: url("../sources/fonts/3Dumb.ttf");
+    }
+
 canvas {
     top: 0;
     left: 0;
@@ -42,9 +47,88 @@ canvas {
     margin:0 auto;
     padding: 10%
 }
+
+
+
 .box-team {
     margin-bottom: 30px;
 }
+.row-bottom-team{
+    margin-bottom: 2%
+}
+
+.team-color{
+    background-color: rgba(0, 0, 0, 0.712);
+}
+.row-top-howto{
+    
+    padding-bottom: 2%;
+
+}
+.howto-color{
+    background-color: rgba(0, 0, 0, 0.712);
+}
+.row-bottom-howto{
+    margin-bottom: 2%;
+
+}
+
+
+.responsive-title{
+    font-family: dumb3d;
+    text-align: center;
+    font-size:5vw;
+}
+
+
+.merchandising-color{
+    
+    background-color:rgba(0, 0, 0, 0.712);
+
+}
+
+.top-row-rounded{
+    border-radius: 25px 25px 0px 0px;
+}
+
+.bottom-row-rounded{
+    border-radius: 0px 0px 25px 25px;
+}
+.futer{
+    background-color:rgba(0, 0, 0, 0.712);
+    border-radius: 0px 0px 0px 0px; margin-top: 5%
+}
+.center-text{
+    text-align: center; 
+}
+.all-rounded{
+    border-radius: 25px 25px 25px 25px;
+}
+
+.ocultar{
+    display: none;
+}
+
 html{
+
     overflow-x: hidden;
 }
+
+.title-color{
+
+    color:rgb(0, 0, 0);
+    text-shadow: 0 0 1px rgb(0, 0, 0);
+}
+
+
+
+body{
+    background:  #5677a8; /* Old browsers */
+    background: -moz-linear-gradient(top,   #92b8f0 0%,  #5677a8 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #92b8f0 0%, #5677a8 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #92b8f0 0%, #5677a8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=' #5677a8', endColorstr='#7db9e8',GradientType=0 );
+    
+}
+
+

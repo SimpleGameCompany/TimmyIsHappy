@@ -284,8 +284,8 @@ class SpriteObject {
     //We only render if our Object is at the screen
 
 
-    if((xAbsoluteRight < 0 || xAbsoluteLeft > 1280) || (yAbsoluteDown < 0 || yAbsoluteUp>720)){}
-    else{
+    //if((xAbsoluteRight < 0 || xAbsoluteLeft > 1280) || (yAbsoluteDown < 0 || yAbsoluteUp>720)){}
+    //else{
     if (this.actualAnim == null)
       renderCanvas.drawImage(
         this.sprite,
@@ -295,7 +295,7 @@ class SpriteObject {
         this.height
       );
     else this.actualAnim.RenderFrame(renderCanvas, this.position);
-    }
+    //}
   }
 
   /**

@@ -5,17 +5,20 @@
         <link href="style/bootstrap4.min.css" rel="stylesheet">
         <link href="style/main.css" rel="stylesheet">
 
-        <title >Timmy Is Happy</title>
+        <title>Timmy Is Happy</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 </head>
 
-<body style="background-color: rgb(85, 219, 179); ">
+<body>
+        <!--style="background-color: rgb(85, 219, 179); "-->
         <section>
-                <div id="title_row" class="row">
-                                <div class="col-12"><h1 class="display-4" style="text-align:center; font-size:5vw;">Timmy is Happy</h1></div>
-                                
+                <div id="title_row" class="row justify-content-md-center">
+                        <div class="col-12">
+                                <h1 class="responsive-title title-color">Timmy is Happy</h1>
+                        </div>
+
                         <div class="col-4"></div>
-                        <div class=" col-4" style="text-align: center;">
+                        <div class=" col-4 center-text">
                                 <img src="assets/img/Caca_spritesheet.png" class="img-fluid" style=" height: auto; width: 30%">
                         </div>
                         <div class="col-4"></div>
@@ -27,14 +30,16 @@
                 <div id="subtitle_row" class="row justify-content-center">
 
                         <div class="col-4 pl-4 " style=" text-align: right;">
-                                <h4 ><a class="navbar-brand js-scroll-trigger " href="#howto_section">How to play </a>
-                                </h4>
+                                <h1><a class="navbar-brand js-scroll-trigger  title-color" href="#howto_section " >How
+                                                to play </a>
+                                </h1>
                         </div>
-                        <div class="col-1" style="text-align: center;">
+                        <div class="col-1 center-text">
                                 <h3>|</h3>
                         </div>
                         <div class="col-4" style="text-align: left;">
-                                <h4><a class="navbar-brand js-scroll-trigger" href="#team_section" >Team</a> </h4>
+                                <h1><a class="navbar-brand js-scroll-trigger title-color" href="#team_section">Team</a>
+                                </h1>
                         </div>
 
 
@@ -59,17 +64,21 @@
 
         </section>
 
+
+
         <section id="howto_section">
                 <div id="how_row" class="row ">
-                                <div class="col-2"></div>
-                                <div class="col-8 " style="text-align: center; background-color: rgb(194, 194, 194); border-radius: 25px 25px 0px 0px;"> <h1 style="font-size:5vw;" class="display-4">How to play</h1></div>
-                                <div class="col-2"></div>
-               
-                
-                        
                         <div class="col-2"></div>
-                        <div class="col-8 text-dark" style="margin-bottom: 5%; background-color: rgb(194, 194, 194); border-radius: 0px 0px 25px 25px;">
-                                <p class="text-justify ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
+                        <div class="col-8 text-light howto-color row-top-howto top-row-rounded">
+                                <h1 class=" responsive-title">How to play</h1>
+                        </div>
+                        <div class="col-2"></div>
+
+
+
+                        <div class="col-2"></div>
+                        <div class="col-8 text-light howto-color row-bottom-howto bottom-row-rounded ">
+                                <p class="text-justify lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
                                         viverra venenatis purus in pretium. Maecenas sed consequat mi. Etiam feugiat,
                                         odio vel consectetur tempor, purus ex tempus odio, ac rutrum lectus turpis sed
                                         dui. Sed nibh sem, accumsan non felis quis, blandit laoreet sapien. Aenean
@@ -111,8 +120,8 @@
         <section id="team_section">
                 <div id="team_row" class="row">
                         <div class="col-2"></div>
-                        <div class="col-8" style="background-color: rgb(172, 209, 103); border-radius: 25px 25px 0px 0px;">
-                                <h1 class="display-4"style="text-align: center;  font-size:5vw;">Team</h1>
+                        <div class="col-8 text-light team-color" style=" border-radius: 25px 25px 0px 0px;">
+                                <h1 class="responsive-title">Team</h1>
 
                         </div>
                         <div class="col-2"></div>
@@ -123,13 +132,13 @@
                         <div class="col-2"></div>
 
                         <!--los 6 en fila en XL: -->
-                        <div class="col-8 d-none d-xl-block " style="background-color: rgb(172, 209, 103);  border-radius: 0px 0px 25px 25px; margin-bottom: 1%">
+                        <div class="col-8 d-none d-xl-block text-light team-color row-bottom-team bottom-row-rounded">
                                 <div class="d-flex flex-row bd-highlight">
                                         <div class="p-2 bd-highlight">
                                                 <div class="box-team">
                                                         <img src="sources/img/Pablo.jpg" alt="" class="rounded-circle img-fluid"
                                                                 style="width: 712px; height: auto;">
-                                                        <h4 >Pablo Rodríguez Vicente</h4>
+                                                        <h4>Pablo Rodríguez Vicente</h4>
                                                         <p>Programmer</p>
                                                 </div>
                                         </div>
@@ -155,7 +164,7 @@
                                                         <img src="sources/img/Guille.jpg" alt="" class="rounded-circle img-fluid"
                                                                 style="width:712px; height: auto;">
                                                         <h4>Guille Amigó Urda</h4>
-                                                        <p>Game Designer / Sound</p>
+                                                        <p>Game Designer / Sound Designer</p>
                                                 </div>
                                         </div>
                                         <div class="p-2 flex-fill bd-highlight">
@@ -179,7 +188,7 @@
 
                         </div>
                         <!-- De 3 en 3 en lg-->
-                        <div class="col-8 d-none d-sm-block d-xl-none " style="background-color: rgb(172, 209, 103);  border-radius: 0px 0px 25px 25px; margin-bottom: 1%">
+                        <div class="col-8 d-none d-sm-block d-xl-none text-light team-color row-bottom-team bottom-row-rounded">
                                 <div class="d-flex flex-row bd-highlight">
                                         <div class="p-2 bd-highlight">
                                                 <div class="box-team">
@@ -214,7 +223,7 @@
                                                         <img src="sources/img/Guille.jpg" alt="" class="rounded-circle img-fluid"
                                                                 style="width:712px; height: auto;">
                                                         <h4>Guille Amigó Urda</h4>
-                                                        <p>Game Designer / Sound</p>
+                                                        <p>Game Designer / Sound Designer</p>
                                                 </div>
                                         </div>
                                         <div class="p-2  bd-highlight">
@@ -239,7 +248,7 @@
                         </div>
 
                         <!-- De 2 en 2 en xs-->
-                        <div class="col-8 d-block d-sm-none " style="background-color: rgb(172, 209, 103);  border-radius: 0px 0px 25px 25px; margin-bottom: 1%">
+                        <div class="col-8 d-block d-sm-none text-light team-color row-bottom-team bottom-row-rounded">
                                 <div class="d-flex flex-row bd-highlight">
                                         <div class="p-2 bd-highlight">
                                                 <div class="box-team">
@@ -275,7 +284,7 @@
                                                         <img src="sources/img/Guille.jpg" alt="" class="rounded-circle img-fluid"
                                                                 style="width:712px; height: auto;">
                                                         <h4>Guille Amigó Urda</h4>
-                                                        <p>Game Designer / Sound</p>
+                                                        <p>Game Designer / Sound Designer</p>
                                                 </div>
                                         </div>
                                 </div>
@@ -310,13 +319,95 @@
         </section>
 
 
+        <section id="merchandising_section">
+                <div >
+                        <div class="row ">
+                                <div class="col-2"></div>
+                                <div class="col-8 merchandising-color top-row-rounded all-rounded" class="container-fluid" onclick="window.open('https://simplegamecompany.github.io/portfolio/','mywindow');" style="cursor: pointer;">
+                                        <p class="text-light responsive-title">Support us!</p>
+                                </div>
+                                <div class="col-2"></div>
+                        </div>
+
+
+                        <div class="row ">
+
+                                <div class="col-2"></div>
+                                <div class="col-8 ocultar" style="padding-left: 0px; padding-right: 0px;" >
+                                        <div class="d-flex flex-row bd-highlight">
+
+                                                <div class="p-5 bd-highlight merchandising-color">
+                                                        <div class="box-team">
+                                                                <img src="sources/img/merchandising/camiseta_azul.png"
+                                                                        class="img-fluid" style=" height: auto; width: 100%">
+
+                                                        </div>
+                                                </div>
+
+                                                <div class="p-5 bd-highlight merchandising-color">
+                                                        <div class="box-team">
+                                                                <img src="sources/img/merchandising/camiseta_blanca.png"
+                                                                        class="img-fluid" style=" height: auto; width: 100%">
+
+                                                        </div>
+                                                </div>
+
+                                                <div class="p-5 bd-highlight merchandising-color">
+                                                        <div class="box-team">
+                                                                <img src="sources/img/merchandising/camiseta_roja.png"
+                                                                        class="img-fluid" style=" height: auto; width: 100%">
+
+                                                        </div>
+                                                </div>
+
+                                        </div>
+
+
+                                </div>
+                                <div class="col-2"></div>
+
+
+                                <!--
+
+
+                                <div class="col-2"></div>
+                                <div class="col-1 merchandising-color"></div>
+                                <div class="col-2 merchandising-color">
+                                        <img src="sources/img/merchandising/camiseta_azul.png" class="img-fluid" style=" height: auto; width: 100%">
+                                </div>
+                                <div class="col-2 merchandising-color">
+                                        <img src="sources/img/merchandising/camiseta_blanca.png" class="img-fluid"
+                                                style=" height: auto; width: 100%">
+                                </div>
+                                <div class="col-2 merchandising-color">
+                                        <img src="sources/img/merchandising/camiseta_roja.png" class="img-fluid" style=" height: auto; width: 100%">
+                                </div>
+                                <div class="col-1 merchandising-color "></div>
+                                <div class="col-2"></div>
+                        -->
+                        </div>
+
+                        <div class="row mb-5 ocultar" >
+                                <div class="col-2"></div>
+                                <div class="col-8  merchandising-color bottom-row-rounded">
+                                        <p class="h4"><br></p>
+                                </div>
+                                <div class="col-2"></div>
+                        </div>
+
+
+                </div>
+
+        </section>
+
+
         <section id="contact_section">
                 <footer>
                         <div class="container-fluid">
-                                <div class="row text-light bg-secondary" style="text-align: center;  border-radius: 60px 60px 0px 0px; margin-top: 5%">
-                                        <div class="col-2"></div>
-                                        <div class="col-8" style="text-align: center; ">
-                                                <h1 class="display-4" >Timmy is Happy</h1>
+                                <div class="row  text-light futer">
+
+                                        <div class="col-12 mt-6 center-text">
+                                                <h1 class="display-4">Simple Game Company</h1>
                                                 <p class="PDays">We’ve been working hard to make new games for the past
                                                         %% days!</p>
                                                 <script>
@@ -334,12 +425,13 @@
                                                         });
                                                 </script>
                                                 <p>
-                                                        --- <br> Copyright &copy; <a href="https://simplegamecompany.github.io/portfolio/" style="color:bisque">SimpleGameCompany.</a> All rights
+                                                        --- <br> Copyright &copy; <a href="https://simplegamecompany.github.io/portfolio/"
+                                                                style="color:bisque">SimpleGameCompany.</a> All rights
                                                         reserved.
                                                 </p>
 
                                         </div>
-                                        <div class="col-2"></div>
+
 
                                 </div>
                         </div>
@@ -347,6 +439,10 @@
 
 
         </section>
+
+
+
+
 
         <!--Resto de Scripts para Juego-->
         <script src="js/library/jquery-3.3.1.min.js"></script>
