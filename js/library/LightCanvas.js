@@ -393,9 +393,11 @@ class TextObject {
    * @param {String} text
    * @param {Vector2} pos
    */
-  constructor(text, pos) {
+  constructor(text, pos,fontSize) {
     this._position = pos;
     this._text = text;
+    this._font = "Arial";
+    this._fontSize = fontSize;
   }
 
   /**
@@ -422,6 +424,7 @@ class TextObject {
    * @param {CanvasRenderingContext2D} renderCanvas
    */
   Render(renderCanvas) {
+    renderCanvas.font =fontSize
     renderCanvas.fillText(this.text);
   }
 

@@ -38,7 +38,8 @@ class Obstacle extends HitableObject{
     }
     CollisionEvent(timeDelta, hitbox){
         this._active = false
-        PauseGame(null);
+        LoseGame();
+        //PauseGame(null);
     }
 
 }
@@ -241,13 +242,15 @@ var totalLoading;
 var imageCount;
 window.addEventListener("load",function(ev){
     loading = $(".loading");
-   
+   loading.hide();
     canvasManager = new CanvasManager("gameCanvas",1280,720);
-    canvasManager.ClearCanvas();
-    StartLoad();
-    LoadObjects(ev);
-    LoadLevel("nivel1",gameObjects);
+    StartMenuGame();
+    canvasManager.Start();
+
+   
 })
+
+
 window.addEventListener("keydown",function(ev){
     if(ev.key=="e"){
         canvasManager.ClearCanvas();
@@ -264,6 +267,47 @@ var timmy;
 var speed = -50;
 var transparencyPause;
 var pauseContinue;
+
+
+function StartMenuGame(){
+    canvasManager.ClearCanvas();
+    
+
+    if(menuObjects == undefined){
+        menuObjects = [];
+        menuObjects[0] = [];
+        menuObjects [1] = [];
+        let Fodo = new SpriteObject("fondo", new Vector2(0,0),"assets/img/fondoMenu.png",720,1280);
+        let continueButton = new HitableObject("continuar", new Vector2(640,350),"assets/img/play.png",200,300);
+        continueButton.anchor = new Vector2(0.5,0.5);
+        continueButton.OnClick = function(ev){
+            loadGameFromLevel(ev);
+        }
+        let opciones = new HitableObject("opciones", new Vector2(640,590),"assets/img/setings.png",100,200);
+        opciones.anchor = new Vector2(0.5,0.5);
+        menuObjects[0].push(Fodo);
+        menuObjects[1].push(continueButton);
+        menuObjects[1].push(opciones);
+    }
+        canvasManager.AddList(menuObjects);
+    
+}
+
+function loadGameFromLevel(ev){
+    StartLoad();
+    LoadObjects(ev);
+    LoadLevel("nivel1",gameObjects);
+}
+
+function LoseGame(){
+    //TODO
+    canvasManager.ClearCanvas();
+    for(let i = 0; i < 5; i++){
+        gameObjects[i] = [];
+    }
+    StartMenuGame();
+}
+
 function LoadObjects(ev){
     loadingCount = 0;
     totalLoading = 0;
@@ -286,10 +330,10 @@ function LoadObjects(ev){
     sun.velocity = new Vector2(0,0);
     sun.AddAnimation(sunAnim,"idle");
     sun.SetAnimation("idle");
-    gameObjects[0].push(sun);
+    //gameObjects[0].push(sun);
 
     let clouds = new Scrollable("clouds",new Vector2(0,0),"none",720,2560,"assets/img/Nubes_spritesheet.png",4,speed/8,8);
-    gameObjects[0].push(clouds);
+    //gameObjects[0].push(clouds);
     totalLoading++;
     let mountains = new Scrollable("mountains",new Vector2(0,0),"none",720,5120,"assets/img/Fondo_spritesheet.png",3,speed/2,8);
     gameObjects[0].push(mountains);
