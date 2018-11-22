@@ -213,7 +213,7 @@ class Scrollable{
         this.active = true;
         this.b1 = new SpriteObject(name, position, img, height, width);
         this.b1.velocity = new Vector2(vel,0);
-        let position2 = position.add(new Vector2(width,0));
+        let position2 = position.add(new Vector2(width-1,0));
         this.b2 = new SpriteObject(name, position2, img, height, width);
         this.b2.velocity = new Vector2(vel,0);
         let anim = new Animation(animName,frames,width,height,1/fps,0);
@@ -286,6 +286,11 @@ function StartMenuGame(){
         menuObjects[0] = [];
         menuObjects [1] = [];
         let Fodo = new SpriteObject("fondo", new Vector2(0,0),"assets/img/fondoMenu.png",720,1280);
+        //let Titulo = new SpriteObject("titulo",new Vector2(640,410),"none",813,978);
+        //let TituloAnim = new Animation("assets/img/Animated_Title_spritesheet.png",4,978,813,1/12,0);
+        Titulo.anchor = new Vector2(0.5,0.5);
+        Titulo.AddAnimation(TituloAnim,"idle");
+        Titulo.SetAnimation("idle");
         let continueButton = new HitableObject("continuar", new Vector2(640,350),"assets/img/play.png",200,300);
         continueButton.anchor = new Vector2(0.5,0.5);
         continueButton.OnClick = function(ev){
@@ -296,6 +301,7 @@ function StartMenuGame(){
         menuObjects[0].push(Fodo);
         menuObjects[1].push(continueButton);
         menuObjects[1].push(opciones);
+        //menuObjects[1].push(Titulo);
     }
         canvasManager.AddList(menuObjects);
     
@@ -338,18 +344,18 @@ function LoadObjects(ev){
     sun.velocity = new Vector2(0,0);
     sun.AddAnimation(sunAnim,"idle");
     sun.SetAnimation("idle");
-    //gameObjects[0].push(sun);
+    gameObjects[0].push(sun);
 
     let clouds = new Scrollable("clouds",new Vector2(0,0),"none",720,2560,"assets/img/Nubes_spritesheet.png",4,speed/8,8);
-    //gameObjects[0].push(clouds);
+    gameObjects[0].push(clouds);
     totalLoading++;
-    let mountains = new Scrollable("mountains",new Vector2(0,0),"none",720,5120,"assets/img/Fondo_spritesheet.png",3,speed/2,8);
+    let mountains = new Scrollable("mountains",new Vector2(0,325),"none",720,5120,"assets/img/Fondo_spritesheet.png",3,speed/2,8);
     gameObjects[0].push(mountains);
     totalLoading++;
-    let sidewalks = new Scrollable("sidewalks",new Vector2(0,0),"none",720,1280,"assets/img/Aceras_spritesheet.png",4,speed,8);
+    let sidewalks = new Scrollable("sidewalks",new Vector2(0,557),"none",720,1280,"assets/img/Aceras_spritesheet.png",4,speed,8);
     gameObjects[0].push(sidewalks);
     totalLoading++;
-    let road = new Scrollable("road",new Vector2(0,0),"none",720,1280,"assets/img/Carretera_spritesheet.png",4,speed,8);
+    let road = new Scrollable("road",new Vector2(0,589),"none",720,1280,"assets/img/Carretera_spritesheet.png",4,speed,8);
     gameObjects[0].push(road);
     totalLoading++;
     let opciones = new HitableObject("opciones",new Vector2(1280,0),"assets/img/opciones.png",50,50);
