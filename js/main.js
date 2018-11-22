@@ -37,7 +37,7 @@ class Obstacle extends HitableObject{
         }
     }
     CollisionEvent(timeDelta, hitbox){
-        this._active = false
+        this._activeHit = false
         LoseGame();
         //PauseGame(null);
     }
@@ -63,6 +63,13 @@ class Sewer extends Obstacle{
             this._openAudio.PlayOneShot();
             //canvasManager.clickObjects.delete(this.hitColor);
             this.SetAnimation("open");
+        }
+
+    }
+
+    CollisionEvent(timeDelta,hitbox){
+        if(this._open){
+            super.CollisionEvent();
         }
     }
 }
@@ -249,7 +256,7 @@ var totalLoading;
 var imageCount;
 window.addEventListener("load",function(ev){
     loading = $(".loading");
-   loading.hide();
+    loading.hide();
     canvasManager = new CanvasManager("gameCanvas",1280,720);
     StartMenuGame();
     canvasManager.Start();
@@ -308,11 +315,30 @@ function loadGameFromLevel(ev){
 
 function LoseGame(){
     //TODO
+  
+    canvasManager.RenderAndUpdate(0);
+    let image = canvasManager.canvasScene.getImageData(0,0,1280,720);
+    let d = image.data;
+    for (var i=0; i<d.length; i+=4) {
+        var r = d[i];
+        var g = d[i+1];
+        var b = d[i+2];
+        d[i] = (r * .393) + (g *.769) + (b * .189);
+        d[i+1] = (r * .349) + (g *.686) + (b * .168);
+        d[i+2] = (r * .272) + (g *.534) + (b * .131);
+      }
+    canvasManager.canvasScene.putImageData(image,0,0);
+    let fondo = new SpriteObject("fondo",new Vector2(0,0),canvasManager.canvasElement.toDataURL(),720,1280);
     canvasManager.ClearCanvas();
     for(let i = 0; i < 5; i++){
         gameObjects[i] = [];
     }
-    StartMenuGame();
+    canvasManager.AddObject(fondo,0);
+    canvasManager.canvasScene.filter = "";
+    canvasManager.AddObject(pauseContinue,4);
+    
+
+    //StartMenuGame();
 }
 
 function LoadObjects(ev){
@@ -337,10 +363,10 @@ function LoadObjects(ev){
     sun.velocity = new Vector2(0,0);
     sun.AddAnimation(sunAnim,"idle");
     sun.SetAnimation("idle");
-    //gameObjects[0].push(sun);
+    gameObjects[0].push(sun);
 
     let clouds = new Scrollable("clouds",new Vector2(0,0),"none",720,2560,"assets/img/Nubes_spritesheet.png",4,speed/8,8);
-    //gameObjects[0].push(clouds);
+    gameObjects[0].push(clouds);
     totalLoading++;
     let mountains = new Scrollable("mountains",new Vector2(0,0),"none",720,5120,"assets/img/Fondo_spritesheet.png",3,speed/2,8);
     gameObjects[0].push(mountains);
