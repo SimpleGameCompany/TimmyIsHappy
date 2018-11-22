@@ -288,9 +288,9 @@ function StartMenuGame(){
         let Fodo = new SpriteObject("fondo", new Vector2(0,0),"assets/img/fondoMenu.png",720,1280);
         //let Titulo = new SpriteObject("titulo",new Vector2(640,410),"none",813,978);
         //let TituloAnim = new Animation("assets/img/Animated_Title_spritesheet.png",4,978,813,1/12,0);
-        Titulo.anchor = new Vector2(0.5,0.5);
-        Titulo.AddAnimation(TituloAnim,"idle");
-        Titulo.SetAnimation("idle");
+        //Titulo.anchor = new Vector2(0.5,0.5);
+        //Titulo.AddAnimation(TituloAnim,"idle");
+        //Titulo.SetAnimation("idle");
         let continueButton = new HitableObject("continuar", new Vector2(640,350),"assets/img/play.png",200,300);
         continueButton.anchor = new Vector2(0.5,0.5);
         continueButton.OnClick = function(ev){
