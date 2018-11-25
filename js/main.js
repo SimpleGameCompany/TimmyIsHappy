@@ -45,23 +45,63 @@ class Obstacle extends HitableObject{
 
 }
 
+class SoundManager{
+    LoadSounds(){
+        this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
+        this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0);
+        this._AvionDeadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
+        this._AvionLoopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
+        this._AvionSpawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
+        this._PalomaDeadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg",0);
+        this._PalomaSpawnAudio = new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0);
+        this._CacaDeadAudio = new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg",0);
+        this._CacaSpawnAudio = new AudioObject("assets/audio/Caca/Caca_Spawn.ogg",0);
+        this._CocheLoopAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg",0.9);
+        this._CocheClaxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0);
+        this._CocheDeadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0);
+        this._PerroDeadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
+        this._PerroWarnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
+        this._PerroAttackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);
+    }
+
+    StopAudio(){
+        this._openAudio.Stop();
+        this._closeAudio.Stop();
+        this._AvionDeadAudio.Stop();
+        this._AvionLoopAudio.Stop();
+        this._AvionSpawnAudio.Stop();
+        this._PalomaDeadAudio.Stop();
+        this._PalomaSpawnAudio.Stop();
+        this._CacaDeadAudio.Stop();
+        this._CacaSpawnAudio.Stop();
+        this._CocheLoopAudio.Stop();
+        this._CocheClaxonAudio.Stop();
+        this._CocheDeadAudio.Stop();
+        this._PerroDeadAudio.Stop();
+        this._PerroWarnAudio.Stop();
+        this._PerroAttackAudio.Stop();
+    }
+}
+
+var soundManager = new SoundManager();
+
 class Sewer extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits, open){
         super(name, position, imgSrc, height, width, player, hits);
         this._open = open;
-        this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
-        this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0);
+        //this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
+        //this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0);
     }
 
     OnClick(e){
         if(this._open){
             this._open = !this._open;
-            this._closeAudio.PlayOneShot();
+            soundManager._closeAudio.PlayOneShot();
             //canvasManager.clickObjects.delete(this.hitColor);
             this.SetAnimation("close");
         }else{
             this._open = !this._open;
-            this._openAudio.PlayOneShot();
+            soundManager._openAudio.PlayOneShot();
             //canvasManager.clickObjects.delete(this.hitColor);
             this.SetAnimation("open");
         }
@@ -78,26 +118,25 @@ class Sewer extends Obstacle{
 class FlyingObject extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._deadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
-        this._loopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
-        this._spawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
+        //this._deadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
+        //this._loopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
+        //this._spawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
     }
     OnClick(e){
-        this._deadAudio.PlayOneShot();
-        super.OnClick(e,this._deadAudio);
-        this._loopAudio.Stop();
+        super.OnClick(e,soundManager._AvionDeadAudio);
+        soundManager._AvionLoopAudio.Stop();
         this.velocity = new Vector2(100,-50);
     }
 
     Update(timeDelta, hitbox){
         if(this.position.x <= 1280 && !this._inCanvas){
-            this._spawnAudio.volume = 0.6;
-            this._spawnAudio.PlayOneShot();
+            soundManager._AvionSpawnAudio.volume = 0.6;
+            soundManager._AvionSpawnAudio.PlayOneShot();
             this._inCanvas = true;
             this.velocity = new Vector2(speed-20,20)
         }else if(this.position.x+this._width <= 1500 && !this._stopped){
-            this._loopAudio.PlayOnLoop();
-            setTimeout(this._spawnAudio.Stop.bind(this._spawnAudio),50);
+            soundManager._AvionLoopAudio.PlayOnLoop();
+            setTimeout(soundManager._AvionSpawnAudio.Stop.bind(this._spawnAudio),50);
             this._stopped = true;
             this.velocity = new Vector2(0,0);
         }
@@ -109,17 +148,17 @@ class FlyingObject extends Obstacle{
 class Poop extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._deadAudio = new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg",0);
-        this._spawnAudio = new AudioObject("assets/audio/Caca/Caca_Spawn.ogg",0);
+        //this._deadAudio = new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg",0);
+        //this._spawnAudio = new AudioObject("assets/audio/Caca/Caca_Spawn.ogg",0);
     }
 
     OnClick(e){
-        super.OnClick(e,this._deadAudio);
+        super.OnClick(e,soundManager._CacaDeadAudio.PlayOneShot());
     }
 
     Update(timeDelta, hitbox){
         if(this.position.x <= 1280 && !this._inCanvas){
-            this._spawnAudio.PlayOneShot();
+            soundManager._CacaSpawnAudio.PlayOneShot();
             this._inCanvas = true;
         }
             super.Update(timeDelta,hitbox);
@@ -130,17 +169,17 @@ class Poop extends Obstacle{
 class Dove extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._deadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg",0);
-        this._spawnAudio = new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0);
+        //this._deadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg",0);
+        //this._spawnAudio = new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0);
     }
 
     OnClick(e){
-        super.OnClick(e,this._deadAudio);
+        super.OnClick(e,soundManager._PalomaDeadAudio);
     }
 
     Update(timeDelta, hitbox){
         if(this.position.x <= 1280 && !this._inCanvas){
-            this._spawnAudio.PlayOneShot();
+            soundManager._PalomaSpawnAudio.PlayOneShot();
             this._inCanvas = true;
         }
             super.Update(timeDelta,hitbox);
@@ -151,20 +190,20 @@ class Dove extends Obstacle{
 class Car extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._loopAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg",0.9);
-        this._claxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0);
-        this._deadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0);
+        //this._loopAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg",0.9);
+        //this._claxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0);
+        //this._deadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0);
         this._inCanvas = false;
     }
 
     OnClick(e){
-        this._loopAudio.Stop();
-        super.OnClick(e,this._deadAudio);
+        soundManager._CocheLoopAudio.Stop();
+        super.OnClick(e,soundManager._CocheDeadAudio);
     }
 
     Update(timeDelta, hitbox){
         if(this.position.x-(this.width*this._anchor.x) <= 1280 && !this._inCanvas){
-            this._loopAudio.PlayOnLoop();
+            soundManager._CocheLoopAudio.PlayOnLoop();
             this._inCanvas = true;
         }
             super.Update(timeDelta,hitbox);
@@ -179,15 +218,14 @@ class Dog extends Obstacle{
         this._stopped = false;
         this.interval;
         this._dead = false;
-        this._deadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
-        this._warnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
-        this._attackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);
+        //this._deadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
+        //this._warnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
+        //this._attackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);
     }
 
     OnClick(e){
-        super.OnClick(e);
+        super.OnClick(e,soundManager._PerroDeadAudio);
         if(this._hits == 0){
-            this._deadAudio.PlayOneShot();
             if(this.interval){
                 clearInterval(this.interval);
             }
@@ -199,7 +237,7 @@ class Dog extends Obstacle{
     Update(timeDelta, hitbox){
         if(this._bark == 0 && !this._dead){
             clearInterval(this.interval);
-            this._attackAudio.PlayOneShot();
+            soundManager._PerroAttackAudio.PlayOneShot();
             this.velocity = new Vector2(speed+65,0);
         }else if(this.position.x <= 1200 && !this._stopped && !this._dead){
             this.interval = setInterval(this.Ladrar.bind(this),1000);
@@ -210,7 +248,7 @@ class Dog extends Obstacle{
 
     Ladrar() {
         this.SetAnimation("ladrar");
-        this._warnAudio.PlayOneShot();
+        soundManager._PerroWarnAudio.PlayOneShot();
         this._bark--;
         console.log("Guau");
     }
@@ -324,7 +362,7 @@ function loadGameFromLevel(ev){
 
 function LoseGame(){
     //TODO
-
+    soundManager.StopAudio();
     canvasManager.RenderAndUpdate(0);
     let image = canvasManager.canvasScene.getImageData(0,0,1280,720);
     let d = image.data;
@@ -413,7 +451,7 @@ function LoadLevel(jsonName,container){
         for(var obj of json){
             switch(obj.type){
                 case "dog":
-                    let dog = new Dog(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber, obj.ladridos);
+                    let dog = new Dog(obj.name,new Vector2(obj.positionx,500),"none",obj.height,obj.width,timmy,obj.hitnumber, obj.ladridos);
                     let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet.png",8,557,184,1/8,0);
                     totalLoading +=1;
                     //dog.anchor = new Vector2(0,0.5);
@@ -449,7 +487,7 @@ function LoadLevel(jsonName,container){
                     container[obj.layer].push(car);
                 break;
                 case "dove":
-                    let dove = new Dove(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber);
+                    let dove = new Dove(obj.name,new Vector2(obj.positionx,0),"none",obj.height,obj.width,timmy,obj.hitnumber);
                     let doveAnim = new Animation("assets/img/Paloma_spritesheet.png",8,90,150,1/12,0);
                     totalLoading +=1;
                     //dove.anchor = new Vector2(0,0.5);
@@ -469,7 +507,7 @@ function LoadLevel(jsonName,container){
                     container[obj.layer].push(poop);
                 break;
                 case "plane":
-                    let plane = new FlyingObject(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber);
+                    let plane = new FlyingObject(obj.name,new Vector2(obj.positionx,-480),"none",obj.height,obj.width,timmy,obj.hitnumber);
                     let planeAnim = new Animation("assets/img/Avion_spritesheet.png",4,1112,480,1/8,0);
                     totalLoading +=1;
                     //plane.anchor = new Vector2(0,0.5);
@@ -481,6 +519,8 @@ function LoadLevel(jsonName,container){
                 default:
                 break;
             }
+            soundManager.LoadSounds();
+            //totalLoading+=14;
         }
         StartGame(container,10);
     });
