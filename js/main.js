@@ -319,7 +319,7 @@ document.addEventListener("dblclick",function(ev){
 
 var timmy; 
 var jojoMensaje;
-var speed = -50;
+var speed;
 var transparencyPause;
 var pauseContinue;
 
@@ -383,8 +383,8 @@ function LoseGame(){
 
     canvasManager.AddObject(fondo,0);
     canvasManager.canvasScene.filter = "";
-    canvasManager.AddObject(pauseContinue,4);
-    canvasManager.AddObject(jojoMensaje,4);
+    canvasManager.AddObject(pauseContinue,5);
+    canvasManager.AddObject(jojoMensaje,5);
     
 
     //StartMenuGame();
@@ -394,7 +394,7 @@ function LoadObjects(ev){
     loadingCount = 0;
     totalLoading = 0;
     gameObjects = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         gameObjects[i] = [];
     }
 
@@ -421,29 +421,29 @@ function LoadObjects(ev){
     sun.SetAnimation("idle");
     gameObjects[0].push(sun);
 
-    let clouds = new Scrollable("clouds",new Vector2(0,0),"none",720,2560,"assets/img/Nubes_spritesheet.png",4,speed/8,8);
+    let clouds = new Scrollable("clouds",new Vector2(0,0),"none",720,2560,"assets/img/Nubes_spritesheet.png",4,-50/8,8);
     gameObjects[0].push(clouds);
     totalLoading++;
-    let mountains = new Scrollable("mountains",new Vector2(0,325),"none",720,5120,"assets/img/Fondo_spritesheet.png",3,speed/2,8);
+    let mountains = new Scrollable("mountains",new Vector2(0,325),"none",720,5120,"assets/img/Fondo_spritesheet.png",3,-50/2,8);
     gameObjects[0].push(mountains);
     totalLoading++;
-    let sidewalks = new Scrollable("sidewalks",new Vector2(0,557),"none",720,1280,"assets/img/Aceras_spritesheet.png",4,speed,8);
+    let sidewalks = new Scrollable("sidewalks",new Vector2(0,557),"none",720,1280,"assets/img/Aceras_spritesheet.png",4,-50,8);
     gameObjects[0].push(sidewalks);
     totalLoading++;
-    let road = new Scrollable("road",new Vector2(0,589),"none",720,1280,"assets/img/Carretera_spritesheet.png",4,speed,8);
+    let road = new Scrollable("road",new Vector2(0,589),"none",720,1280,"assets/img/Carretera_spritesheet.png",4,-50,8);
     gameObjects[0].push(road);
     totalLoading++;
     let opciones = new HitableObject("opciones",new Vector2(1280,0),"assets/img/opciones.png",50,50);
     opciones.anchor = new Vector2(1,0);
     opciones.OnClick = PauseGame;
-    gameObjects[4].push(opciones);
+    gameObjects[5].push(opciones);
 
     transparencyPause = new SpriteObject("transparencia",new Vector2(0,0),"assets/img/fondo.png",720,1280);
     pauseContinue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
     pauseContinue.OnClick = function(ev){canvasManager.ClearCanvas();canvasManager.AddList(gameObjects)}
     pauseContinue.anchor = new Vector2(0.5,0.5);
     let text = new TextObject("Prueba", new Vector2(0,0),"24px");
-    gameObjects[4].push(text);
+    gameObjects[5].push(text);
 
 }
 
@@ -452,18 +452,21 @@ function LoadLevel(jsonName,container){
     $.getJSON("assets/files/"+jsonName+".json", function (json) {
         for(var obj of json){
             switch(obj.type){
+                case "speed":
+                    speed = obj.speed;
+                break;
                 case "dog":
-                    let dog = new Dog(obj.name,new Vector2(obj.positionx,500),"none",obj.height,obj.width,timmy,obj.hitnumber, obj.ladridos);
+                    let dog = new Dog("perro",new Vector2(obj.positionx,500),"none",184,557,timmy, 1, 3);
                     let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet.png",8,557,184,1/8,0);
                     totalLoading +=1;
                     //dog.anchor = new Vector2(0,0.5);
                     dog.velocity = new Vector2(speed,0);
                     dog.AddAnimation(dogRunning,"run");
                     dog.SetAnimation("run");
-                    container[obj.layer].push(dog);
+                    container[3].push(dog);
                 break;
                 case "sewer":
-                    let sewer = new Sewer(obj.name,new Vector2(obj.positionx,635),"none",obj.height,obj.width,timmy,obj.hitnumber, obj.open);
+                    let sewer = new Sewer("alcantarilla",new Vector2(obj.positionx,635),"none",39,105,timmy,1, obj.open);
                     let openSewer = new Animation("assets/img/Alcantarilla_spritesheet.png",4,105,39,1/8,0);
                     let closeSewer = new Animation("assets/img/Alcantarilla_spritesheet.png",4,105,39,1/8,105*4);
                     totalLoading +=2;
@@ -476,47 +479,47 @@ function LoadLevel(jsonName,container){
                     }else{
                         sewer.SetAnimation("close");
                     }
-                    container[obj.layer].push(sewer);
+                    container[1].push(sewer);
                 break;
                 case "car":
-                    let car = new Car(obj.name,new Vector2(obj.positionx,460),"none",obj.height,obj.width,timmy,obj.hitnumber);
+                    let car = new Car("coche",new Vector2(obj.positionx,460),"none",184,557,timmy,2);
                     let carAnim = new Animation("assets/img/Coche_spritesheet.png",8,557,184,1/12,0);
                     totalLoading +=1;
                     //car.anchor = new Vector2(0,0.5);
                     car.velocity = new Vector2(speed - 20,0);
                     car.AddAnimation(carAnim,"idle");
                     car.SetAnimation("idle");
-                    container[obj.layer].push(car);
+                    container[4].push(car);
                 break;
                 case "dove":
-                    let dove = new Dove(obj.name,new Vector2(obj.positionx,0),"none",obj.height,obj.width,timmy,obj.hitnumber);
+                    let dove = new Dove("paloma",new Vector2(obj.positionx,obj.positiony),"none",150,90,timmy,1);
                     let doveAnim = new Animation("assets/img/Paloma_spritesheet.png",8,90,150,1/12,0);
                     totalLoading +=1;
                     //dove.anchor = new Vector2(0,0.5);
                     dove.velocity = new Vector2(speed-20,0);
                     dove.AddAnimation(doveAnim,"idle");
                     dove.SetAnimation("idle");
-                    container[obj.layer].push(dove);
+                    container[3].push(dove);
                 break;
                 case "poop":
-                    let poop = new Poop(obj.name,new Vector2(obj.positionx,615),"none", obj.height,obj.width,timmy,obj.hitnumber);
+                    let poop = new Poop("caca",new Vector2(obj.positionx,615),"none", 55,33,timmy,1);
                     let poopAnim = new Animation("assets/img/Caca_spritesheet.png",4,33,55,1/8,0);
                     totalLoading +=1;
                     //poop.anchor = new Vector2(0,0.5);
                     poop.velocity = new Vector2(speed,0);
                     poop.AddAnimation(poopAnim,"idle");
                     poop.SetAnimation("idle");
-                    container[obj.layer].push(poop);
+                    container[1].push(poop);
                 break;
                 case "plane":
-                    let plane = new FlyingObject(obj.name,new Vector2(obj.positionx,-480),"none",obj.height,obj.width,timmy,obj.hitnumber);
+                    let plane = new FlyingObject("avion",new Vector2(obj.positionx,-480),"none",480,1111,timmy,2);
                     let planeAnim = new Animation("assets/img/Avion_spritesheet.png",4,1112,480,1/8,0);
                     totalLoading +=1;
                     //plane.anchor = new Vector2(0,0.5);
                     plane.velocity = new Vector2(speed,0);
                     plane.AddAnimation(planeAnim,"idle");
                     plane.SetAnimation("idle");
-                    container[obj.layer].push(plane);
+                    container[4].push(plane);
                 break; 
                 default:
                 break;

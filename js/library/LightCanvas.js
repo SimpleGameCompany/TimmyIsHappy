@@ -241,6 +241,7 @@ class SpriteObject {
   set width(w) {
     this._width = w;
   }
+
   set position(pos) {
     this._position = pos;
   }
@@ -455,7 +456,7 @@ class CanvasManager {
     this.hitScene = this.hitcanvas.getContext("2d");
     CanvasManager.actualScene = this.canvasScene;
     this.objectList = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
       this.objectList[i] = [];
     }
     this.timePased = 0;
