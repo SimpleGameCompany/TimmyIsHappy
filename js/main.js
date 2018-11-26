@@ -22,6 +22,7 @@ class Obstacle extends HitableObject{
             audio.PlayOneShot();
             this.deactivate();
             canvasManager.clickObjects.delete(this.hitColor);
+            this.active = false;
             //this.SetAnimation("clicked");
         }
     }
@@ -130,6 +131,7 @@ class FlyingObject extends Obstacle{
             soundManager._AvionLoopAudio.Stop();
             soundManager._AvionSpawnAudio.Stop();
             this.velocity = new Vector2(100,-50);
+            this.active = false;
         }
     }
 
