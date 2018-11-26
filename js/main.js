@@ -79,6 +79,7 @@ class SoundManager{
         this._CocheClaxonAudio.Stop();
         this._CocheDeadAudio.Stop();
         this._PerroDeadAudio.Stop();
+        this._PerroBarkAudio.Stop();
         this._PerroWarnAudio.Stop();
         this._PerroAttackAudio.Stop();
     }
@@ -157,7 +158,7 @@ class Poop extends Obstacle{
     }
 
     OnClick(e){
-        super.OnClick(e,soundManager._CacaDeadAudio.PlayOneShot());
+        super.OnClick(e,soundManager._CacaDeadAudio);
     }
 
     Update(timeDelta, hitbox){
@@ -224,6 +225,7 @@ class Dog extends Obstacle{
         this._stopped = false;
         this.interval;
         this._dead = false;
+        this._attacking = false;
         //this._deadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
         //this._warnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
         //this._attackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);
@@ -240,10 +242,11 @@ class Dog extends Obstacle{
     }
 
     Update(timeDelta, hitbox){
-        if(this._bark == 0 && !this._dead){
+        if(this._bark == 0 && !this._dead && !this._attacking){
             clearInterval(this.interval);
             soundManager._PerroAttackAudio.PlayOneShot();
-            this.velocity = new Vector2(speed+65,0);
+            this.velocity = new Vector2(speed-65,0);
+            this._attacking = true;
         }else if(this.position.x <= 1200 && !this._stopped && !this._dead){
             soundManager._PerroWarnAudio.PlayOneShot();
             this.interval = setInterval(this.Ladrar.bind(this),1000);
@@ -253,7 +256,7 @@ class Dog extends Obstacle{
     }
 
     Ladrar() {
-        this.SetAnimation("ladrar");
+        //this.SetAnimation("ladrar");
         soundManager._PerroBarkAudio.PlayOneShot();
         this._bark--;
         console.log("Guau");
@@ -462,8 +465,8 @@ function LoadLevel(jsonName,container){
                     speed = obj.speed;
                 break;
                 case "dog":
-                    let dog = new Dog("perro",new Vector2(obj.positionx,500),"none",184,557,timmy, 1, 3);
-                    let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet.png",8,557,184,1/8,0);
+                    let dog = new Dog("perro",new Vector2(obj.positionx,500),"none",184,209,timmy, 1, 3);
+                    let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet.png",8,209,184,1/16,0);
                     totalLoading +=1;
                     //dog.anchor = new Vector2(0,0.5);
                     dog.velocity = new Vector2(speed,0);
