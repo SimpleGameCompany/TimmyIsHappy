@@ -101,12 +101,21 @@ canvas {
     font-family: dumb3d;
     text-align: center;
     font-size:6.5vw;
+    padding-top: 2%;
+}
+.title-section{
+    font-family: dumb3d;
+    text-align: center;
+    font-size:6.5vw;
+    padding-top: 4%;
+    padding-bottom: 2%;
 }
 
 #header_title {
     font-family: dumb3d;
     text-align: center;
-    font-size: 8vw;
+    font-size: 6vw;
+    padding-bottom: 1%;
 }
 
 .merchandising-color {
@@ -119,6 +128,7 @@ canvas {
 
 .bottom-row-rounded{
     border-radius: 0px 0px 25px 25px;
+    padding-bottom: 2%;
 }
 
 .futer {
@@ -138,16 +148,28 @@ canvas {
     display: none;
 }
 
-@media screen and (min-width: 501px) {
+@media screen and (min-width: 1000px) {
     .header_sub {
-      font-size: 20px;
+      font-size: 30px;
+      
+    }
+
+    .text-justify {
+        padding-left: 60px;
+        padding-right: 60px;
     }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 999px) {
     .header_sub {
-      font-size: 14px;
+      font-size: 3vw;
     }
+
+    .text-justify {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
 }
 
 html {
@@ -156,11 +178,20 @@ html {
 
 .title-color {
     color:rgb(0, 0, 0);
-    text-shadow: 0 0 1px rgb(0, 0, 0);
+    text-shadow: 0 0 30px rgb(0, 5, 29);
+}
+.header_sub{
+    text-shadow: 0 0 2px rgb(0, 5, 29);
+}
+.title-footer{
+    padding-top: 1%;
 }
 
 .teamName {
     font-size: 18px;
+}
+.teamImage{
+    width: 712px; height: auto;
 }
 
 .teamRole {
@@ -168,13 +199,13 @@ html {
 }
 
 body {
-    /* 
+    
     background:  #5677a8;
     background: -moz-linear-gradient(top,   #92b8f0 0%,  #5677a8 100%);
     background: -webkit-linear-gradient(top,  #92b8f0 0%, #5677a8 100%);
     background: linear-gradient(to bottom,  #92b8f0 0%, #5677a8 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=' #5677a8', endColorstr='#7db9e8',GradientType=0 );
-    */
+    
 
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
