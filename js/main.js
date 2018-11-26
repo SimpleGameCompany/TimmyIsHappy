@@ -38,29 +38,70 @@ class Obstacle extends HitableObject{
     }
     CollisionEvent(timeDelta, hitbox){
         this._activeHit = false
-        //LoseGame();
+        
+        LoseGame();
         //PauseGame(null);
     }
 
 }
 
+class SoundManager{
+    LoadSounds(){
+        this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
+        this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0);
+        this._AvionDeadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
+        this._AvionLoopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
+        this._AvionSpawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
+        this._PalomaDeadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg",0);
+        this._PalomaSpawnAudio = new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0);
+        this._CacaDeadAudio = new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg",0);
+        this._CacaSpawnAudio = new AudioObject("assets/audio/Caca/Caca_Spawn.ogg",0);
+        this._CocheLoopAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg",0.9);
+        this._CocheClaxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0);
+        this._CocheDeadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0);
+        this._PerroDeadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
+        this._PerroWarnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
+        this._PerroAttackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);
+    }
+
+    StopAudio(){
+        this._openAudio.Stop();
+        this._closeAudio.Stop();
+        this._AvionDeadAudio.Stop();
+        this._AvionLoopAudio.Stop();
+        this._AvionSpawnAudio.Stop();
+        this._PalomaDeadAudio.Stop();
+        this._PalomaSpawnAudio.Stop();
+        this._CacaDeadAudio.Stop();
+        this._CacaSpawnAudio.Stop();
+        this._CocheLoopAudio.Stop();
+        this._CocheClaxonAudio.Stop();
+        this._CocheDeadAudio.Stop();
+        this._PerroDeadAudio.Stop();
+        this._PerroWarnAudio.Stop();
+        this._PerroAttackAudio.Stop();
+    }
+}
+
+var soundManager = new SoundManager();
+
 class Sewer extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits, open){
         super(name, position, imgSrc, height, width, player, hits);
         this._open = open;
-        this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
-        this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0);
+        //this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
+        //this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0);
     }
 
     OnClick(e){
         if(this._open){
             this._open = !this._open;
-            this._closeAudio.PlayOneShot();
+            soundManager._closeAudio.PlayOneShot();
             //canvasManager.clickObjects.delete(this.hitColor);
             this.SetAnimation("close");
         }else{
             this._open = !this._open;
-            this._openAudio.PlayOneShot();
+            soundManager._openAudio.PlayOneShot();
             //canvasManager.clickObjects.delete(this.hitColor);
             this.SetAnimation("open");
         }
@@ -77,26 +118,25 @@ class Sewer extends Obstacle{
 class FlyingObject extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._deadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
-        this._loopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.2);
-        this._spawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
+        //this._deadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
+        //this._loopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
+        //this._spawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
     }
     OnClick(e){
-        this._deadAudio.PlayOneShot();
-        super.OnClick(e,this._deadAudio);
-        this._loopAudio.Stop();
+        super.OnClick(e,soundManager._AvionDeadAudio);
+        soundManager._AvionLoopAudio.Stop();
         this.velocity = new Vector2(100,-50);
     }
 
     Update(timeDelta, hitbox){
         if(this.position.x <= 1280 && !this._inCanvas){
-            this._spawnAudio.volume = 0.6;
-            this._spawnAudio.PlayOneShot();
+            soundManager._AvionSpawnAudio.volume = 0.6;
+            soundManager._AvionSpawnAudio.PlayOneShot();
             this._inCanvas = true;
             this.velocity = new Vector2(speed-20,20)
-        }else if(this.position.x+this._width <= 1290 && !this._stopped){
-            this._loopAudio.PlayOnLoop();
-            setTimeout(this._spawnAudio.Stop.bind(this._spawnAudio),50);
+        }else if(this.position.x+this._width <= 1500 && !this._stopped){
+            soundManager._AvionLoopAudio.PlayOnLoop();
+            setTimeout(soundManager._AvionSpawnAudio.Stop.bind(this._spawnAudio),50);
             this._stopped = true;
             this.velocity = new Vector2(0,0);
         }
@@ -108,17 +148,17 @@ class FlyingObject extends Obstacle{
 class Poop extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._deadAudio = new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg",0);
-        this._spawnAudio = new AudioObject("assets/audio/Caca/Caca_Spawn.ogg",0);
+        //this._deadAudio = new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg",0);
+        //this._spawnAudio = new AudioObject("assets/audio/Caca/Caca_Spawn.ogg",0);
     }
 
     OnClick(e){
-        super.OnClick(e,this._deadAudio);
+        super.OnClick(e,soundManager._CacaDeadAudio.PlayOneShot());
     }
 
     Update(timeDelta, hitbox){
         if(this.position.x <= 1280 && !this._inCanvas){
-            this._spawnAudio.PlayOneShot();
+            soundManager._CacaSpawnAudio.PlayOneShot();
             this._inCanvas = true;
         }
             super.Update(timeDelta,hitbox);
@@ -129,17 +169,17 @@ class Poop extends Obstacle{
 class Dove extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._deadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg",0);
-        this._spawnAudio = new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0);
+        //this._deadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg",0);
+        //this._spawnAudio = new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0);
     }
 
     OnClick(e){
-        super.OnClick(e,this._deadAudio);
+        super.OnClick(e,soundManager._PalomaDeadAudio);
     }
 
     Update(timeDelta, hitbox){
         if(this.position.x <= 1280 && !this._inCanvas){
-            this._spawnAudio.PlayOneShot();
+            soundManager._PalomaSpawnAudio.PlayOneShot();
             this._inCanvas = true;
         }
             super.Update(timeDelta,hitbox);
@@ -150,20 +190,20 @@ class Dove extends Obstacle{
 class Car extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._loopAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg",0.9);
-        this._claxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0);
-        this._deadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0);
+        //this._loopAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg",0.9);
+        //this._claxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0);
+        //this._deadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0);
         this._inCanvas = false;
     }
 
     OnClick(e){
-        this._loopAudio.Stop();
-        super.OnClick(e,this._deadAudio);
+        soundManager._CocheLoopAudio.Stop();
+        super.OnClick(e,soundManager._CocheDeadAudio);
     }
 
     Update(timeDelta, hitbox){
         if(this.position.x-(this.width*this._anchor.x) <= 1280 && !this._inCanvas){
-            this._loopAudio.PlayOnLoop();
+            soundManager._CocheLoopAudio.PlayOnLoop();
             this._inCanvas = true;
         }
             super.Update(timeDelta,hitbox);
@@ -178,15 +218,14 @@ class Dog extends Obstacle{
         this._stopped = false;
         this.interval;
         this._dead = false;
-        this._deadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
-        this._warnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
-        this._attackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);
+        //this._deadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
+        //this._warnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
+        //this._attackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);
     }
 
     OnClick(e){
-        super.OnClick(e);
+        super.OnClick(e,soundManager._PerroDeadAudio);
         if(this._hits == 0){
-            this._deadAudio.PlayOneShot();
             if(this.interval){
                 clearInterval(this.interval);
             }
@@ -198,7 +237,7 @@ class Dog extends Obstacle{
     Update(timeDelta, hitbox){
         if(this._bark == 0 && !this._dead){
             clearInterval(this.interval);
-            this._attackAudio.PlayOneShot();
+            soundManager._PerroAttackAudio.PlayOneShot();
             this.velocity = new Vector2(speed+65,0);
         }else if(this.position.x <= 1200 && !this._stopped && !this._dead){
             this.interval = setInterval(this.Ladrar.bind(this),1000);
@@ -209,7 +248,7 @@ class Dog extends Obstacle{
 
     Ladrar() {
         this.SetAnimation("ladrar");
-        this._warnAudio.PlayOneShot();
+        soundManager._PerroWarnAudio.PlayOneShot();
         this._bark--;
         console.log("Guau");
     }
@@ -279,6 +318,7 @@ document.addEventListener("dblclick",function(ev){
 })
 
 var timmy; 
+var jojoMensaje;
 var speed = -50;
 var transparencyPause;
 var pauseContinue;
@@ -322,7 +362,7 @@ function loadGameFromLevel(ev){
 
 function LoseGame(){
     //TODO
-  
+    soundManager.StopAudio();
     canvasManager.RenderAndUpdate(0);
     let image = canvasManager.canvasScene.getImageData(0,0,1280,720);
     let d = image.data;
@@ -330,9 +370,9 @@ function LoseGame(){
         var r = d[i];
         var g = d[i+1];
         var b = d[i+2];
-        d[i] = (r * .393) + (g *.769) + (b * .189);
-        d[i+1] = (r * .349) + (g *.686) + (b * .168);
-        d[i+2] = (r * .272) + (g *.534) + (b * .131);
+        d[i] = (r * .23) + (g *.61) + (b * .17);
+        d[i+1] =  (r * .27) + (g *.62) + (b * .03);
+        d[i+2] = (r * .18) + (g *.32) + (b * (-0.02));
       }
     canvasManager.canvasScene.putImageData(image,0,0);
     let fondo = new SpriteObject("fondo",new Vector2(0,0),canvasManager.canvasElement.toDataURL(),720,1280);
@@ -340,9 +380,11 @@ function LoseGame(){
     for(let i = 0; i < 5; i++){
         gameObjects[i] = [];
     }
+
     canvasManager.AddObject(fondo,0);
     canvasManager.canvasScene.filter = "";
     canvasManager.AddObject(pauseContinue,4);
+    canvasManager.AddObject(jojoMensaje,4);
     
 
     //StartMenuGame();
@@ -356,12 +398,19 @@ function LoadObjects(ev){
         gameObjects[i] = [];
     }
 
-    timmy = new SpriteObject("player", new Vector2(70,525),"none",205,138);
+
+    jojoMensaje = new SpriteObject("jojo",new Vector2(946,612),"none",57,310);
+        let jojoAnim = new Animation("assets/img/To_be_continued_spritesheet.png",4,310,57,1/8,0);
+        jojoMensaje.AddAnimation(jojoAnim,"idle");
+        jojoMensaje.SetAnimation("idle");
+  
+    
+    timmy = new SpriteObject("player", new Vector2(110,449),"none",205,138);
     let animation = new Animation("assets/img/Timmy_spritesheet.png",8,138,205,1/8,0);
     timmy.AddAnimation(animation,"idle");
     totalLoading++;
     timmy.SetAnimation("idle");
-    timmy.anchor = new Vector2(0.5,0.5);
+    //timmy.anchor = new Vector2(0.5,0.5);
     gameObjects[2].push(timmy);
 
     let sun = new SpriteObject("sun",new Vector2(0,0),"none",720,1280);
@@ -404,21 +453,21 @@ function LoadLevel(jsonName,container){
         for(var obj of json){
             switch(obj.type){
                 case "dog":
-                    let dog = new Dog(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber, obj.ladridos);
+                    let dog = new Dog(obj.name,new Vector2(obj.positionx,500),"none",obj.height,obj.width,timmy,obj.hitnumber, obj.ladridos);
                     let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet.png",8,557,184,1/8,0);
                     totalLoading +=1;
-                    dog.anchor = new Vector2(0,0.5);
+                    //dog.anchor = new Vector2(0,0.5);
                     dog.velocity = new Vector2(speed,0);
                     dog.AddAnimation(dogRunning,"run");
                     dog.SetAnimation("run");
                     container[obj.layer].push(dog);
                 break;
                 case "sewer":
-                    let sewer = new Sewer(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber, obj.open);
+                    let sewer = new Sewer(obj.name,new Vector2(obj.positionx,635),"none",obj.height,obj.width,timmy,obj.hitnumber, obj.open);
                     let openSewer = new Animation("assets/img/Alcantarilla_spritesheet.png",4,105,39,1/8,0);
                     let closeSewer = new Animation("assets/img/Alcantarilla_spritesheet.png",4,105,39,1/8,105*4);
                     totalLoading +=2;
-                    sewer.anchor = new Vector2(0,0.5);
+                    //sewer.anchor = new Vector2(0,0.5);
                     sewer.velocity = new Vector2(speed,0);
                     sewer.AddAnimation(openSewer,"open");
                     sewer.AddAnimation(closeSewer,"close");
@@ -430,40 +479,40 @@ function LoadLevel(jsonName,container){
                     container[obj.layer].push(sewer);
                 break;
                 case "car":
-                    let car = new Car(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber);
+                    let car = new Car(obj.name,new Vector2(obj.positionx,460),"none",obj.height,obj.width,timmy,obj.hitnumber);
                     let carAnim = new Animation("assets/img/Coche_spritesheet.png",8,557,184,1/12,0);
                     totalLoading +=1;
-                    car.anchor = new Vector2(0,0.5);
+                    //car.anchor = new Vector2(0,0.5);
                     car.velocity = new Vector2(speed - 20,0);
                     car.AddAnimation(carAnim,"idle");
                     car.SetAnimation("idle");
                     container[obj.layer].push(car);
                 break;
                 case "dove":
-                    let dove = new Dove(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber);
+                    let dove = new Dove(obj.name,new Vector2(obj.positionx,0),"none",obj.height,obj.width,timmy,obj.hitnumber);
                     let doveAnim = new Animation("assets/img/Paloma_spritesheet.png",8,90,150,1/12,0);
                     totalLoading +=1;
-                    dove.anchor = new Vector2(0,0.5);
+                    //dove.anchor = new Vector2(0,0.5);
                     dove.velocity = new Vector2(speed-20,0);
                     dove.AddAnimation(doveAnim,"idle");
                     dove.SetAnimation("idle");
                     container[obj.layer].push(dove);
                 break;
                 case "poop":
-                    let poop = new Poop(obj.name,new Vector2(obj.positionx,obj.positiony),"none", obj.height,obj.width,timmy,obj.hitnumber);
+                    let poop = new Poop(obj.name,new Vector2(obj.positionx,615),"none", obj.height,obj.width,timmy,obj.hitnumber);
                     let poopAnim = new Animation("assets/img/Caca_spritesheet.png",4,33,55,1/8,0);
                     totalLoading +=1;
-                    poop.anchor = new Vector2(0,0.5);
+                    //poop.anchor = new Vector2(0,0.5);
                     poop.velocity = new Vector2(speed,0);
                     poop.AddAnimation(poopAnim,"idle");
                     poop.SetAnimation("idle");
                     container[obj.layer].push(poop);
                 break;
                 case "plane":
-                    let plane = new FlyingObject(obj.name,new Vector2(obj.positionx,obj.positiony),"none",obj.height,obj.width,timmy,obj.hitnumber);
-                    let planeAnim = new Animation("assets/img/Avion_spritesheet.png",4,1111,480,1/8,0);
+                    let plane = new FlyingObject(obj.name,new Vector2(obj.positionx,-480),"none",obj.height,obj.width,timmy,obj.hitnumber);
+                    let planeAnim = new Animation("assets/img/Avion_spritesheet.png",4,1112,480,1/8,0);
                     totalLoading +=1;
-                    plane.anchor = new Vector2(0,0.5);
+                    //plane.anchor = new Vector2(0,0.5);
                     plane.velocity = new Vector2(speed,0);
                     plane.AddAnimation(planeAnim,"idle");
                     plane.SetAnimation("idle");
@@ -472,6 +521,8 @@ function LoadLevel(jsonName,container){
                 default:
                 break;
             }
+            soundManager.LoadSounds();
+            //totalLoading+=14;
         }
         StartGame(container,10);
     });

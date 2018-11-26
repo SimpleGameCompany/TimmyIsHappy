@@ -1,7 +1,28 @@
 @font-face {
     font-family: "dumb3d";
-    src: url("../sources/fonts/3Dumb.ttf");
-    }
+    src: url("../fonts/3Dumb.ttf");
+}
+
+#back-to-top {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color:  rgba(70, 70, 70, 0.712); /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+    transition: background 0.5s;
+  }
+
+#back-to-top:hover {
+    background-color:  rgba(0, 0, 0, 0.712); /* Add a dark-grey background on hover */
+}
 
 canvas {
     top: 0;
@@ -16,7 +37,12 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 2;
+    z-index: 2;  
+    border: 1px solid rgba(46, 46, 46, 0.568);
+}
+
+.display-4 {
+    font-size: 30px;
 }
 
 .canvasContainer {
@@ -34,7 +60,6 @@ canvas {
     z-index: 0;
 }
 
-
 .box-team img {
 	margin-bottom: 30px;
 }
@@ -42,93 +67,118 @@ canvas {
 .box-team, .box-team img {
     text-align: center;
 }
+
 .box-team img {
     float: none;
     margin:0 auto;
     padding: 10%
 }
 
-
-
 .box-team {
     margin-bottom: 30px;
 }
-.row-bottom-team{
+.row-bottom-team {
     margin-bottom: 2%
 }
 
-.team-color{
+.team-color {
     background-color: rgba(0, 0, 0, 0.712);
 }
-.row-top-howto{
-    
+
+.row-top-howto {
     padding-bottom: 2%;
-
 }
-.howto-color{
+
+.howto-color {
     background-color: rgba(0, 0, 0, 0.712);
 }
-.row-bottom-howto{
-    margin-bottom: 2%;
 
+.row-bottom-howto {
+    margin-bottom: 2%;
 }
 
-
-.responsive-title{
+.responsive-title {
     font-family: dumb3d;
     text-align: center;
-    font-size:5vw;
+    font-size:6.5vw;
 }
 
+#header_title {
+    font-family: dumb3d;
+    text-align: center;
+    font-size: 8vw;
+}
 
-.merchandising-color{
-    
+.merchandising-color {
     background-color:rgba(0, 0, 0, 0.712);
-
 }
 
-.top-row-rounded{
+.top-row-rounded {
     border-radius: 25px 25px 0px 0px;
 }
 
 .bottom-row-rounded{
     border-radius: 0px 0px 25px 25px;
 }
-.futer{
+
+.futer {
     background-color:rgba(0, 0, 0, 0.712);
     border-radius: 0px 0px 0px 0px; margin-top: 5%
 }
-.center-text{
+
+.center-text {
     text-align: center; 
 }
-.all-rounded{
+
+.all-rounded {
     border-radius: 25px 25px 25px 25px;
 }
 
-.ocultar{
+.ocultar {
     display: none;
 }
 
-html{
+@media screen and (min-width: 501px) {
+    .header_sub {
+      font-size: 20px;
+    }
+}
 
+@media screen and (max-width: 500px) {
+    .header_sub {
+      font-size: 14px;
+    }
+}
+
+html {
     overflow-x: hidden;
 }
 
-.title-color{
-
+.title-color {
     color:rgb(0, 0, 0);
     text-shadow: 0 0 1px rgb(0, 0, 0);
 }
 
-
-
-body{
-    background:  #5677a8; /* Old browsers */
-    background: -moz-linear-gradient(top,   #92b8f0 0%,  #5677a8 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  #92b8f0 0%, #5677a8 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  #92b8f0 0%, #5677a8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=' #5677a8', endColorstr='#7db9e8',GradientType=0 );
-    
+.teamName {
+    font-size: 18px;
 }
 
+.teamRole {
+    font-size: 14px;
+}
 
+body {
+    /* 
+    background:  #5677a8;
+    background: -moz-linear-gradient(top,   #92b8f0 0%,  #5677a8 100%);
+    background: -webkit-linear-gradient(top,  #92b8f0 0%, #5677a8 100%);
+    background: linear-gradient(to bottom,  #92b8f0 0%, #5677a8 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=' #5677a8', endColorstr='#7db9e8',GradientType=0 );
+    */
+
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-attachment: fixed;
+    background-size: cover; /* Resize the background image to cover the entire container */
+    background-image: url("../assets/img/Web/background.png");
+}

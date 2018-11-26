@@ -88,8 +88,11 @@ class AudioObject{
   PlayOnLoop(){
     this._audioElement.pause();
     if(this._isLoad){ 
-      this._audioElement.addEventListener('timeupdate', this.Loop.bind(this), false);    
-      //this._audioElement.loop = true;
+      if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1){
+        this._audioElement.addEventListener('timeupdate', this.Loop.bind(this), false);   
+      } else{
+        this._audioElement.loop = true;
+      }
       this._audioElement.play();
       }else {
         setTimeout(this.PlayOnLoop.bind(this),10);
