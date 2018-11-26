@@ -60,6 +60,7 @@ class SoundManager{
         this._CocheClaxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0);
         this._CocheDeadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0);
         this._PerroDeadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
+        this._PerroBarkAudio = new AudioObject("assets/audio/Perro/Dog_bark_1.ogg",0);
         this._PerroWarnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
         this._PerroAttackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);
     }
@@ -240,6 +241,7 @@ class Dog extends Obstacle{
             soundManager._PerroAttackAudio.PlayOneShot();
             this.velocity = new Vector2(speed+65,0);
         }else if(this.position.x <= 1200 && !this._stopped && !this._dead){
+            soundManager._PerroWarnAudio.PlayOneShot();
             this.interval = setInterval(this.Ladrar.bind(this),1000);
             this._stopped = true;
         }
@@ -248,7 +250,7 @@ class Dog extends Obstacle{
 
     Ladrar() {
         this.SetAnimation("ladrar");
-        soundManager._PerroWarnAudio.PlayOneShot();
+        soundManager._PerroBarkAudio.PlayOneShot();
         this._bark--;
         console.log("Guau");
     }
