@@ -398,6 +398,7 @@ class TextObject {
     this._text = text;
     this._font = "Arial";
     this._fontSize = fontSize;
+    this.active = true;
   }
 
   /**
@@ -424,8 +425,8 @@ class TextObject {
    * @param {CanvasRenderingContext2D} renderCanvas
    */
   Render(renderCanvas) {
-    renderCanvas.font =fontSize
-    renderCanvas.fillText(this.text);
+    renderCanvas.font =  this._fontSize +" " +this._font ;
+    renderCanvas.fillText(this.text,this.position.x,this.position.y);
   }
 
   Update() {}

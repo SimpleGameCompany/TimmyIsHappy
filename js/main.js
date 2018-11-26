@@ -393,6 +393,8 @@ function LoadObjects(ev){
     pauseContinue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
     pauseContinue.OnClick = function(ev){canvasManager.ClearCanvas();canvasManager.AddList(gameObjects)}
     pauseContinue.anchor = new Vector2(0.5,0.5);
+    let text = new TextObject("Prueba", new Vector2(0,0),"24px");
+    gameObjects[4].push(text);
 
 }
 
