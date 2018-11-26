@@ -125,8 +125,11 @@ class FlyingObject extends Obstacle{
     }
     OnClick(e){
         super.OnClick(e,soundManager._AvionDeadAudio);
-        soundManager._AvionLoopAudio.Stop();
-        this.velocity = new Vector2(100,-50);
+        if(this._hits == 0){
+            soundManager._AvionLoopAudio.Stop();
+            soundManager._AvionSpawnAudio.Stop();
+            this.velocity = new Vector2(100,-50);
+        }
     }
 
     Update(timeDelta, hitbox){
@@ -198,8 +201,10 @@ class Car extends Obstacle{
     }
 
     OnClick(e){
-        soundManager._CocheLoopAudio.Stop();
         super.OnClick(e,soundManager._CocheDeadAudio);
+        if(this._hits==0){
+            soundManager._CocheLoopAudio.Stop();
+        }
     }
 
     Update(timeDelta, hitbox){
@@ -231,8 +236,7 @@ class Dog extends Obstacle{
                 clearInterval(this.interval);
             }
             this._dead = true;
-        }
-        
+        }  
     }
 
     Update(timeDelta, hitbox){
@@ -277,9 +281,9 @@ class Scrollable{
         this.b2.Update(deltaTime, hitBox);
 
         if(this.b1.position.x <= -this.b1.width){
-            this.b1.position.x = this.b2.position.x+this.b2.width;
+            this.b1.position.x = this.b2.position.x+this.b2.width-1;
         }else if(this.b2.position.x <= -this.b2.width){
-            this.b2.position.x = this.b1.position.x+this.b1.width;
+            this.b2.position.x = this.b1.position.x+this.b1.width-1;
         }
     }
 

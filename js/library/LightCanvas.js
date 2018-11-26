@@ -155,8 +155,8 @@ class Animation {
       0,
       this._wFrame,
       this._hFrame,
-      position.x,
-      position.y,
+      Math.floor(position.x),
+      Math.floor(position.y),
       this._wFrame,
       this._hFrame
     );
