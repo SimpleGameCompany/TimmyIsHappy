@@ -88,8 +88,11 @@ class AudioObject{
   PlayOnLoop(){
     this._audioElement.pause();
     if(this._isLoad){ 
-      this._audioElement.addEventListener('timeupdate', this.Loop.bind(this), false);    
-      //this._audioElement.loop = true;
+      if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1){
+        this._audioElement.addEventListener('timeupdate', this.Loop.bind(this), false);   
+      } else{
+        this._audioElement.loop = true;
+      }
       this._audioElement.play();
       }else {
         setTimeout(this.PlayOnLoop.bind(this),10);
@@ -284,8 +287,8 @@ class SpriteObject {
     //We only render if our Object is at the screen
 
 
-    if((xAbsoluteRight < 0 || xAbsoluteLeft > 1280) || (yAbsoluteDown < 0 || yAbsoluteUp>720)){}
-    else{
+    //if((xAbsoluteRight < 0 || xAbsoluteLeft > 1280) || (yAbsoluteDown < 0 || yAbsoluteUp>720)){}
+    //else{
     if (this.actualAnim == null)
       renderCanvas.drawImage(
         this.sprite,
@@ -295,7 +298,7 @@ class SpriteObject {
         this.height
       );
     else this.actualAnim.RenderFrame(renderCanvas, this.position);
-    }
+    //}
   }
 
   /**
@@ -393,9 +396,12 @@ class TextObject {
    * @param {String} text
    * @param {Vector2} pos
    */
-  constructor(text, pos) {
+  constructor(text, pos,fontSize) {
     this._position = pos;
     this._text = text;
+    this._font = "Arial";
+    this._fontSize = fontSize;
+    this.active = true;
   }
 
   /**
@@ -422,7 +428,8 @@ class TextObject {
    * @param {CanvasRenderingContext2D} renderCanvas
    */
   Render(renderCanvas) {
-    renderCanvas.fillText(this.text);
+    renderCanvas.font =  this._fontSize +" " +this._font ;
+    renderCanvas.fillText(this.text,this.position.x,this.position.y);
   }
 
   Update() {}
