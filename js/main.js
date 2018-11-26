@@ -296,6 +296,39 @@ class Scrollable{
     }
 }
 
+
+class HTMLBackGround{
+    constructor(name,img,vel,zIndex){
+        this.b1 =$("<img src ='"+img+"' class ='loading'/>").appendTo( $(canvasManager.canvasElement).parent());
+        this.b2 =$("<img src ='"+img+"' class ='loading'/>").appendTo( $(canvasManager.canvasElement).parent());
+        this.b1.css("zIndex",zIndex);
+        this.b2.css("zIndex",zIndex);
+        this.vel = vel;
+        this.b1.pos = 0;
+        this.b2.pos = 100;
+        this.active = true;
+    }
+
+    Update(deltaTime,hitBox){
+        this.b1.pos +=this.vel*deltaTime;
+        this.b2.pos += this.vel*deltaTime;
+       
+        if(this.b1.pos <=-100){
+            this.b1.pos = 100;
+        }
+        if(this.b2.pos <=-100){
+            this.b2.pos = 100;
+        }
+
+
+        this.b2.css("left",this.b2.pos + "%");
+        this.b1.css("left",this.b1.pos + "%");
+    }
+
+    Render(renderCanvas){}
+}
+
+
 var canvasManager;
 var menuObjects;
 var gameObjects;
@@ -305,6 +338,7 @@ var totalLoading;
 var imageCount;
 window.addEventListener("load",function(ev){
     loading = $(".loading");
+    soundManager.LoadSounds();
     loading.hide();
     canvasManager = new CanvasManager("gameCanvas",1280,720);
     StartMenuGame();
@@ -422,15 +456,14 @@ function LoadObjects(ev){
     //timmy.anchor = new Vector2(0.5,0.5);
     gameObjects[2].push(timmy);
 
-    let sun = new SpriteObject("sun",new Vector2(0,0),"none",720,1280);
-    let sunAnim = new Animation("assets/img/Sol_spritesheet.png",8,1280,720,1/8,0);
-    totalLoading++;
-    sun.velocity = new Vector2(0,0);
-    sun.AddAnimation(sunAnim,"idle");
-    sun.SetAnimation("idle");
+    let sun = new HTMLBackGround("sun","assets/img/Cielo_animado.gif",0,0);
+    
     gameObjects[0].push(sun);
 
-    let clouds = new Scrollable("clouds",new Vector2(0,0),"none",720,2560,"assets/img/Nubes_spritesheet.png",4,-50/8,8);
+    let clouds = new HTMLBackGround("clouds","assets/img/Nubes_animado.gif",-50/8,1);
+
+
+
     gameObjects[0].push(clouds);
     totalLoading++;
     let mountains = new Scrollable("mountains",new Vector2(0,325),"none",720,5120,"assets/img/Fondo_spritesheet.png",3,-50/2,8);
@@ -533,7 +566,7 @@ function LoadLevel(jsonName,container){
                 default:
                 break;
             }
-            soundManager.LoadSounds();
+           
             //totalLoading+=14;
         }
         StartGame(container,10);
