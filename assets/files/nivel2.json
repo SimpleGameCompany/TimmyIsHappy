@@ -1,11 +1,12 @@
-[
+﻿[
     {
         "type":"tamaño",
         "valor":90000
     },
     {
         "type":"speed",
-        "speed":-110
+        "speed":-110,
+	"nivel":2
     },
 
     {

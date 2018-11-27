@@ -348,21 +348,24 @@ class HTMLBackGround{
         this.b1.click = function(ev){ev.preventDefault()}
         this.b1.css("zIndex",zIndex);
         this.b2.css("zIndex",zIndex);
+        this.b1.css("width",100*scale +"%");
+        this.b2.css("width",100*scale +"%");
         this.vel = vel;
         this.b1.pos = 0;
         this.b2.pos = 100*scale;
+        this.scale = scale;
         this.active = true;
     }
 
     Update(deltaTime,hitBox){
-        this.b1.pos +=this.vel*deltaTime;
-        this.b2.pos += this.vel*deltaTime;
+        this.b1.pos +=(this.vel*deltaTime)
+        this.b2.pos += (this.vel*deltaTime)
        
-        if(this.b1.pos <=-100){
-            this.b1.pos = 100;
+        if(this.b1.pos <=-100*this.scale){
+            this.b1.pos = 100*this.scale;
         }
-        if(this.b2.pos <=-100){
-            this.b2.pos = 100;
+        if(this.b2.pos <=-100*this.scale){
+            this.b2.pos = 100*this.scale;
         }
 
 
@@ -450,7 +453,10 @@ function loadGameFromLevel(ev){
         gameObjects[i] = [];
     }
     sky = new HTMLBackGround("sun","none",0,0,1);
-    cloud = new HTMLBackGround("clouds","none",-50/8,1,1);
+    cloud = new HTMLBackGround("clouds","none",-50/8,1,2);
+    hills = new HTMLBackGround("hills","none",-50/2,2,4);
+    road = new HTMLBackGround("road","none",-50,4,4);
+    buildings = new HTMLBackGround("build","none",-35,3,4);
     LoadLevel("nivel1",gameObjects);
 }
 
@@ -508,19 +514,21 @@ function LoadObjects(level){
     //timmy.anchor = new Vector2(0.5,0.5);
     gameObjects[2].push(timmy);
     sky.ChangeImg("assets/img/Cielo_animado"+level+".gif");  
+    sky.vel = 0;
     gameObjects[0].push(sky);
-    cloud.ChangeImg("assets/img/Nubes_animado.gif");
+    cloud.ChangeImg("assets/img/Nubes_animado"+level+".gif");
+    cloud.vel = (speed*100)/1280/8;
     gameObjects[0].push(cloud);
     totalLoading++;
-    let mountains = new Scrollable("mountains",new Vector2(0,325),"none",720,5120,"assets/img/Fondo_spritesheet"+level+".png",3,-50/2,8);
-    gameObjects[0].push(mountains);
-    totalLoading++;
-    let sidewalks = new Scrollable("sidewalks",new Vector2(0,557),"none",720,1280,"assets/img/Aceras_spritesheet"+level+".png",4,-90,8);
-    gameObjects[0].push(sidewalks);
-    totalLoading++;
-    let road = new Scrollable("road",new Vector2(0,589),"none",720,1280,"assets/img/Carretera_spritesheet"+level+".png",4,-90,8);
+    buildings.vel = (speed*100)/1280/2;
+    buildings.ChangeImg("assets/img/Edificios_animado"+level+".gif");
+    hills.vel = (speed*100)/1280/4;
+    hills.ChangeImg("assets/img/Fondo_animado"+level+".gif");
+    road.vel = (speed*100)/1280;
+    road.ChangeImg("assets/img/AceraConCarretera_animado"+level+".gif");
+    gameObjects[0].push(buildings);
+    gameObjects[0].push(hills);
     gameObjects[0].push(road);
-    totalLoading++;
     let opciones = new HitableObject("opciones",new Vector2(1280,0),"assets/img/opciones.png",50,50);
     opciones.anchor = new Vector2(1,0);
     opciones.OnClick = PauseGame;
@@ -616,28 +624,22 @@ function LoadLevel(jsonName,container){
            
             //totalLoading+=14;
         }
-        StartGame(container,10);
+        StartGame(container,3000);
     });
 }
 
 function StartGame(container,loadTime){
     canvasManager.ClearCanvas();
-    canvasManager.AddList(container);
-    canvasManager.RenderAndUpdate(0);
     setTimeout(function(){
         GoGame(loadTime);    
     },loadTime);
 }
 
-function GoGame (loadtime){
-    if(loadingCount >= totalLoading){
+function GoGame (loadtime){   
         canvasManager.RenderAndUpdate(0);
         StopLoad();
+        canvasManager.AddList(gameObjects);
         canvasManager.Start();
-        
-    }else{
-        setTimeout(GoGame,loadtime,loadtime);
-    }
 }
 
 function StartLoad(){
