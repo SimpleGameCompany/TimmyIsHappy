@@ -5,7 +5,8 @@
     },
     {
         "type":"speed",
-        "speed":-90
+        "speed":-90,
+        "nivel":1
     },
 
     {

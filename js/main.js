@@ -341,14 +341,16 @@ class Scrollable{
 
 
 class HTMLBackGround{
-    constructor(name,img,vel,zIndex){
+    constructor(name,img,vel,zIndex,scale){
         this.b1 =$("<img src ='"+img+"' class ='loading'/>").appendTo( $(canvasManager.canvasElement).parent());
         this.b2 =$("<img src ='"+img+"' class ='loading'/>").appendTo( $(canvasManager.canvasElement).parent());
+        this.b2.click = function(ev){ev.preventDefault()}
+        this.b1.click = function(ev){ev.preventDefault()}
         this.b1.css("zIndex",zIndex);
         this.b2.css("zIndex",zIndex);
         this.vel = vel;
         this.b1.pos = 0;
-        this.b2.pos = 100;
+        this.b2.pos = 100*scale;
         this.active = true;
     }
 
@@ -369,6 +371,11 @@ class HTMLBackGround{
     }
 
     Render(renderCanvas){}
+
+    ChangeImg(imgSrc){
+        this.b1.attr("src",imgSrc);
+        this.b2.attr("src",imgSrc);
+    }
 }
 
 
@@ -379,9 +386,10 @@ var loading;
 var loadingCount;
 var totalLoading;
 var imageCount;
+
 window.addEventListener("load",function(ev){
     loading = $(".loading");
-    soundManager.LoadSounds();
+    
     loading.hide();
     canvasManager = new CanvasManager("gameCanvas",1280,720);
     StartMenuGame();
@@ -389,21 +397,16 @@ window.addEventListener("load",function(ev){
 
    
 })
-
-
-/*window.addEventListener("keydown",function(ev){
-    if(ev.key=="e"){
-        canvasManager.ClearCanvas();
-    }else{s
-        canvasManager.AddList(gameObjects);
-    }
-})*/
-
 document.addEventListener("dblclick",function(ev){
     ev.preventDefault();
 })
 
 var timmy; 
+var sky;
+var cloud;
+var hills;
+var buildings;
+var road;
 var jojoMensaje;
 var speed;
 var transparencyPause;
@@ -442,8 +445,13 @@ function StartMenuGame(){
 
 function loadGameFromLevel(ev){
     StartLoad();
-    LoadObjects(ev);
-    LoadLevel("nivel2",gameObjects);
+    gameObjects = [];
+    for (let i = 0; i < 6; i++) {
+        gameObjects[i] = [];
+    }
+    sky = new HTMLBackGround("sun","none",0,0,1);
+    cloud = new HTMLBackGround("clouds","none",-50/8,1,1);
+    LoadLevel("nivel1",gameObjects);
 }
 
 function LoseGame(){
@@ -468,21 +476,22 @@ function LoseGame(){
     }
 
     canvasManager.AddObject(fondo,0);
-    canvasManager.canvasScene.filter = "";
     canvasManager.AddObject(pauseContinue,5);
     canvasManager.AddObject(jojoMensaje,5);
     
 
     //StartMenuGame();
 }
-
-function LoadObjects(ev){
+var actualLevel;
+var levelname;
+function LoadObjects(level){
+    actualLevel = level;
     loadingCount = 0;
     totalLoading = 0;
-    gameObjects = [];
-    for (let i = 0; i < 6; i++) {
-        gameObjects[i] = [];
-    }
+   
+    level = "_nivel"+level;
+    levelname = level;
+    
 
 
     jojoMensaje = new SpriteObject("jojo",new Vector2(946,612),"none",57,310);
@@ -492,30 +501,24 @@ function LoadObjects(ev){
   
     
     timmy = new SpriteObject("player", new Vector2(110,449),"none",205,138);
-    let animation = new Animation("assets/img/Timmy_spritesheet.png",8,138,205,1/8,0);
+    let animation = new Animation("assets/img/Timmy_spritesheet"+level+".png",8,138,205,1/8,0);
     timmy.AddAnimation(animation,"idle");
     totalLoading++;
     timmy.SetAnimation("idle");
     //timmy.anchor = new Vector2(0.5,0.5);
     gameObjects[2].push(timmy);
-
-    let sun = new HTMLBackGround("sun","assets/img/Cielo_animado.gif",0,0);
-    
-    gameObjects[0].push(sun);
-
-    let clouds = new HTMLBackGround("clouds","assets/img/Nubes_animado.gif",-50/8,1);
-
-
-
-    gameObjects[0].push(clouds);
+    sky.ChangeImg("assets/img/Cielo_animado"+level+".gif");  
+    gameObjects[0].push(sky);
+    cloud.ChangeImg("assets/img/Nubes_animado.gif");
+    gameObjects[0].push(cloud);
     totalLoading++;
-    let mountains = new Scrollable("mountains",new Vector2(0,325),"none",720,5120,"assets/img/Fondo_spritesheet.png",3,-50/2,8);
+    let mountains = new Scrollable("mountains",new Vector2(0,325),"none",720,5120,"assets/img/Fondo_spritesheet"+level+".png",3,-50/2,8);
     gameObjects[0].push(mountains);
     totalLoading++;
-    let sidewalks = new Scrollable("sidewalks",new Vector2(0,557),"none",720,1280,"assets/img/Aceras_spritesheet.png",4,-90,8);
+    let sidewalks = new Scrollable("sidewalks",new Vector2(0,557),"none",720,1280,"assets/img/Aceras_spritesheet"+level+".png",4,-90,8);
     gameObjects[0].push(sidewalks);
     totalLoading++;
-    let road = new Scrollable("road",new Vector2(0,589),"none",720,1280,"assets/img/Carretera_spritesheet.png",4,-90,8);
+    let road = new Scrollable("road",new Vector2(0,589),"none",720,1280,"assets/img/Carretera_spritesheet"+level+".png",4,-90,8);
     gameObjects[0].push(road);
     totalLoading++;
     let opciones = new HitableObject("opciones",new Vector2(1280,0),"assets/img/opciones.png",50,50);
@@ -527,22 +530,23 @@ function LoadObjects(ev){
     pauseContinue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
     pauseContinue.OnClick = function(ev){canvasManager.ClearCanvas();canvasManager.AddList(gameObjects)}
     pauseContinue.anchor = new Vector2(0.5,0.5);
-    let text = new TextObject("Prueba", new Vector2(0,0),"24px");
-    gameObjects[5].push(text);
+    
 
 }
 
 function LoadLevel(jsonName,container){
     
+
     $.getJSON("assets/files/"+jsonName+".json", function (json) {
         for(var obj of json){
             switch(obj.type){
                 case "speed":
                     speed = obj.speed;
+                    LoadObjects(obj.nivel);
                 break;
                 case "dog":
                     let dog = new Dog("perro",new Vector2(obj.positionx,500),"none",184,209,timmy, 1, 3);
-                    let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet.png",8,209,184,1/16,0);
+                    let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet"+levelname+".png",8,209,184,1/16,0);
                     totalLoading +=1;
                     //dog.anchor = new Vector2(0,0.5);
                     dog.velocity = new Vector2(speed,0);
@@ -552,8 +556,8 @@ function LoadLevel(jsonName,container){
                 break;
                 case "sewer":
                     let sewer = new Sewer("alcantarilla",new Vector2(obj.positionx,635),"none",39,105,timmy,1, obj.open);
-                    let openSewer = new Animation("assets/img/Alcantarilla_spritesheet.png",4,105,39,1/8,0);
-                    let closeSewer = new Animation("assets/img/Alcantarilla_spritesheet.png",4,105,39,1/8,105*4);
+                    let openSewer = new Animation("assets/img/Alcantarilla_spritesheet"+levelname+".png",4,105,39,1/8,0);
+                    let closeSewer = new Animation("assets/img/Alcantarilla_spritesheet"+levelname+".png",4,105,39,1/8,105*4);
                     totalLoading +=2;
                     //sewer.anchor = new Vector2(0,0.5);
                     sewer.velocity = new Vector2(speed,0);
@@ -568,7 +572,7 @@ function LoadLevel(jsonName,container){
                 break;
                 case "car":
                     let car = new Car("coche",new Vector2(obj.positionx,460),"none",184,557,timmy,2);
-                    let carAnim = new Animation("assets/img/Coche_spritesheet.png",8,557,184,1/12,0);
+                    let carAnim = new Animation("assets/img/Coche_spritesheet"+levelname+".png",8,557,184,1/12,0);
                     totalLoading +=1;
                     //car.anchor = new Vector2(0,0.5);
                     car.velocity = new Vector2(speed - 20,0);
@@ -578,7 +582,7 @@ function LoadLevel(jsonName,container){
                 break;
                 case "dove":
                     let dove = new Dove("paloma",new Vector2(obj.positionx,obj.positiony),"none",150,90,timmy,1);
-                    let doveAnim = new Animation("assets/img/Paloma_spritesheet.png",8,90,150,1/12,0);
+                    let doveAnim = new Animation("assets/img/Paloma_spritesheet"+levelname+".png",8,90,150,1/12,0);
                     totalLoading +=1;
                     //dove.anchor = new Vector2(0,0.5);
                     dove.velocity = new Vector2(speed-20,0);
@@ -588,7 +592,7 @@ function LoadLevel(jsonName,container){
                 break;
                 case "poop":
                     let poop = new Poop("caca",new Vector2(obj.positionx,615),"none", 55,33,timmy,1);
-                    let poopAnim = new Animation("assets/img/Caca_spritesheet.png",4,33,55,1/8,0);
+                    let poopAnim = new Animation("assets/img/Caca_spritesheet"+levelname+".png",4,33,55,1/8,0);
                     totalLoading +=1;
                     //poop.anchor = new Vector2(0,0.5);
                     poop.velocity = new Vector2(speed,0);
@@ -598,7 +602,7 @@ function LoadLevel(jsonName,container){
                 break;
                 case "plane":
                     let plane = new FlyingObject("avion",new Vector2(obj.positionx,-480),"none",480,1111,timmy,2);
-                    let planeAnim = new Animation("assets/img/Avion_spritesheet.png",4,1112,480,1/8,0);
+                    let planeAnim = new Animation("assets/img/Avion_spritesheet"+levelname+".png",4,1112,480,1/8,0);
                     totalLoading +=1;
                     //plane.anchor = new Vector2(0,0.5);
                     plane.velocity = new Vector2(speed,0);
