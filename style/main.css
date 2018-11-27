@@ -40,6 +40,25 @@ canvas {
     z-index: 8;  
 }
 
+.divgamecontainer { 
+    
+    position: absolute;
+    width: 100%;
+    height: auto;
+    z-index: 2;  
+}
+.divgamecolumm { 
+    
+    position: absolute;
+    z-index: 2;  
+}
+#col_div_border_game_01{
+    padding :0;
+}
+#col_div_border_game_02{
+    padding :0;
+}
+
 .display-4 {
     font-size: 30px;
 }
