@@ -47,6 +47,7 @@ canvas {
 .canvasContainer {
     position: relative;
     padding: 0px;
+    border:2px solid #000000;
 }
 
 #gameCanvas {
@@ -76,6 +77,7 @@ canvas {
 .box-team {
     margin-bottom: 30px;
 }
+
 .row-bottom-team {
     margin-bottom: 2%
 }
@@ -102,6 +104,7 @@ canvas {
     font-size:6.5vw;
     padding-top: 2%;
 }
+
 .title-section{
     font-family: dumb3d;
     text-align: center;
@@ -150,7 +153,6 @@ canvas {
 @media screen and (min-width: 1000px) {
     .header_sub {
       font-size: 30px;
-      
     }
 
     .text-justify {
@@ -168,7 +170,34 @@ canvas {
         padding-left: 10px;
         padding-right: 10px;
     }
+}
 
+@media screen and (min-width: 700px) {
+    .text-justify {
+        font-size:18px;
+    }
+
+    .teamname{
+        font-size: 18px;
+    }
+
+    .teamRole {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 699px) {
+    .text-justify {
+        font-size:12px;
+    }
+
+    .teamname{
+        font-size: 12px;
+    }
+
+    .teamRole {
+        font-size: 10px;
+    }
 }
 
 html {
@@ -179,33 +208,26 @@ html {
     color:rgb(0, 0, 0);
     text-shadow: 0 0 30px rgb(0, 5, 29);
 }
+
 .header_sub{
     text-shadow: 0 0 2px rgb(0, 5, 29);
 }
+
 .title-footer{
     padding-top: 1%;
 }
 
-.teamName {
-    font-size: 18px;
-}
 .teamImage{
     width: 712px; height: auto;
 }
 
-.teamRole {
-    font-size: 14px;
-}
-
 body {
-    
     background:  #5677a8;
     background: -moz-linear-gradient(top,   #92b8f0 0%,  #5677a8 100%);
     background: -webkit-linear-gradient(top,  #92b8f0 0%, #5677a8 100%);
     background: linear-gradient(to bottom,  #92b8f0 0%, #5677a8 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=' #5677a8', endColorstr='#7db9e8',GradientType=0 );
     
-
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-attachment: fixed;
