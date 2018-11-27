@@ -381,6 +381,20 @@ class HTMLBackGround{
     }
 }
 
+class Timmy extends SpriteObject{
+    constructor(name, position,img,height,width){
+        super(name,position,img,height,width);
+    }
+
+    Update(deltaTime,hitBox){
+        super.Update(deltaTime,hitBox);
+        distanciaRecorrida -= deltaTime*speed;
+        if(distanciaRecorrida >= tamaño){
+            canvasManager.ClearCanvas();
+            EndLevel();
+        }
+    }
+}
 
 var canvasManager;
 var menuObjects;
@@ -414,6 +428,8 @@ var jojoMensaje;
 var speed;
 var transparencyPause;
 var pauseContinue;
+var distanciaRecorrida;
+var tamaño;
 
 
 function StartMenuGame(){
@@ -488,8 +504,10 @@ function LoseGame(){
 
     //StartMenuGame();
 }
+
 var actualLevel;
 var levelname;
+
 function LoadObjects(level){
     actualLevel = level;
     loadingCount = 0;
@@ -506,7 +524,7 @@ function LoadObjects(level){
         jojoMensaje.SetAnimation("idle");
   
     
-    timmy = new SpriteObject("player", new Vector2(110,449),"none",205,138);
+    timmy = new Timmy("player", new Vector2(110,449),"none",205,138);
     let animation = new Animation("assets/img/Timmy_spritesheet"+level+".png",8,138,205,1/8,0);
     timmy.AddAnimation(animation,"idle");
     totalLoading++;
@@ -534,6 +552,8 @@ function LoadObjects(level){
     opciones.OnClick = PauseGame;
     gameObjects[5].push(opciones);
 
+    
+
     transparencyPause = new SpriteObject("transparencia",new Vector2(0,0),"assets/img/fondo.png",720,1280);
     pauseContinue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
     pauseContinue.OnClick = function(ev){canvasManager.ClearCanvas();canvasManager.AddList(gameObjects)}
@@ -542,15 +562,31 @@ function LoadObjects(level){
 
 }
 
-function LoadLevel(jsonName,container){
-    
+function EndLevel(){
+    let Continue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
+    Continue.OnClick = function(ev){
+        canvasManager.ClearCanvas();
+        StartLoad();
+        LoadLevel("nivel2",gameObjects);
+    }
+    Continue.anchor = new Vector2(0.5,0.5);
+    canvasManager.AddObject(Continue,5);
+}
 
+function LoadLevel(jsonName,container){
     $.getJSON("assets/files/"+jsonName+".json", function (json) {
         for(var obj of json){
             switch(obj.type){
                 case "speed":
                     speed = obj.speed;
                     LoadObjects(obj.nivel);
+                break;
+                case "tamaño":
+                    tamaño = obj.valor;
+                    distanciaRecorrida = 0;
+                    let black = new SpriteObject("black", new Vector2(tamaño,0),"assets/img/FondoFinal.png",720,1280);
+                    black.velocity = new Vector2(-90,0);
+                    gameObjects[4].push(black);
                 break;
                 case "dog":
                     let dog = new Dog("perro",new Vector2(obj.positionx,500),"none",184,209,timmy, 1, 3);
