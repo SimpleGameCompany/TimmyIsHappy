@@ -48,7 +48,7 @@ class Obstacle extends HitableObject{
 
 class SoundManager{
     LoadSounds(){
-        this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
+        /*this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
         this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0);
         this._AvionDeadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
         this._AvionLoopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
@@ -63,11 +63,18 @@ class SoundManager{
         this._PerroDeadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
         this._PerroBarkAudio = new AudioObject("assets/audio/Perro/Dog_bark_1.ogg",0);
         this._PerroWarnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
-        this._PerroAttackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);
+        this._PerroAttackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);*/
     }
 
     StopAudio(){
-        this._openAudio.Stop();
+        for(let i= 0; i<gameObjects.length; i++){
+            for(let j = 0; j<gameObjects[i].length; j++){
+                if(gameObjects[i][j].StopAudio){
+                    gameObjects[i][j].StopAudio();
+                }
+            }
+        }
+        /*this._openAudio.Stop();
         this._closeAudio.Stop();
         this._AvionDeadAudio.Stop();
         this._AvionLoopAudio.Stop();
@@ -82,7 +89,7 @@ class SoundManager{
         this._PerroDeadAudio.Stop();
         this._PerroBarkAudio.Stop();
         this._PerroWarnAudio.Stop();
-        this._PerroAttackAudio.Stop();
+        this._PerroAttackAudio.Stop();*/
     }
 }
 
@@ -92,19 +99,19 @@ class Sewer extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits, open){
         super(name, position, imgSrc, height, width, player, hits);
         this._open = open;
-        //this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
-        //this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0);
+        this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
+        this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0);
     }
 
     OnClick(e){
         if(this._open){
             this._open = !this._open;
-            soundManager._closeAudio.PlayOneShot();
+            this._closeAudio.PlayOneShot();
             //canvasManager.clickObjects.delete(this.hitColor);
             this.SetAnimation("close");
         }else{
             this._open = !this._open;
-            soundManager._openAudio.PlayOneShot();
+            this._openAudio.PlayOneShot();
             //canvasManager.clickObjects.delete(this.hitColor);
             this.SetAnimation("open");
         }
@@ -116,107 +123,130 @@ class Sewer extends Obstacle{
             super.CollisionEvent();
         }
     }
+    StopAudio(){}
 }
 
 class FlyingObject extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        //this._deadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
-        //this._loopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
-        //this._spawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
+        this._AvionDeadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
+        this._AvionLoopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
+        this._AvionSpawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
     }
     OnClick(e){
-        super.OnClick(e,soundManager._AvionDeadAudio);
+        super.OnClick(e,this._AvionDeadAudio);
         if(this._hits == 0){
-            soundManager._AvionLoopAudio.Stop();
-            soundManager._AvionSpawnAudio.Stop();
-            this.velocity = new Vector2(100,-50);
+            this._AvionLoopAudio.Stop();
+            this._AvionSpawnAudio.Stop();
+            this.velocity = new Vector2(-speed,speed/2);
             this.active = false;
         }
     }
 
     Update(timeDelta, hitbox){
         if(this.position.x <= 1280 && !this._inCanvas){
-            soundManager._AvionSpawnAudio.volume = 0.6;
-            soundManager._AvionSpawnAudio.PlayOneShot();
+            this._AvionSpawnAudio.volume = 0.6;
+            this._AvionSpawnAudio.PlayOneShot();
             this._inCanvas = true;
-            this.velocity = new Vector2(speed-20,20)
+            this.velocity = new Vector2(speed,-speed/4);
         }else if(this.position.x+this._width <= 1500 && !this._stopped){
-            soundManager._AvionLoopAudio.PlayOnLoop();
-            setTimeout(soundManager._AvionSpawnAudio.Stop.bind(this._spawnAudio),50);
+            this._AvionLoopAudio.PlayOnLoop();
+            setTimeout(this._AvionSpawnAudio.Stop.bind(this._spawnAudio),50);
             this._stopped = true;
             this.velocity = new Vector2(0,0);
         }
             super.Update(timeDelta,hitbox);
         
     }
+
+    StopAudio(){
+        this._AvionDeadAudio.Stop();
+        this._AvionLoopAudio.Stop();
+        this._AvionSpawnAudio.Stop();
+    }
 }
 
 class Poop extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        //this._deadAudio = new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg",0);
-        //this._spawnAudio = new AudioObject("assets/audio/Caca/Caca_Spawn.ogg",0);
+        this._CacaDeadAudio = new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg",0);
+        this._CacaSpawnAudio = new AudioObject("assets/audio/Caca/Caca_Spawn.ogg",0);
     }
 
     OnClick(e){
-        super.OnClick(e,soundManager._CacaDeadAudio);
+        super.OnClick(e,this._CacaDeadAudio);
     }
 
     Update(timeDelta, hitbox){
         if(this.position.x <= 1280 && !this._inCanvas){
-            soundManager._CacaSpawnAudio.PlayOneShot();
+            this._CacaSpawnAudio.PlayOneShot();
             this._inCanvas = true;
         }
             super.Update(timeDelta,hitbox);
         
+    }
+
+    StopAudio(){
+        this._CacaDeadAudio.Stop();
+        this._CacaSpawnAudio.Stop();
     }
 }
 
 class Dove extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        //this._deadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg",0);
-        //this._spawnAudio = new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0);
+        this._PalomaDeadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg",0);
+        this._PalomaSpawnAudio = new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0);
     }
 
     OnClick(e){
-        super.OnClick(e,soundManager._PalomaDeadAudio);
+        super.OnClick(e,this._PalomaDeadAudio);
     }
 
     Update(timeDelta, hitbox){
         if(this.position.x <= 1280 && !this._inCanvas){
-            soundManager._PalomaSpawnAudio.PlayOneShot();
+            this._PalomaSpawnAudio.PlayOneShot();
             this._inCanvas = true;
         }
             super.Update(timeDelta,hitbox);
         
+    }
+
+    StopAudio(){
+        this._PalomaDeadAudio.Stop();
+        this._PalomaSpawnAudio.Stop();
     }
 }
 
 class Car extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        //this._loopAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg",0.9);
-        //this._claxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0);
-        //this._deadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0);
+        this._CocheLoopAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg",0.9);
+        this._CocheClaxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0);
+        this._CocheDeadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0);
         this._inCanvas = false;
     }
 
     OnClick(e){
-        super.OnClick(e,soundManager._CocheDeadAudio);
+        super.OnClick(e,this._CocheDeadAudio);
         if(this._hits==0){
-            soundManager._CocheLoopAudio.Stop();
+            this._CocheLoopAudio.Stop();
         }
     }
 
     Update(timeDelta, hitbox){
         if(this.position.x-(this.width*this._anchor.x) <= 1280 && !this._inCanvas){
-            soundManager._CocheLoopAudio.PlayOnLoop();
+            this._CocheLoopAudio.PlayOnLoop();
             this._inCanvas = true;
         }
             super.Update(timeDelta,hitbox);
         
+    }
+
+    StopAudio(){
+        this._CocheLoopAudio.Stop();
+        this._CocheClaxonAudio.Stop();
+        this._CocheDeadAudio.Stop();
     }
 }
 
@@ -228,29 +258,29 @@ class Dog extends Obstacle{
         this.interval;
         this._dead = false;
         this._attacking = false;
-        //this._deadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
-        //this._warnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
-        //this._attackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);
+        this._PerroDeadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
+        this._PerroBarkAudio = new AudioObject("assets/audio/Perro/Dog_bark_1.ogg",0);
+        this._PerroWarnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
+        this._PerroAttackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);
     }
 
     OnClick(e){
-        super.OnClick(e,soundManager._PerroDeadAudio);
+        super.OnClick(e,this._PerroDeadAudio);
         if(this._hits == 0){
             if(this.interval){
                 clearInterval(this.interval);
             }
-            this._dead = true;
+            //this._dead = true;
         }  
     }
 
     Update(timeDelta, hitbox){
-        if(this._bark == 0 && !this._dead && !this._attacking){
-            clearInterval(this.interval);
-            soundManager._PerroAttackAudio.PlayOneShot();
+        if(this._bark == 0 && !this._attacking){
+            this._PerroAttackAudio.PlayOneShot();
             this.velocity = new Vector2(speed-65,0);
             this._attacking = true;
-        }else if(this.position.x <= 1200 && !this._stopped && !this._dead){
-            soundManager._PerroWarnAudio.PlayOneShot();
+        }else if(this.position.x <= 1280 && !this._stopped){
+            this._PerroWarnAudio.PlayOneShot();
             this.interval = setInterval(this.Ladrar.bind(this),1000);
             this._stopped = true;
         }
@@ -259,9 +289,20 @@ class Dog extends Obstacle{
 
     Ladrar() {
         //this.SetAnimation("ladrar");
-        soundManager._PerroBarkAudio.PlayOneShot();
+        this._PerroBarkAudio.PlayOneShot();
         this._bark--;
         console.log("Guau");
+        if(this._bark == 0){
+            clearInterval(this.interval);
+        }
+    }
+
+    StopAudio(){
+        this._PerroDeadAudio.Stop();
+        this._PerroBarkAudio.Stop();
+        this._PerroWarnAudio.Stop();
+        this._PerroAttackAudio.Stop();
+        clearInterval(this.interval);
     }
 }
 
@@ -350,13 +391,13 @@ window.addEventListener("load",function(ev){
 })
 
 
-window.addEventListener("keydown",function(ev){
+/*window.addEventListener("keydown",function(ev){
     if(ev.key=="e"){
         canvasManager.ClearCanvas();
-    }else{
+    }else{s
         canvasManager.AddList(gameObjects);
     }
-})
+})*/
 
 document.addEventListener("dblclick",function(ev){
     ev.preventDefault();
@@ -402,7 +443,7 @@ function StartMenuGame(){
 function loadGameFromLevel(ev){
     StartLoad();
     LoadObjects(ev);
-    LoadLevel("nivel1",gameObjects);
+    LoadLevel("nivel2",gameObjects);
 }
 
 function LoseGame(){
@@ -471,10 +512,10 @@ function LoadObjects(ev){
     let mountains = new Scrollable("mountains",new Vector2(0,325),"none",720,5120,"assets/img/Fondo_spritesheet.png",3,-50/2,8);
     gameObjects[0].push(mountains);
     totalLoading++;
-    let sidewalks = new Scrollable("sidewalks",new Vector2(0,557),"none",720,1280,"assets/img/Aceras_spritesheet.png",4,-50,8);
+    let sidewalks = new Scrollable("sidewalks",new Vector2(0,557),"none",720,1280,"assets/img/Aceras_spritesheet.png",4,-90,8);
     gameObjects[0].push(sidewalks);
     totalLoading++;
-    let road = new Scrollable("road",new Vector2(0,589),"none",720,1280,"assets/img/Carretera_spritesheet.png",4,-50,8);
+    let road = new Scrollable("road",new Vector2(0,589),"none",720,1280,"assets/img/Carretera_spritesheet.png",4,-90,8);
     gameObjects[0].push(road);
     totalLoading++;
     let opciones = new HitableObject("opciones",new Vector2(1280,0),"assets/img/opciones.png",50,50);
