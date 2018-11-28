@@ -144,16 +144,8 @@
         "positionx":9400,
         "open":true
     },
-    {
-        "type":"sewer",
-        "positionx":9600,
-        "open":true
-    },
-    {
-        "type":"sewer",
-        "positionx":9800,
-        "open":true
-    },
+
+
 
     {
         "type":"dove",
@@ -324,6 +316,7 @@
         "positionx":9900
     }, 
 
+    
 
     {
         "type":"plane",
