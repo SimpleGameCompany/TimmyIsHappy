@@ -469,8 +469,6 @@ function loadGameFromLevel(ev){
         gameObjects[i] = [];
     }
     sky = new HTMLBackGround("sun","none",0,0,1);
-    cloud = new HTMLBackGround("clouds","none",-50/8,1,2);
-    hills = new HTMLBackGround("hills","none",-50/2,2,4);
     road = new HTMLBackGround("road","none",-50,4,4);
     buildings = new HTMLBackGround("build","none",-35,3,4);
     LoadLevel("nivel1",gameObjects);
@@ -496,12 +494,9 @@ function LoseGame(){
     for(let i = 0; i < 5; i++){
         gameObjects[i] = [];
     }
-    sky.ChangeImg("assets/img/Cielo_Sepia.png");
-    hills.ChangeImg("assets/img/Fondo_sepia"+levelname+".png");
+    sky.ChangeImg("assets/img/Cielo_Sepia.png");   
     road.ChangeImg("assets/img/AcerasConCarretera_sepia"+levelname+".png");
     buildings.ChangeImg("assets/img/Edificios_sepia"+levelname+".png");
-    cloud.ChangeImg("assets/img/Nubes_sepia"+levelname+".png")
-    //TODO
     canvasManager.AddObject(fondo,0);
     canvasManager.AddObject(pauseContinue,5);
     canvasManager.AddObject(jojoMensaje,5);
@@ -538,19 +533,13 @@ function LoadObjects(level){
     gameObjects[2].push(timmy);
     sky.ChangeImg("assets/img/Cielo_animado"+level+".gif");  
     sky.vel = 0;
-    gameObjects[0].push(sky);
-    cloud.ChangeImg("assets/img/Nubes_animado"+level+".gif");
-    cloud.vel = (speed*100)/1280/8;
-    gameObjects[0].push(cloud);
-    totalLoading++;
+   
     buildings.vel = (speed*100)/1280/2;
     buildings.ChangeImg("assets/img/Edificios_animado"+level+".gif");
-    hills.vel = (speed*100)/1280/4;
-    hills.ChangeImg("assets/img/Fondo_animado"+level+".gif");
     road.vel = (speed*100)/1280;
     road.ChangeImg("assets/img/AceraConCarretera_animado"+level+".gif");
+    gameObjects[0].push(sky);
     gameObjects[0].push(buildings);
-    gameObjects[0].push(hills);
     gameObjects[0].push(road);
     let opciones = new HitableObject("opciones",new Vector2(1280,0),"assets/img/opciones.png",50,50);
     opciones.anchor = new Vector2(1,0);
