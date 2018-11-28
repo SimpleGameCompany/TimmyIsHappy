@@ -208,14 +208,34 @@ class Dove extends Obstacle{
             this._PalomaSpawnAudio.PlayOneShot();
             this._inCanvas = true;
         }
+        if(this.position.x <= 400 && !this._shoot){
+            let caca = new DovePoop("cacapaloma",new Vector2(this.position.x+25,this.position.y+75),"none",53,52,timmy,1);
+            this._shoot = true;
+        }
             super.Update(timeDelta,hitbox);
         
     }
+
+    OnCollision(timeDelta, hitbox){}
+
 
     StopAudio(){
         this._PalomaDeadAudio.Stop();
         this._PalomaSpawnAudio.Stop();
     }
+}
+
+class DovePoop extends Obstacle{
+    constructor(name, position, imgSrc, height, width, player, hits){
+        super(name, position, imgSrc, height, width, player, hits);
+        this.velocity = new Vector2(-110,190);
+        let anim = new Animation("assets/img/CacaPaloma_spritesheet.png",4,52,53,1/8,0);
+        this.AddAnimation(anim,"idle");
+        this.SetAnimation("idle");
+        canvasManager.AddObject(this,2);
+    }
+
+    OnClick(e){}
 }
 
 class Car extends Obstacle{
