@@ -577,7 +577,7 @@ function LoadObjects(level){
     tunelSalida.AddAnimation(tunelSalidaAnim,"idle");
     tunelSalida.SetAnimation("idle");
     gameObjects[4].push(tunelSalida);
-
+    gameObjects[5].push(puntuacionText);
     transparencyPause = new SpriteObject("transparencia",new Vector2(0,0),"assets/img/fondo.png",720,1280);
     pauseContinue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
     pauseContinue.OnClick = function(ev){canvasManager.ClearCanvas();canvasManager.AddList(gameObjects)}
