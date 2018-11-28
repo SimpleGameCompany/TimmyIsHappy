@@ -410,8 +410,9 @@ class TextObject {
     this.textElement.css("font-family",fontType);
     this.textElement.css("color",color);
     this.active = true;
+    this.click = function(ev){ev.preventDefault()}
   }
-
+  
   /**
    * @returns {String}
    */

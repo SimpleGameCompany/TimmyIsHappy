@@ -7,5 +7,12 @@
     "type":"speed",
     "speed":-90,
     "nivel":1
+    },
+    {
+        "type":"poop",
+        "positionx":1000
+    },{
+        "type":"dog",
+        "positionx":1200
     }
 ]

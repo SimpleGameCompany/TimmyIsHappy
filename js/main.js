@@ -149,7 +149,7 @@ class FlyingObject extends Obstacle{
             this._AvionSpawnAudio.volume = 0.6;
             this._AvionSpawnAudio.PlayOneShot();
             this._inCanvas = true;
-            this.velocity = new Vector2(speed,-speed/3);
+            this.velocity = new Vector2(-300,300/3);
         }else if(this.position.x+this._width <= 1500 && !this._stopped){
             this._AvionLoopAudio.PlayOnLoop();
             setTimeout(this._AvionSpawnAudio.Stop.bind(this._spawnAudio),50);
@@ -175,7 +175,13 @@ class Poop extends Obstacle{
     }
 
     OnClick(e){
-        super.OnClick(e,this._CacaDeadAudio);
+        if(!this.clicked){
+            this.clicked = true;
+            this.SetAnimation("clicked");
+            this._CacaDeadAudio.PlayOneShot();
+            this.deactivate();
+            canvasManager.clickObjects.delete(this.hitColor);
+        }
     }
 
     Update(timeDelta, hitbox){
@@ -403,8 +409,7 @@ class HTMLBackGround{
 
 class Timmy extends SpriteObject{
     constructor(name, position,img,height,width){
-        super(name,position,img,height,width);
-        
+        super(name,position,img,height,width); 
     }
 
     Update(deltaTime,hitBox){
@@ -412,9 +417,13 @@ class Timmy extends SpriteObject{
         distanciaRecorrida -= deltaTime*speed;
         puntuacionText.puntos +=Math.floor(deltaTime*speed); 
         if(distanciaRecorrida >= tamaño){
-            
-            canvasManager.ClearCanvas();
-            EndLevel();
+            if(actualLevel <3){
+                canvasManager.ClearCanvas();
+                EndLevel();
+            }else{
+                canvasManager.ClearCanvas();
+                StartMenuGame();
+            }
         }
     }
 }
@@ -429,7 +438,7 @@ var imageCount;
 
 window.addEventListener("load",function(ev){
     loading = $(".loading");
-    
+    loading.click = function(ev){ev.preventDefault()}
     loading.hide();
     canvasManager = new CanvasManager("gameCanvas",1280,720);
     StartMenuGame();
@@ -457,18 +466,11 @@ var puntuacionText;
 
 function StartMenuGame(){
     canvasManager.ClearCanvas();
-    
 
-    if(menuObjects == undefined){
         menuObjects = [];
         menuObjects[0] = [];
         menuObjects [1] = [];
         let Fodo = new SpriteObject("fondo", new Vector2(0,0),"assets/img/fondoMenu.png",720,1280);
-        //let Titulo = new SpriteObject("titulo",new Vector2(640,410),"none",813,978);
-        //let TituloAnim = new Animation("assets/img/Animated_Title_spritesheet.png",4,978,813,1/12,0);
-        //Titulo.anchor = new Vector2(0.5,0.5);
-        //Titulo.AddAnimation(TituloAnim,"idle");
-        //Titulo.SetAnimation("idle");
         let continueButton = new HitableObject("continuar", new Vector2(640,350),"assets/img/play.png",200,300);
         continueButton.anchor = new Vector2(0.5,0.5);
         continueButton.OnClick = function(ev){
@@ -476,12 +478,32 @@ function StartMenuGame(){
         }
         let opciones = new HitableObject("opciones", new Vector2(640,590),"assets/img/setings.png",100,200);
         opciones.anchor = new Vector2(0.5,0.5);
+        opciones.OnClick = function(ev){
+            OptionsMenu();
+        }
         menuObjects[0].push(Fodo);
         menuObjects[1].push(continueButton);
         menuObjects[1].push(opciones);
         
-        //menuObjects[1].push(Titulo);
-    }
+        canvasManager.AddList(menuObjects);
+    
+}
+
+function OptionsMenu(){
+    canvasManager.ClearCanvas();
+    
+        menuObjects = [];
+        menuObjects[0] = [];
+        menuObjects [1] = [];
+        let Fodo = new SpriteObject("fondo", new Vector2(0,0),"assets/img/fondoMenu.png",720,1280);
+        let continueButton = new HitableObject("continuar", new Vector2(640,350),"assets/img/play.png",200,300);
+        continueButton.anchor = new Vector2(0.5,0.5);
+        continueButton.OnClick = function(ev){
+            StartMenuGame();
+        }
+        menuObjects[0].push(Fodo);
+        menuObjects[1].push(continueButton);
+        
         canvasManager.AddList(menuObjects);
     
 }
@@ -545,7 +567,7 @@ function LoseGame(){
     //StartMenuGame();
 }
 
-var actualLevel;
+var actualLevel = 0;
 var levelname;
 
 function LoadObjects(level){
@@ -655,7 +677,6 @@ function LoadLevel(jsonName,container){
                 case "tamaño":
                     tamaño = obj.valor;
                     distanciaRecorrida = 0;
-                    
                 break;
                 case "dog":
                     let dog = new Dog("perro",new Vector2(obj.positionx,500),"none",184,209,timmy, 1, 3);
@@ -706,10 +727,12 @@ function LoadLevel(jsonName,container){
                 case "poop":
                     let poop = new Poop("caca",new Vector2(obj.positionx,615),"none", 55,33,timmy,1);
                     let poopAnim = new Animation("assets/img/Caca_spritesheet"+levelname+".png",4,33,55,1/8,0);
+                    let poopAnimDestroyed = new Animation("assets/img/BolsaCaca_spritesheet"+levelname+".png",4,33,55,1/8,0);
                     totalLoading +=1;
                     //poop.anchor = new Vector2(0,0.5);
                     poop.velocity = new Vector2(speed,0);
                     poop.AddAnimation(poopAnim,"idle");
+                    poop.AddAnimation(poopAnimDestroyed,"clicked");
                     poop.SetAnimation("idle");
                     container[1].push(poop);
                 break;
