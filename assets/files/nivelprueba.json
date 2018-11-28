@@ -1,0 +1,11 @@
+[
+    {
+    "type":"tamaño",
+    "valor":3000
+    },
+    {
+    "type":"speed",
+    "speed":-90,
+    "nivel":1
+    }
+]

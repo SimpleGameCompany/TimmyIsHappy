@@ -533,8 +533,7 @@ function LoadObjects(level){
     gameObjects[2].push(timmy);
     sky.ChangeImg("assets/img/Cielo_animado"+level+".gif");  
     sky.vel = 0;
-   
-    buildings.vel = (speed*100)/1280/2;
+    buildings.vel = (speed*100)/1280;
     buildings.ChangeImg("assets/img/Edificios_animado"+level+".gif");
     road.vel = (speed*100)/1280;
     road.ChangeImg("assets/img/AceraConCarretera_animado"+level+".gif");
@@ -546,7 +545,27 @@ function LoadObjects(level){
     opciones.OnClick = PauseGame;
     gameObjects[5].push(opciones);
 
-    
+    let black = new SpriteObject("black", new Vector2(tamaño,0),"assets/img/FondoFinal.png",720,1280);
+    black.velocity = new Vector2(speed,0);
+    gameObjects[4].push(black);
+    let tunelLejos = new SpriteObject("tunellejos", new Vector2(tamaño-494,0),"none",720,496);
+    let tunelLejosAnim = new Animation("assets/img/TunelLejos_spritesheet"+levelname+".png",4,496,720,1/8,0);
+    tunelLejos.velocity = new Vector2(speed,0);
+    tunelLejos.AddAnimation(tunelLejosAnim,"idle");
+    tunelLejos.SetAnimation("idle");
+    gameObjects[1].push(tunelLejos);
+    let tunelCerca = new SpriteObject("tunelcerca", new Vector2(tamaño-495,0),"none",720,496);
+    let tunelCercaAnim = new Animation("assets/img/TunelCerca_spritesheet"+levelname+".png",4,496,720,1/8,0);
+    tunelCerca.velocity = new Vector2(speed,0);
+    tunelCerca.AddAnimation(tunelCercaAnim,"idle");
+    tunelCerca.SetAnimation("idle");
+    gameObjects[4].push(tunelCerca);
+    let tunelSalida = new SpriteObject("tunelsalida", new Vector2(0,0),"none",720,315);
+    let tunelSalidaAnim = new Animation("assets/img/TunelSalida_spritesheet"+levelname+".png",4,315,720,1/8,0);
+    tunelSalida.velocity = new Vector2(speed,0);
+    tunelSalida.AddAnimation(tunelSalidaAnim,"idle");
+    tunelSalida.SetAnimation("idle");
+    gameObjects[4].push(tunelSalida);
 
     transparencyPause = new SpriteObject("transparencia",new Vector2(0,0),"assets/img/fondo.png",720,1280);
     pauseContinue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
