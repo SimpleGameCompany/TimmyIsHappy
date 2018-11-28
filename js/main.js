@@ -496,9 +496,9 @@ function LoseGame(){
     for(let i = 0; i < 5; i++){
         gameObjects[i] = [];
     }
-    sky.ChangeImg("assets/img/Cielo_Sepia.png");
+    sky.ChangeImg("assets/img/Cielo_sepia.png");
     hills.ChangeImg("assets/img/Fondo_sepia"+levelname+".png");
-    road.ChangeImg("assets/img/AcerasConCarretera_sepia"+levelname+".png");
+    road.ChangeImg("assets/img/AceraConCarretera_sepia"+levelname+".png");
     buildings.ChangeImg("assets/img/Edificios_sepia"+levelname+".png");
     cloud.ChangeImg("assets/img/Nubes_sepia"+levelname+".png")
     //TODO
@@ -665,7 +665,7 @@ function LoadLevel(jsonName,container){
            
             //totalLoading+=14;
         }
-        StartGame(container,3000);
+        StartGame(container,1000);
     });
 }
 
