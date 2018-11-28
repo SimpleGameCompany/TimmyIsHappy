@@ -342,8 +342,8 @@ class Scrollable{
 
 class HTMLBackGround{
     constructor(name,img,vel,zIndex,scale){
-        this.b1 =$("<img src ='"+img+"' class ='loading'/>").appendTo( $(canvasManager.canvasElement).parent());
-        this.b2 =$("<img src ='"+img+"' class ='loading'/>").appendTo( $(canvasManager.canvasElement).parent());
+        this.b1 =$("<img src ='"+img+"' class ='background'/>").appendTo( $(canvasManager.canvasElement).parent());
+        this.b2 =$("<img src ='"+img+"' class ='background'/>").appendTo( $(canvasManager.canvasElement).parent());
         this.b2.click = function(ev){ev.preventDefault()}
         this.b1.click = function(ev){ev.preventDefault()}
         this.b1.css("zIndex",zIndex);
@@ -464,6 +464,10 @@ function StartMenuGame(){
 
 function loadGameFromLevel(ev){
     StartLoad();
+    canvasManager.ClearCanvas();
+    puntuacionText = new TextObject("Puntos: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
+    puntuacionText.activate=false;
+    puntuacionText.puntos = 0;
     gameObjects = [];
     for (let i = 0; i < 6; i++) {
         gameObjects[i] = [];
@@ -487,18 +491,25 @@ function LoseGame(){
         d[i] = (r * .23) + (g *.61) + (b * .17);
         d[i+1] =  (r * .27) + (g *.62) + (b * .03);
         d[i+2] = (r * .18) + (g *.32) + (b * (-0.02));
-      }
+    }
     canvasManager.canvasScene.putImageData(image,0,0);
     let fondo = new SpriteObject("fondo",new Vector2(0,0),canvasManager.canvasElement.toDataURL(),720,1280);
+    let volverMenu = new HitableObject("volver",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
+    volverMenu.anchor = new Vector2(0.5,0.5);
+    volverMenu.OnClick = function(ev){
+        puntuacionText.puntos = 0;
+        StartLoad();
+        LoadLevel("nivel"+actualLevel,gameObjects);
+    }
     canvasManager.ClearCanvas();
     for(let i = 0; i < 5; i++){
         gameObjects[i] = [];
     }
-    sky.ChangeImg("assets/img/Cielo_Sepia.png");   
-    road.ChangeImg("assets/img/AcerasConCarretera_sepia"+levelname+".png");
+    sky.ChangeImg("assets/img/Cielo_sepia.png");   
+    road.ChangeImg("assets/img/AceraConCarretera_sepia"+levelname+".png");
     buildings.ChangeImg("assets/img/Edificios_sepia"+levelname+".png");
     canvasManager.AddObject(fondo,0);
-    canvasManager.AddObject(pauseContinue,5);
+    canvasManager.AddObject(volverMenu,5);
     canvasManager.AddObject(jojoMensaje,5);
     
 
@@ -580,7 +591,7 @@ function EndLevel(){
     Continue.OnClick = function(ev){
         canvasManager.ClearCanvas();
         StartLoad();
-        LoadLevel("nivel2",gameObjects);
+        LoadLevel("nivel"+(actualLevel+1),gameObjects);
     }
     Continue.anchor = new Vector2(0.5,0.5);
     canvasManager.AddObject(Continue,5);
