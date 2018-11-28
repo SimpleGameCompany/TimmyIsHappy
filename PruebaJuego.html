@@ -1,11 +1,12 @@
 <html>
+
 <head>
     <link href="style/bootstrap.min.css" rel="stylesheet">
     <link href="style/main.css" rel="stylesheet">
     <script src="js/library/jquery-3.3.1.min.js"></script>
     <script src="js/library/bootstrap.min.js"></script>
-    <script src = "js/library/LightCanvas.js"></script>
-    <script src= "js/checkMobile.js"></script>
+    <script src="js/library/LightCanvas.js"></script>
+    <script src="js/checkMobile.js"></script>
     <script id="nivel1" src="assets/files/nivel1.json" type="text/javascript"></script>
     <title>Timmy Is Happy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -13,90 +14,118 @@
 
 <body>
 
-        <div class="row">
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
-                <div class="canvasContainer col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                    <img class="loading" src="assets/img/Loading_screen.gif"/>
-                    <canvas id="gameCanvas" width="1280" height="720"></canvas>
-                    <canvas id="gameCanvas-hitbox" width="1280" height="720"></canvas>
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
-            </div>
-            <div id ="imagenesToLoad" class ="hidden">
-                <div id ="nivel1">
-                    <img src="assets/img/Cielo_animado_nivel1.gif" />;
-                    <img src="assets/img/Fondo_animado_nivel1.gif" />
-                    <img src="assets/img/AceraConCarretera_animado_nivel1.gif" />
-                    <img src="assets/img/Edificios_animado_nivel1.gif" />
-                    <img src="assets/img/Nubes_animado_nivel1.gif" />
-                    <img src="assets/img/Cielo_sepia.png" />;
-                    <img src="assets/img/Fondo_sepia_nivel1.png" />
-                    <img src="assets/img/AceraConCarretera_sepia_nivel1.png" />
-                    <img src="assets/img/Edificios_sepia_nivel1.png" />
-                    <img src="assets/img/Nubes_sepia_nivel1.png" />
-                    <img src = "assets/img/Timmy_spritesheet_nivel1.png"/>
-                    <img src = "assets/img/Avion_spritesheet_nivel1.png" />
-                    <img src = "assets/img/Paloma_spritesheet_nivel1.png" />
-                    <img src = "assets/img/Alcantarilla_spritesheet_nivel1.png" />
-                    <img src = "assets/img/Coche_spritesheet_nivel1.png" />
-                    <img src = "assets/img/CacaPaloma_spritesheet.png" />
-                    <img src = "assets/img/Caca_spritesheet_nivel1.png" />
-                    <img src = "assets/img/BolsaCaca_spritesheet_nivel1.png" />
-                    <img src = "assets/img/Animated_Title_spritesheet.png" />
-                    <img src = "assets/img/PerroCorriendo_spritesheet_nivel1.png" />
-                    <img src = "assets/img/PerroIdle_spritesheet_nivel1.png"/>
-                    
-                </div>
-                <div id ="nivel2">
-                        <img src="assets/img/Cielo_animado_nivel2.gif" />;
-                        <img src="assets/img/Fondo_animado_nivel2.gif" />
-                        <img src="assets/img/AceraConCarretera_animado_nivel2.gif" />
-                        <img src="assets/img/Edificios_animado_nivel2.gif" />
-                        <img src="assets/img/Nubes_animado_nivel2.gif" />
-                        <img src="assets/img/Cielo_sepia.png" />;
-                        <img src="assets/img/Fondo_sepia_nivel2.png" />
-                        <img src="assets/img/AceraConCarretera_sepia_nivel2.png" />
-                        <img src="assets/img/Edificios_sepia_nivel2.png" />
-                        <img src="assets/img/Nubes_sepia_nivel2.png" />
-                        <img src = "assets/img/Timmy_spritesheet_nivel2.png"/>
-                        <img src = "assets/img/Avion_spritesheet_nivel2.png" />
-                        <img src = "assets/img/Paloma_spritesheet_nivel2.png" />
-                        <img src = "assets/img/Alcantarilla_spritesheet_nivel2.png" />
-                        <img src = "assets/img/Coche_spritesheet_nivel2.png" />
-                        <img src = "assets/img/CacaPaloma_spritesheet.png" />
-                        <img src = "assets/img/Caca_spritesheet_nivel2.png" />
-                        <img src = "assets/img/BolsaCaca_spritesheet_nivel2.png" />
-                        <img src = "assets/img/Animated_Title_spritesheet.png" />
-                        <img src = "assets/img/PerroCorriendo_spritesheet_nivel2.png" />
-                        <img src = "assets/img/PerroIdle_spritesheet_nivel2.png"/>
-                        
-                    </div>
-                    <div id ="nivel3">
-                            <img src="assets/img/Cielo_animado_nivel3.gif" />;
-                            <img src="assets/img/Fondo_animado_nivel3.gif" />
-                            <img src="assets/img/AceraConCarretera_animado_nivel3.gif" />
-                            <img src="assets/img/Edificios_animado_nivel3.gif" />
-                            <img src="assets/img/Nubes_animado_nivel3.gif" />
-                            <img src="assets/img/Cielo_sepia.png" />;
-                            <img src="assets/img/Fondo_sepia_nivel3.png" />
-                            <img src="assets/img/AceraConCarretera_sepia_nivel3.png" />
-                            <img src="assets/img/Edificios_sepia_nivel3.png" />
-                            <img src="assets/img/Nubes_sepia_nivel3.png" />
-                            <img src = "assets/img/Timmy_spritesheet_nivel3.png"/>
-                            <img src = "assets/img/Avion_spritesheet_nivel3.png" />
-                            <img src = "assets/img/Paloma_spritesheet_nivel3.png" />
-                            <img src = "assets/img/Alcantarilla_spritesheet_nivel3.png" />
-                            <img src = "assets/img/Coche_spritesheet_nivel3.png" />
-                            <img src = "assets/img/CacaPaloma_spritesheet.png" />
-                            <img src = "assets/img/Caca_spritesheet_nivel3.png" />
-                            <img src = "assets/img/BolsaCaca_spritesheet_nivel3.png" />
-                            <img src = "assets/img/Animated_Title_spritesheet.png" />
-                            <img src = "assets/img/PerroCorriendo_spritesheet_nivel3.png" />
-                            <img src = "assets/img/PerroIdle_spritesheet_nivel3.png"/>
-                            
-                        </div>
-            </div>
+    <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
+        <div class="canvasContainer col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+            <img class="loading" src="assets/img/Loading_screen.gif" />
+            <canvas id="gameCanvas" width="1280" height="720"></canvas>
+            <canvas id="gameCanvas-hitbox" width="1280" height="720"></canvas>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
+    </div>
+    <div id="imagenesToLoad" class="hidden">
+
+        <img src="assets/img/FondoFinal.png" />
+        <div id="nivel1">
+            <img src="assets/img/Cielo_animado_nivel1.gif" />;
+            <img src="assets/img/Fondo_animado_nivel1.gif" />
+            <img src="assets/img/AceraConCarretera_animado_nivel1.gif" />
+            <img src="assets/img/Edificios_animado_nivel1.gif" />
+            <img src="assets/img/Nubes_animado_nivel1.gif" />
+            <img src="assets/img/Cielo_sepia.png" />;
+            <img src="assets/img/Fondo_sepia_nivel1.png" />
+            <img src="assets/img/AceraConCarretera_sepia_nivel1.png" />
+            <img src="assets/img/Edificios_sepia_nivel1.png" />
+            <img src="assets/img/Nubes_sepia_nivel1.png" />
+            <img src="assets/img/Timmy_spritesheet_nivel1.png" />
+            <img src="assets/img/Avion_spritesheet_nivel1.png" />
+            <img src="assets/img/Paloma_spritesheet_nivel1.png" />
+            <img src="assets/img/Alcantarilla_spritesheet_nivel1.png" />
+            <img src="assets/img/Coche_spritesheet_nivel1.png" />
+            <img src="assets/img/CacaPaloma_spritesheet.png" />
+            <img src="assets/img/Caca_spritesheet_nivel1.png" />
+            <img src="assets/img/BolsaCaca_spritesheet_nivel1.png" />
+            <img src="assets/img/Animated_Title_spritesheet.png" />
+            <img src="assets/img/PerroCorriendo_spritesheet_nivel1.png" />
+            <img src="assets/img/PerroIdle_spritesheet_nivel1.png" />
+
+        </div>
+        <div id="nivel2">
+            <img src="assets/img/Cielo_animado_nivel2.gif" />;
+            <img src="assets/img/Fondo_animado_nivel2.gif" />
+            <img src="assets/img/AceraConCarretera_animado_nivel2.gif" />
+            <img src="assets/img/Edificios_animado_nivel2.gif" />
+            <img src="assets/img/Nubes_animado_nivel2.gif" />
+            <img src="assets/img/Cielo_sepia.png" />;
+            <img src="assets/img/Fondo_sepia_nivel2.png" />
+            <img src="assets/img/AceraConCarretera_sepia_nivel2.png" />
+            <img src="assets/img/Edificios_sepia_nivel2.png" />
+            <img src="assets/img/Nubes_sepia_nivel2.png" />
+            <img src="assets/img/Timmy_spritesheet_nivel2.png" />
+            <img src="assets/img/Avion_spritesheet_nivel2.png" />
+            <img src="assets/img/Paloma_spritesheet_nivel2.png" />
+            <img src="assets/img/Alcantarilla_spritesheet_nivel2.png" />
+            <img src="assets/img/Coche_spritesheet_nivel2.png" />
+            <img src="assets/img/CacaPaloma_spritesheet.png" />
+            <img src="assets/img/Caca_spritesheet_nivel2.png" />
+            <img src="assets/img/BolsaCaca_spritesheet_nivel2.png" />
+            <img src="assets/img/Animated_Title_spritesheet.png" />
+            <img src="assets/img/PerroCorriendo_spritesheet_nivel2.png" />
+            <img src="assets/img/PerroIdle_spritesheet_nivel2.png" />
+
+        </div>
+        <div id="nivel3">
+            <img src="assets/img/Cielo_animado_nivel3.gif" />;
+            <img src="assets/img/Fondo_animado_nivel3.gif" />
+            <img src="assets/img/AceraConCarretera_animado_nivel3.gif" />
+            <img src="assets/img/Edificios_animado_nivel3.gif" />
+            <img src="assets/img/Nubes_animado_nivel3.gif" />
+            <img src="assets/img/Cielo_sepia.png" />;
+            <img src="assets/img/Fondo_sepia_nivel3.png" />
+            <img src="assets/img/AceraConCarretera_sepia_nivel3.png" />
+            <img src="assets/img/Edificios_sepia_nivel3.png" />
+            <img src="assets/img/Nubes_sepia_nivel3.png" />
+            <img src="assets/img/Timmy_spritesheet_nivel3.png" />
+            <img src="assets/img/Avion_spritesheet_nivel3.png" />
+            <img src="assets/img/Paloma_spritesheet_nivel3.png" />
+            <img src="assets/img/Alcantarilla_spritesheet_nivel3.png" />
+            <img src="assets/img/Coche_spritesheet_nivel3.png" />
+            <img src="assets/img/CacaPaloma_spritesheet.png" />
+            <img src="assets/img/Caca_spritesheet_nivel3.png" />
+            <img src="assets/img/BolsaCaca_spritesheet_nivel3.png" />
+            <img src="assets/img/Animated_Title_spritesheet.png" />
+            <img src="assets/img/PerroCorriendo_spritesheet_nivel3.png" />
+            <img src="assets/img/PerroIdle_spritesheet_nivel3.png" />
+
+        </div>
+    </div>
+    <div id="audios">
+        <div id="fx">
+            <audio src="assets/audio/Alcantarilla/Alcantarilla_Open.ogg"></audio>
+            <audio src="assets/audio/Alcantarilla/Alcantarilla_Close.ogg"></audio>
+            <audio src="assets/audio/Avion/Avion_Eliminated.ogg"></audio>
+            <audio src="assets/audio/Avion/Avion_Loop.ogg"></audio>
+            <audio src="assets/audio/Avion/Avion_Spawn.ogg"></audio>
+            <audio src="assets/audio/Paloma/Paloma_Eliminated.ogg"></audio>
+            <audio src="assets/audio/Paloma/Paloma_Spawn.ogg"></audio>
+            <audio src="assets/audio/Caca/Caca_Eliminated.ogg"></audio>
+            <audio src="assets/audio/Caca/Caca_Spawn.ogg"></audio>
+            <audio src="assets/audio/Coche/Coche_Move.ogg"></audio>
+            <audio src="assets/audio/Coche/Coche_Bocina.ogg"></audio>
+            <audio src="assets/audio/Coche/Coche_Eliminated.ogg"></audio>
+            <audio src="assets/audio/Perro/Perro_Eliminated.ogg"></audio>
+            <audio src="assets/audio/Perro/Dog_bark_1.ogg"></audio>
+            <audio src="assets/audio/Perro/Perro_Warn.ogg"></audio>
+            <audio src="assets/audio/Perro/Perro_Attack.ogg"></audio>
+        </div>
+        <div id="music">
+            <audio id = "music_nivel1" src = ""></audio>
+            <audio id = "music_nivel2" src = ""></audio>
+            <audio id = "music_nivel3" src = ""></audio>
+        </div>
+    </div>
 
 
 </body>
+
 </html>

@@ -416,6 +416,7 @@ class Timmy extends SpriteObject{
     Update(deltaTime,hitBox){
         super.Update(deltaTime,hitBox);
         distanciaRecorrida -= deltaTime*speed;
+        puntuacionText.puntos +=Math.floor(deltaTime*speed); 
         if(distanciaRecorrida >= tamaño){
             if(actualLevel <3){
                 canvasManager.ClearCanvas();
@@ -596,7 +597,7 @@ function LoadObjects(level){
     timmy.SetAnimation("idle");
     //timmy.anchor = new Vector2(0.5,0.5);
     gameObjects[2].push(timmy);
-    sky.ChangeImg("assets/img/Cielo_animado"+level+".gif");  
+    sky.ChangeImg("assets/img/Fondo_completo_animado"+level+".gif");  
     sky.vel = 0;
     buildings.vel = (speed*100)/1280;
     buildings.ChangeImg("assets/img/Edificios_animado"+level+".gif");
@@ -631,6 +632,7 @@ function LoadObjects(level){
     tunelSalida.AddAnimation(tunelSalidaAnim,"idle");
     tunelSalida.SetAnimation("idle");
     gameObjects[4].push(tunelSalida);
+    
     gameObjects[5].push(puntuacionText);
     transparencyPause = new SpriteObject("transparencia",new Vector2(0,0),"assets/img/fondo.png",720,1280);
     pauseContinue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
@@ -652,6 +654,16 @@ function EndLevel(){
 }
 
 function LoadLevel(jsonName,container){
+    puntuacionText.time = 0.5;
+    puntuacionText.actualtime = 0;
+    puntuacionText.Update = function(timeDelta,hitBox){
+        if(this.actualtime >=this.time){
+        puntuacionText.text = "Puntos: "+Math.abs(puntuacionText.puntos);
+        this.actualtime = 0;
+        }else{
+            this.actualtime+=timeDelta;
+        }
+    }
     $.getJSON("assets/files/"+jsonName+".json", function (json) {
         for(var obj of json){
             switch(obj.type){
@@ -753,6 +765,7 @@ function StartGame(container,loadTime){
 
 function GoGame (loadtime){   
         canvasManager.RenderAndUpdate(0);
+        puntuacionText.activate=true;
         StopLoad();
         canvasManager.AddList(gameObjects);
         canvasManager.Start();

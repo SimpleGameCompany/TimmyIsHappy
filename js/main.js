@@ -49,22 +49,22 @@ class Obstacle extends HitableObject{
 
 class SoundManager{
     LoadSounds(){
-        /*this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
-        this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0);
-        this._AvionDeadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
-        this._AvionLoopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
+        /*this._openAudio =     new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
+        this._closeAudio =      new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0);
+        this._AvionDeadAudio =  new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
+        this._AvionLoopAudio =  new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
         this._AvionSpawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
         this._PalomaDeadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg",0);
-        this._PalomaSpawnAudio = new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0);
-        this._CacaDeadAudio = new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg",0);
-        this._CacaSpawnAudio = new AudioObject("assets/audio/Caca/Caca_Spawn.ogg",0);
-        this._CocheLoopAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg",0.9);
-        this._CocheClaxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0);
-        this._CocheDeadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0);
-        this._PerroDeadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
-        this._PerroBarkAudio = new AudioObject("assets/audio/Perro/Dog_bark_1.ogg",0);
-        this._PerroWarnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
-        this._PerroAttackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);*/
+        this._PalomaSpawnAudio =new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0);
+        this._CacaDeadAudio =   new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg",0);
+        this._CacaSpawnAudio =  new AudioObject("assets/audio/Caca/Caca_Spawn.ogg",0);
+        this._CocheLoopAudio =  new AudioObject("assets/audio/Coche/Coche_Move.ogg",0.9);
+        this._CocheClaxonAudio =new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0);
+        this._CocheDeadAudio =  new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0);
+        this._PerroDeadAudio =  new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
+        this._PerroBarkAudio =  new AudioObject("assets/audio/Perro/Dog_bark_1.ogg",0);
+        this._PerroWarnAudio =  new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
+        this._PerroAttackAudio =new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);*/
     }
 
     StopAudio(){
@@ -646,13 +646,16 @@ function LoadObjects(level){
 
 function EndLevel(){
     let Continue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
+    let fondoNegro = new SpriteObject("fondoNegro",new Vector2(0,0),"assets/img/FondoFinal.png",720,1280);
     Continue.OnClick = function(ev){
         canvasManager.ClearCanvas();
         StartLoad();
         LoadLevel("nivel"+(actualLevel+1),gameObjects);
     }
     Continue.anchor = new Vector2(0.5,0.5);
+
     canvasManager.AddObject(Continue,5);
+    canvasManager.AddObject(fondoNegro,0);
 }
 
 function LoadLevel(jsonName,container){
