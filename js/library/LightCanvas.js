@@ -397,11 +397,18 @@ class TextObject {
    * @param {String} text
    * @param {Vector2} pos
    */
-  constructor(text, pos,fontSize) {
+  constructor(text, pos,fontSize,fontType,CanvasManager,color) {
     this._position = pos;
     this._text = text;
-    this._font = "Arial";
+    this._font = fontType;
     this._fontSize = fontSize;
+    this.textElement = $("<p class ='text'>"+text+"</p>").appendTo($(CanvasManager.canvasElement).parent());
+    this.textElement.css("left",this.position.x+"%");
+    this.textElement.css("top",this.position.y+"%");
+    this.textElement.css("zIndex",10);
+    this.textElement.css("font-size",fontSize+"vw");
+    this.textElement.css("font-family",fontType);
+    this.textElement.css("color",color);
     this.active = true;
   }
 
@@ -413,6 +420,7 @@ class TextObject {
   }
 
   set text(t) {
+    this.textElement.text(t);
     this._text = t;
   }
 
@@ -424,13 +432,26 @@ class TextObject {
   }
   set position(pos) {
     this._position = pos;
+    this.textElement.css("left",this.position.x+"%");
+    this.textElement.css("top",this.position.y+"%");
   }
+  set activate(b){
+    if(b){
+      this.textElement.show();
+      this.active = true;
+    }else{
+      this.textElement.hide();
+      this.active = false;
+    }
+  }
+  Destroy(){
+    $(window).remove(this.textElement);
+  }
+
   /**
    * @param {CanvasRenderingContext2D} renderCanvas
    */
   Render(renderCanvas) {
-    renderCanvas.font =  this._fontSize +" " +this._font ;
-    renderCanvas.fillText(this.text,this.position.x,this.position.y);
   }
 
   Update() {}
@@ -590,7 +611,7 @@ class CanvasManager {
   }
 
   ClearCanvas() {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
       this.objectList[i] = [];
     }
   }

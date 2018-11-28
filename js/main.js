@@ -362,8 +362,8 @@ class Scrollable{
 
 class HTMLBackGround{
     constructor(name,img,vel,zIndex,scale){
-        this.b1 =$("<img src ='"+img+"' class ='loading'/>").appendTo( $(canvasManager.canvasElement).parent());
-        this.b2 =$("<img src ='"+img+"' class ='loading'/>").appendTo( $(canvasManager.canvasElement).parent());
+        this.b1 =$("<img src ='"+img+"' class ='background'/>").appendTo( $(canvasManager.canvasElement).parent());
+        this.b2 =$("<img src ='"+img+"' class ='background'/>").appendTo( $(canvasManager.canvasElement).parent());
         this.b2.click = function(ev){ev.preventDefault()}
         this.b1.click = function(ev){ev.preventDefault()}
         this.b1.css("zIndex",zIndex);
@@ -404,12 +404,15 @@ class HTMLBackGround{
 class Timmy extends SpriteObject{
     constructor(name, position,img,height,width){
         super(name,position,img,height,width);
+        
     }
 
     Update(deltaTime,hitBox){
         super.Update(deltaTime,hitBox);
         distanciaRecorrida -= deltaTime*speed;
+        puntuacionText.puntos +=Math.floor(deltaTime*speed); 
         if(distanciaRecorrida >= tamaño){
+            
             canvasManager.ClearCanvas();
             EndLevel();
         }
@@ -450,7 +453,7 @@ var transparencyPause;
 var pauseContinue;
 var distanciaRecorrida;
 var tamaño;
-
+var puntuacionText;
 
 function StartMenuGame(){
     canvasManager.ClearCanvas();
@@ -476,6 +479,7 @@ function StartMenuGame(){
         menuObjects[0].push(Fodo);
         menuObjects[1].push(continueButton);
         menuObjects[1].push(opciones);
+        
         //menuObjects[1].push(Titulo);
     }
         canvasManager.AddList(menuObjects);
@@ -484,6 +488,10 @@ function StartMenuGame(){
 
 function loadGameFromLevel(ev){
     StartLoad();
+    canvasManager.ClearCanvas();
+    puntuacionText = new TextObject("Puntos: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
+    puntuacionText.activate=false;
+    puntuacionText.puntos = 0;
     gameObjects = [];
     for (let i = 0; i < 6; i++) {
         gameObjects[i] = [];
@@ -512,8 +520,15 @@ function LoseGame(){
       }
     canvasManager.canvasScene.putImageData(image,0,0);
     let fondo = new SpriteObject("fondo",new Vector2(0,0),canvasManager.canvasElement.toDataURL(),720,1280);
+    let volverMenu = new HitableObject("volver",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
+    volverMenu.anchor = new Vector2(0.5,0.5);
+    volverMenu.OnClick = function(ev){
+        puntuacionText.puntos = 0;
+        StartLoad();
+        LoadLevel("nivel"+actualLevel,gameObjects);
+    }
     canvasManager.ClearCanvas();
-    for(let i = 0; i < 5; i++){
+    for(let i = 0; i < 6; i++){
         gameObjects[i] = [];
     }
     sky.ChangeImg("assets/img/Cielo_sepia.png");
@@ -523,7 +538,7 @@ function LoseGame(){
     cloud.ChangeImg("assets/img/Nubes_sepia"+levelname+".png")
     //TODO
     canvasManager.AddObject(fondo,0);
-    canvasManager.AddObject(pauseContinue,5);
+    canvasManager.AddObject(volverMenu,5);
     canvasManager.AddObject(jojoMensaje,5);
     
 
@@ -597,12 +612,12 @@ function LoadObjects(level){
     tunelSalida.velocity = new Vector2(speed,0);
     tunelSalida.AddAnimation(tunelSalidaAnim,"idle");
     tunelSalida.SetAnimation("idle");
-    gameObjects[4].push(tunelSalida);
-
+    gameObjects[4].push(tunelSalida); 
     transparencyPause = new SpriteObject("transparencia",new Vector2(0,0),"assets/img/fondo.png",720,1280);
     pauseContinue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
     pauseContinue.OnClick = function(ev){canvasManager.ClearCanvas();canvasManager.AddList(gameObjects)}
     pauseContinue.anchor = new Vector2(0.5,0.5);
+    gameObjects[5].push(puntuacionText);
     
 
 }
@@ -612,13 +627,24 @@ function EndLevel(){
     Continue.OnClick = function(ev){
         canvasManager.ClearCanvas();
         StartLoad();
-        LoadLevel("nivel2",gameObjects);
+        LoadLevel("nivel"+(actualLevel+1),gameObjects);
     }
     Continue.anchor = new Vector2(0.5,0.5);
     canvasManager.AddObject(Continue,5);
 }
 
 function LoadLevel(jsonName,container){
+    
+    puntuacionText.time = 0.5;
+    puntuacionText.actualtime = 0;
+    puntuacionText.Update = function(timeDelta,hitBox){
+        if(this.actualtime >=this.time){
+        puntuacionText.text = "Puntos: "+Math.abs(puntuacionText.puntos);
+        this.actualtime = 0;
+        }else{
+            this.actualtime+=timeDelta;
+        }
+    }
     $.getJSON("assets/files/"+jsonName+".json", function (json) {
         for(var obj of json){
             switch(obj.type){
@@ -716,6 +742,7 @@ function StartGame(container,loadTime){
 
 function GoGame (loadtime){   
         canvasManager.RenderAndUpdate(0);
+        puntuacionText.activate=true;
         StopLoad();
         canvasManager.AddList(gameObjects);
         canvasManager.Start();
