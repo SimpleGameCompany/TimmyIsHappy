@@ -1,4 +1,34 @@
 
+//#region variables
+var timmy; 
+var sky;
+var cloud;
+var hills;
+var buildings;
+var road;
+var jojoMensaje;
+var speed;
+var transparencyPause;
+var pauseContinue;
+var distanciaRecorrida;
+var tamaño;
+var puntuacionText;
+var fondoMenuPrincipal;
+var idioma = "_esp";
+var soundManager;
+var canvasManager;
+var menuObjects;
+var gameObjects;
+var loading;
+var loadingCount;
+var totalLoading;
+var imageCount;
+var actualLevel = 0;
+var levelname;
+var lose = false;
+//#endregion
+
+//#region objetos
 class Obstacle extends HitableObject{
     /**
      * 
@@ -48,25 +78,6 @@ class Obstacle extends HitableObject{
 }
 
 class SoundManager{
-    LoadSounds(){
-        /*this._openAudio =     new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
-        this._closeAudio =      new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0);
-        this._AvionDeadAudio =  new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
-        this._AvionLoopAudio =  new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
-        this._AvionSpawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
-        this._PalomaDeadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg",0);
-        this._PalomaSpawnAudio =new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0);
-        this._CacaDeadAudio =   new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg",0);
-        this._CacaSpawnAudio =  new AudioObject("assets/audio/Caca/Caca_Spawn.ogg",0);
-        this._CocheLoopAudio =  new AudioObject("assets/audio/Coche/Coche_Move.ogg",0.9);
-        this._CocheClaxonAudio =new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0);
-        this._CocheDeadAudio =  new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0);
-        this._PerroDeadAudio =  new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
-        this._PerroBarkAudio =  new AudioObject("assets/audio/Perro/Dog_bark_1.ogg",0);
-        this._PerroWarnAudio =  new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
-        this._PerroAttackAudio =new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);*/
-    }
-
     StopAudio(){
         for(let i= 0; i<gameObjects.length; i++){
             for(let j = 0; j<gameObjects[i].length; j++){
@@ -75,26 +86,10 @@ class SoundManager{
                 }
             }
         }
-        /*this._openAudio.Stop();
-        this._closeAudio.Stop();
-        this._AvionDeadAudio.Stop();
-        this._AvionLoopAudio.Stop();
-        this._AvionSpawnAudio.Stop();
-        this._PalomaDeadAudio.Stop();
-        this._PalomaSpawnAudio.Stop();
-        this._CacaDeadAudio.Stop();
-        this._CacaSpawnAudio.Stop();
-        this._CocheLoopAudio.Stop();
-        this._CocheClaxonAudio.Stop();
-        this._CocheDeadAudio.Stop();
-        this._PerroDeadAudio.Stop();
-        this._PerroBarkAudio.Stop();
-        this._PerroWarnAudio.Stop();
-        this._PerroAttackAudio.Stop();*/
     }
 }
 
-var soundManager = new SoundManager();
+
 
 class Sewer extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits, open){
@@ -310,6 +305,9 @@ class Dog extends Obstacle{
             this.interval = setInterval(this.Ladrar.bind(this),1000);
             this._stopped = true;
         }
+        if(lose){
+            clearInterval(this.interval);
+        }
         super.Update(timeDelta, hitbox);
     }
 
@@ -332,39 +330,26 @@ class Dog extends Obstacle{
     }
 }
 
-class Scrollable{
-    constructor(name, position, img, height, width, animName, frames, vel, fps){
-        this.active = true;
-        this.b1 = new SpriteObject(name, position, img, height, width);
-        this.b1.velocity = new Vector2(vel,0);
-        let position2 = position.add(new Vector2(width-1,0));
-        this.b2 = new SpriteObject(name, position2, img, height, width);
-        this.b2.velocity = new Vector2(vel,0);
-        let anim = new Animation(animName,frames,width,height,1/fps,0);
-
-        this.b1.AddAnimation(anim,"idle");
-        this.b1.SetAnimation("idle");
-        this.b2.AddAnimation(anim,"idle");
-        this.b2.SetAnimation("idle");
+class Timmy extends SpriteObject{
+    constructor(name, position,img,height,width){
+        super(name,position,img,height,width); 
     }
 
-    Update(deltaTime, hitBox){
-        this.b1.Update(deltaTime, hitBox);
-        this.b2.Update(deltaTime, hitBox);
-
-        if(this.b1.position.x <= -this.b1.width){
-            this.b1.position.x = this.b2.position.x+this.b2.width-1;
-        }else if(this.b2.position.x <= -this.b2.width){
-            this.b2.position.x = this.b1.position.x+this.b1.width-1;
+    Update(deltaTime,hitBox){
+        super.Update(deltaTime,hitBox);
+        distanciaRecorrida -= deltaTime*speed;
+        puntuacionText.puntos +=Math.floor(deltaTime*speed); 
+        if(distanciaRecorrida >= tamaño){
+            if(actualLevel <3){
+                canvasManager.ClearCanvas();
+                EndLevel();
+            }else{
+                canvasManager.ClearCanvas();
+                StartMenuGame();
+            }
         }
     }
-
-    Render(renderCanvas){
-        this.b1.Render(renderCanvas);
-        this.b2.Render(renderCanvas);
-    }
 }
-
 
 class HTMLBackGround{
     constructor(name,img,vel,zIndex,scale){
@@ -406,65 +391,9 @@ class HTMLBackGround{
         this.b2.attr("src",imgSrc);
     }
 }
+//#endregion
 
-class Timmy extends SpriteObject{
-    constructor(name, position,img,height,width){
-        super(name,position,img,height,width); 
-    }
-
-    Update(deltaTime,hitBox){
-        super.Update(deltaTime,hitBox);
-        distanciaRecorrida -= deltaTime*speed;
-        puntuacionText.puntos +=Math.floor(deltaTime*speed); 
-        if(distanciaRecorrida >= tamaño){
-            if(actualLevel <3){
-                canvasManager.ClearCanvas();
-                EndLevel();
-            }else{
-                canvasManager.ClearCanvas();
-                StartMenuGame();
-            }
-        }
-    }
-}
-
-var canvasManager;
-var menuObjects;
-var gameObjects;
-var loading;
-var loadingCount;
-var totalLoading;
-var imageCount;
-
-window.addEventListener("load",function(ev){
-    loading = $(".loading");
-    loading.click = function(ev){ev.preventDefault()}
-    loading.hide();
-    canvasManager = new CanvasManager("gameCanvas",1280,720);
-    StartMenuGame();
-    canvasManager.Start();
-
-   
-})
-document.addEventListener("dblclick",function(ev){
-    ev.preventDefault();
-})
-
-var timmy; 
-var sky;
-var cloud;
-var hills;
-var buildings;
-var road;
-var jojoMensaje;
-var speed;
-var transparencyPause;
-var pauseContinue;
-var distanciaRecorrida;
-var tamaño;
-var puntuacionText;
-var fondoMenuPrincipal;
-
+//#region menus
 function StartMenuGame(){
     canvasManager.ClearCanvas();
 
@@ -472,21 +401,28 @@ function StartMenuGame(){
         menuObjects[0] = [];
         menuObjects [1] = [];
 
-        fondoMenuPrincipal = new HTMLBackGround("clouds","assets/img/Menu_principal.gif",-50/8,1,1);
+        fondoMenuPrincipal = new HTMLBackGround("menu","assets/img/Menu_principal.gif",0,1,1);
 
-        let continueButton = new HitableObject("continuar", new Vector2(640,350),"assets/img/play.png",200,300);
-        continueButton.anchor = new Vector2(0.5,0.5);
-        continueButton.OnClick = function(ev){
-            fondo.hide();
+        let start = new HitableObject("credits", new Vector2(640,411),"assets/img/Start_button.png",400,493);
+        start.anchor = new Vector2(0.5,0.5);
+        start.OnClick = function(ev){
+            fondoMenuPrincipal.b1.hide();
+            fondoMenuPrincipal.b2.hide();
             loadGameFromLevel(ev);
         }
-        let opciones = new HitableObject("opciones", new Vector2(640,590),"assets/img/setings.png",100,200);
-        opciones.anchor = new Vector2(0.5,0.5);
+
+        let credits = new HitableObject("credits", new Vector2(800,520),"assets/img/Credits_button"+idioma+".png",73,284);
+        credits.OnClick = function(ev){
+            
+        }
+
+        let opciones = new HitableObject("opciones", new Vector2(200,520),"assets/img/Options_button"+idioma+".png",91,314);
         opciones.OnClick = function(ev){
             OptionsMenu();
         }
 
-        menuObjects[1].push(continueButton);
+        menuObjects[1].push(start);
+        menuObjects[1].push(credits);
         menuObjects[1].push(opciones);
         
         canvasManager.AddList(menuObjects);
@@ -509,9 +445,10 @@ function OptionsMenu(){
         menuObjects[1].push(continueButton);
         
         canvasManager.AddList(menuObjects);
-    
 }
+//#endregion
 
+//#region cargas
 function loadGameFromLevel(ev){
     StartLoad();
     canvasManager.ClearCanvas();
@@ -528,138 +465,6 @@ function loadGameFromLevel(ev){
     road = new HTMLBackGround("road","none",-50,4,4);
     buildings = new HTMLBackGround("build","none",-35,3,4);
     LoadLevel("nivel1",gameObjects);
-}
-
-function LoseGame(){
-    //TODO
-    soundManager.StopAudio();
-    canvasManager.RenderAndUpdate(0);
-    let image = canvasManager.canvasScene.getImageData(0,0,1280,720);
-    let d = image.data;
-    for (var i=0; i<d.length; i+=4) {
-        var r = d[i];
-        var g = d[i+1];
-        var b = d[i+2];
-        d[i] = (r * .23) + (g *.61) + (b * .17);
-        d[i+1] =  (r * .27) + (g *.62) + (b * .03);
-        d[i+2] = (r * .18) + (g *.32) + (b * (-0.02));
-      }
-    canvasManager.canvasScene.putImageData(image,0,0);
-    let fondo = new SpriteObject("fondo",new Vector2(0,0),canvasManager.canvasElement.toDataURL(),720,1280);
-    let volverMenu = new HitableObject("volver",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
-    volverMenu.anchor = new Vector2(0.5,0.5);
-    volverMenu.OnClick = function(ev){
-        puntuacionText.puntos = 0;
-        StartLoad();
-        LoadLevel("nivel"+actualLevel,gameObjects);
-    }
-    canvasManager.ClearCanvas();
-    for(let i = 0; i < 6; i++){
-        gameObjects[i] = [];
-    }
-    sky.ChangeImg("assets/img/Cielo_sepia.png");
-    hills.ChangeImg("assets/img/Fondo_sepia"+levelname+".png");
-    road.ChangeImg("assets/img/AceraConCarretera_sepia"+levelname+".png");
-    buildings.ChangeImg("assets/img/Edificios_sepia"+levelname+".png");
-    cloud.ChangeImg("assets/img/Nubes_sepia"+levelname+".png")
-    //TODO
-    canvasManager.AddObject(fondo,0);
-    canvasManager.AddObject(volverMenu,5);
-    canvasManager.AddObject(jojoMensaje,5);
-    
-
-    //StartMenuGame();
-}
-
-var actualLevel = 0;
-var levelname;
-
-function LoadObjects(level){
-    actualLevel = level;
-    loadingCount = 0;
-    totalLoading = 0;
-   
-    level = "_nivel"+level;
-    levelname = level;
-    
-
-
-    jojoMensaje = new SpriteObject("jojo",new Vector2(946,612),"none",57,310);
-        let jojoAnim = new Animation("assets/img/To_be_continued_spritesheet.png",4,310,57,1/8,0);
-        jojoMensaje.AddAnimation(jojoAnim,"idle");
-        jojoMensaje.SetAnimation("idle");
-  
-    
-    timmy = new Timmy("player", new Vector2(110,449),"none",205,138);
-    let animation = new Animation("assets/img/Timmy_spritesheet"+level+".png",8,138,205,1/8,0);
-    timmy.AddAnimation(animation,"idle");
-    totalLoading++;
-    timmy.SetAnimation("idle");
-    //timmy.anchor = new Vector2(0.5,0.5);
-    gameObjects[2].push(timmy);
-    sky.ChangeImg("assets/img/Cielo_animado"+level+".gif");  
-    sky.vel = 0;
-    gameObjects[0].push(sky);
-    cloud.ChangeImg("assets/img/Nubes_animado"+level+".gif");
-    cloud.vel = (speed*100)/1280/8;
-    gameObjects[0].push(cloud);
-    totalLoading++;
-    buildings.vel = (speed*100)/1280/2;
-    buildings.ChangeImg("assets/img/Edificios_animado"+level+".gif");
-    hills.vel = (speed*100)/1280/4;
-    hills.ChangeImg("assets/img/Fondo_animado"+level+".gif");
-    road.vel = (speed*100)/1280;
-    road.ChangeImg("assets/img/AceraConCarretera_animado"+level+".gif");
-    gameObjects[0].push(buildings);
-    gameObjects[0].push(hills);
-    gameObjects[0].push(road);
-    let opciones = new HitableObject("opciones",new Vector2(1280,0),"assets/img/opciones.png",50,50);
-    opciones.anchor = new Vector2(1,0);
-    opciones.OnClick = PauseGame;
-    gameObjects[5].push(opciones);
-
-    let black = new SpriteObject("black", new Vector2(tamaño,0),"assets/img/FondoFinal.png",720,1280);
-    black.velocity = new Vector2(speed,0);
-    gameObjects[4].push(black);
-    let tunelLejos = new SpriteObject("tunellejos", new Vector2(tamaño-494,0),"none",720,496);
-    let tunelLejosAnim = new Animation("assets/img/TunelLejos_spritesheet"+levelname+".png",4,496,720,1/8,0);
-    tunelLejos.velocity = new Vector2(speed,0);
-    tunelLejos.AddAnimation(tunelLejosAnim,"idle");
-    tunelLejos.SetAnimation("idle");
-    gameObjects[1].push(tunelLejos);
-    let tunelCerca = new SpriteObject("tunelcerca", new Vector2(tamaño-495,0),"none",720,496);
-    let tunelCercaAnim = new Animation("assets/img/TunelCerca_spritesheet"+levelname+".png",4,496,720,1/8,0);
-    tunelCerca.velocity = new Vector2(speed,0);
-    tunelCerca.AddAnimation(tunelCercaAnim,"idle");
-    tunelCerca.SetAnimation("idle");
-    gameObjects[4].push(tunelCerca);
-    let tunelSalida = new SpriteObject("tunelsalida", new Vector2(0,0),"none",720,315);
-    let tunelSalidaAnim = new Animation("assets/img/TunelSalida_spritesheet"+levelname+".png",4,315,720,1/8,0);
-    tunelSalida.velocity = new Vector2(speed,0);
-    tunelSalida.AddAnimation(tunelSalidaAnim,"idle");
-    tunelSalida.SetAnimation("idle");
-    gameObjects[4].push(tunelSalida); 
-    transparencyPause = new SpriteObject("transparencia",new Vector2(0,0),"assets/img/fondo.png",720,1280);
-    pauseContinue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
-    pauseContinue.OnClick = function(ev){canvasManager.ClearCanvas();canvasManager.AddList(gameObjects)}
-    pauseContinue.anchor = new Vector2(0.5,0.5);
-    gameObjects[5].push(puntuacionText);
-    
-
-}
-
-function EndLevel(){
-    let Continue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
-    let fondoNegro = new SpriteObject("fondoNegro",new Vector2(0,0),"assets/img/FondoFinal.png",720,1280);
-    Continue.OnClick = function(ev){
-        canvasManager.ClearCanvas();
-        StartLoad();
-        LoadLevel("nivel"+(actualLevel+1),gameObjects);
-    }
-    Continue.anchor = new Vector2(0.5,0.5);
-
-    canvasManager.AddObject(Continue,5);
-    canvasManager.AddObject(fondoNegro,0);
 }
 
 function LoadLevel(jsonName,container){
@@ -763,6 +568,138 @@ function LoadLevel(jsonName,container){
     });
 }
 
+function LoadObjects(level){
+    actualLevel = level;
+    loadingCount = 0;
+    totalLoading = 0;
+   
+    level = "_nivel"+level;
+    levelname = level;
+    
+
+
+    jojoMensaje = new SpriteObject("jojo",new Vector2(946,612),"none",57,310);
+        let jojoAnim = new Animation("assets/img/To_be_continued_spritesheet.png",4,310,57,1/8,0);
+        jojoMensaje.AddAnimation(jojoAnim,"idle");
+        jojoMensaje.SetAnimation("idle");
+  
+    
+    timmy = new Timmy("player", new Vector2(110,449),"none",205,138);
+    let animation = new Animation("assets/img/Timmy_spritesheet"+level+".png",8,138,205,1/8,0);
+    timmy.AddAnimation(animation,"idle");
+    totalLoading++;
+    timmy.SetAnimation("idle");
+    //timmy.anchor = new Vector2(0.5,0.5);
+    gameObjects[2].push(timmy);
+    sky.ChangeImg("assets/img/Cielo_animado"+level+".gif");  
+    sky.vel = 0;
+    gameObjects[0].push(sky);
+    cloud.ChangeImg("assets/img/Nubes_animado"+level+".gif");
+    cloud.vel = (speed*100)/1280/8;
+    gameObjects[0].push(cloud);
+    totalLoading++;
+    buildings.vel = (speed*100)/1280/2;
+    buildings.ChangeImg("assets/img/Edificios_animado"+level+".gif");
+    hills.vel = (speed*100)/1280/4;
+    hills.ChangeImg("assets/img/Fondo_animado"+level+".gif");
+    road.vel = (speed*100)/1280;
+    road.ChangeImg("assets/img/AceraConCarretera_animado"+level+".gif");
+    gameObjects[0].push(buildings);
+    gameObjects[0].push(hills);
+    gameObjects[0].push(road);
+    let opciones = new HitableObject("opciones",new Vector2(1280,0),"assets/img/opciones.png",50,50);
+    opciones.anchor = new Vector2(1,0);
+    opciones.OnClick = PauseGame;
+    gameObjects[5].push(opciones);
+
+    let black = new SpriteObject("black", new Vector2(tamaño,0),"assets/img/FondoFinal.png",720,1280);
+    black.velocity = new Vector2(speed,0);
+    gameObjects[4].push(black);
+    let tunelLejos = new SpriteObject("tunellejos", new Vector2(tamaño-494,0),"none",720,496);
+    let tunelLejosAnim = new Animation("assets/img/TunelLejos_spritesheet"+levelname+".png",4,496,720,1/8,0);
+    tunelLejos.velocity = new Vector2(speed,0);
+    tunelLejos.AddAnimation(tunelLejosAnim,"idle");
+    tunelLejos.SetAnimation("idle");
+    gameObjects[1].push(tunelLejos);
+    let tunelCerca = new SpriteObject("tunelcerca", new Vector2(tamaño-495,0),"none",720,496);
+    let tunelCercaAnim = new Animation("assets/img/TunelCerca_spritesheet"+levelname+".png",4,496,720,1/8,0);
+    tunelCerca.velocity = new Vector2(speed,0);
+    tunelCerca.AddAnimation(tunelCercaAnim,"idle");
+    tunelCerca.SetAnimation("idle");
+    gameObjects[4].push(tunelCerca);
+    let tunelSalida = new SpriteObject("tunelsalida", new Vector2(0,0),"none",720,315);
+    let tunelSalidaAnim = new Animation("assets/img/TunelSalida_spritesheet"+levelname+".png",4,315,720,1/8,0);
+    tunelSalida.velocity = new Vector2(speed,0);
+    tunelSalida.AddAnimation(tunelSalidaAnim,"idle");
+    tunelSalida.SetAnimation("idle");
+    gameObjects[4].push(tunelSalida); 
+    transparencyPause = new SpriteObject("transparencia",new Vector2(0,0),"assets/img/fondo.png",720,1280);
+    pauseContinue = new HitableObject("continuar",new Vector2(640,300),"assets/img/Pause_menu"+idioma+".png",166,260);
+    pauseContinue.OnClick = function(ev){canvasManager.ClearCanvas();canvasManager.AddList(gameObjects)}
+    pauseContinue.anchor = new Vector2(0.5,0.5);
+    gameObjects[5].push(puntuacionText);
+}
+//#endregion
+
+//#region estados
+function LoseGame(){
+    //TODO
+    lose = true;
+    soundManager.StopAudio();
+    canvasManager.RenderAndUpdate(0);
+    let image = canvasManager.canvasScene.getImageData(0,0,1280,720);
+    let d = image.data;
+    for (var i=0; i<d.length; i+=4) {
+        var r = d[i];
+        var g = d[i+1];
+        var b = d[i+2];
+        d[i] = (r * .23) + (g *.61) + (b * .17);
+        d[i+1] =  (r * .27) + (g *.62) + (b * .03);
+        d[i+2] = (r * .18) + (g *.32) + (b * (-0.02));
+      }
+    canvasManager.canvasScene.putImageData(image,0,0);
+    let fondo = new SpriteObject("fondo",new Vector2(0,0),canvasManager.canvasElement.toDataURL(),720,1280);
+    let volverMenu = new HitableObject("volver",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
+    volverMenu.anchor = new Vector2(0.5,0.5);
+    volverMenu.OnClick = function(ev){
+        puntuacionText.puntos = 0;
+        StartLoad();
+        LoadLevel("nivel"+actualLevel,gameObjects);
+    }
+    canvasManager.ClearCanvas();
+    for(let i = 0; i < 6; i++){
+        gameObjects[i] = [];
+    }
+    sky.ChangeImg("assets/img/Cielo_sepia.png");
+    hills.ChangeImg("assets/img/Fondo_sepia"+levelname+".png");
+    road.ChangeImg("assets/img/AceraConCarretera_sepia"+levelname+".png");
+    buildings.ChangeImg("assets/img/Edificios_sepia"+levelname+".png");
+    cloud.ChangeImg("assets/img/Nubes_sepia"+levelname+".png")
+    //TODO
+    canvasManager.AddObject(fondo,0);
+    canvasManager.AddObject(volverMenu,5);
+    canvasManager.AddObject(jojoMensaje,5);
+    
+
+    //StartMenuGame();
+}
+
+function EndLevel(){
+    let Continue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
+    let fondoNegro = new SpriteObject("fondoNegro",new Vector2(0,0),"assets/img/FondoFinal.png",720,1280);
+    Continue.OnClick = function(ev){
+        canvasManager.ClearCanvas();
+        StartLoad();
+        LoadLevel("nivel"+(actualLevel+1),gameObjects);
+    }
+    Continue.anchor = new Vector2(0.5,0.5);
+
+    canvasManager.AddObject(Continue,5);
+    canvasManager.AddObject(fondoNegro,0);
+}
+
+
+
 function StartGame(container,loadTime){
     canvasManager.ClearCanvas();
     setTimeout(function(){
@@ -786,7 +723,6 @@ function StopLoad(){
     loading.hide();
 }
 
-
 function PauseGame(ev){
     let fondo = new SpriteObject("fondo",new Vector2(0,0),canvasManager.canvasElement.toDataURL(),720,1280);
     
@@ -796,3 +732,18 @@ function PauseGame(ev){
     canvasManager.AddObject(pauseContinue,4);
     
 }
+//#endregion
+
+//#region eventos
+window.addEventListener("load",function(ev){
+    loading = $(".loading");
+    loading.click = function(ev){ev.preventDefault()}
+    loading.hide();
+    canvasManager = new CanvasManager("gameCanvas",1280,720);
+    soundManager = new SoundManager();
+    StartMenuGame();
+    canvasManager.Start();
+
+   
+})
+//#endregion
