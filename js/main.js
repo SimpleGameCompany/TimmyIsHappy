@@ -466,7 +466,9 @@ function StartMenuGame(){
         else
             credits = new HitableObject("credits", new Vector2(872,490),"assets/img/Credits_button"+idioma+".png",84,241);
         credits.OnClick = function(ev){
-
+            $('html, body').animate({
+                scrollTop: $("#team_section").offset().top + 20
+            }, 1000);
         }
 
         let opciones;
@@ -516,6 +518,8 @@ function OptionsMenu(){
             if(idioma === "_esp"){
                 idioma = "_eng"
                 OptionsMenu();
+                ponerIngles();
+                actualizaDias();
             }
         }
         let español = new HitableObject("continuar", new Vector2(800,400),"assets/img/play.png",200,300);
@@ -524,6 +528,8 @@ function OptionsMenu(){
             if(idioma === "_eng"){
                 idioma = "_esp"
                 OptionsMenu();
+                ponerEspanol();
+                actualizaDias();
             }
         }
         menuObjects[0].push(Fondo);
