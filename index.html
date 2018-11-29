@@ -14,13 +14,19 @@
 </head>
 
 <body>
+        
         <!--style="background-color: rgb(85, 219, 179); "-->
 
         <!-- Title and header -->
         <section id="header" class="wow bounceInLeft">
                 <div id="title_row" class="row justify-content-md-center">
                         <div class="col-12">
-                                <h1 id="header_title" class="title-color">Timmy is Happy</h1>
+                                <h1 id="header_title" class="title-color">Timmy is Happy <a class="nav-link js-scroll-trigger english"
+                                                href="#page-top" id="buttonSpanish">Español</a>
+                                        <a class="nav-link js-scroll-trigger spanish" href="#page-top" id="buttonEnglish"
+                                                hidden>English</a>
+
+                                </h1>
                         </div>
                         <div class="col-4"></div>
                         <div class="col-4 center-text"></div>
@@ -30,15 +36,19 @@
                 <div id="subtitle_row" class="row">
                         <div class="col-2"></div>
                         <div class="col-3 pl-4" style=" text-align: right;">
-                                <a class="navbar-brand js-scroll-trigger  title-color header_sub" href="#howto_section">How
+                                <a class="navbar-brand js-scroll-trigger  title-color header_sub english" href="#howto_section">How
                                         to play?</a>
+                                <a class="navbar-brand js-scroll-trigger  title-color header_sub spanish" href="#howto_section">¿Cómo
+                                        jugar?</a>
                         </div>
                         <div class="col-2 center-text">
                                 <h3> </h3 style="border">
                         </div>
                         <div class="col-3" style="text-align: left;">
-                                <a class="navbar-brand js-scroll-trigger title-color header_sub" href="#team_section">Meet
+                                <a class="navbar-brand js-scroll-trigger title-color header_sub english" href="#team_section">Meet
                                         the team!</a>
+
+                                <a class="navbar-brand js-scroll-trigger title-color header_sub spanish" href="#team_section">¡Conócenos!</a>
                         </div>
                         <div class="col-2"></div>
                 </div>
@@ -47,18 +57,18 @@
         <!-- Canvas -->
         <section id="game_section" class="wow bounceInRight">
                 <div id="div_game" class="row">
-                        
-                        <div id ="col_div_border_game_01" class="col-2">
-                                        <img id="img_border_game_01" class="divgamecolumm" src="assets/img/Web/vertical_cloumn.png">
-                                </div>
+
+                        <div id="col_div_border_game_01" class="col-2">
+                                <img id="img_border_game_01" class="divgamecolumm" src="assets/img/Web/vertical_cloumn.png">
+                        </div>
                         <div class="canvasContainer col-8">
                                 <img class="loading" src="assets/img/Loading_screen.gif" />
                                 <canvas id="gameCanvas" width="1280" height="720"></canvas>
                                 <canvas id="gameCanvas-hitbox" width="1280" height="720"></canvas>
                         </div>
-                        <div id ="col_div_border_game_02" class="col-2">
-                                        <img id="img_border_game_02" class="divgamecolumm" src="assets/img/Web/vertical_cloumn.png">
-                                </div>
+                        <div id="col_div_border_game_02" class="col-2">
+                                <img id="img_border_game_02" class="divgamecolumm" src="assets/img/Web/vertical_cloumn.png">
+                        </div>
                 </div>
                 <br />
         </section>
@@ -68,12 +78,14 @@
                 <div id="how_row" class="row ">
                         <div class="col-2"></div>
                         <div class="col-8 text-light howto-color row-top-howto top-row-rounded">
-                                <h1 class=" title-section">How to play?</h1>
+                                <h1 class=" title-section english ">How to play?</h1>
+                                <h1 class=" title-section spanish ">¿Cómo jugar?</h1>
                         </div>
                         <div class="col-2"></div>
                         <div class="col-2"></div>
                         <div class="col-8 text-light howto-color row-bottom-howto bottom-row-rounded ">
-                                <p class="text-justify lead">Young Timmy is happily walking through town. But it seems
+                                <p class="text-justify lead english">Young Timmy is happily walking through town. But
+                                        it seems
                                         he won't be having a nice day. Unless… you do something about it! After all,
                                         your an all-mighty god…
                                         <br /><br />
@@ -98,6 +110,28 @@
                                         Will Timmy be able of enjoying his calm walk around the town, or will he fall
                                         to the dangers that lurk behind every corner of it? It's up to you!
                                 </p>
+
+                                <p class="text-justify lead spanish">El joven Timmy anda contento y despistado por la
+                                        ciudad. Pero parece que no va a ser un buen día para él. A no ser… ¡que puedas
+                                        evitarlo! Al fin y al cabo, eres un todopoderoso dios… <br /><br />
+
+                                        Nuestro protagonista, Timmy, es un joven alegre y despistado, que va paseando
+                                        de forma poco cuidadosa por la ciudad. Ante su camino, se presentan diversas
+                                        amenazas o trampas
+                                        (un coche, una alcantarilla abierta, etc.) que ponen en peligro su bienestar.
+                                        Pero no hay motivo para preocuparse, pues tú, como un dios bondadoso y
+                                        omnipotente,
+                                        velarás por el joven muchacho, desactivando las trampas a medida que van
+                                        apareciendo. Para ello, deberás tocar o hacer click sobre ellas, teniendo
+                                        cuidado para no re-activar las que ya estén desactivadas.
+                                        En consecuencia, tendrás que ser cuidadoso y prestar mucha atención, así como
+                                        demostrar grandes reflejos y dotes de coordinación. Pero no te preocupes,
+                                        ¡debería estar chupado para un dios como tú! <br /><br />
+
+
+                                        ¿Conseguirá Timmy dar su paseo de forma segura, o caerá presa de los
+                                        innumerables peligros de la apacible ciudad?
+                                </p>
                         </div>
                         <div class="col-2"></div>
                 </div>
@@ -108,7 +142,8 @@
                 <div id="team_row" class="row">
                         <div class="col-2"></div>
                         <div class="col-8 text-light team-color" style=" border-radius: 25px 25px 0px 0px;">
-                                <h1 class="title-section">Meet the team!</h1>
+                                <h1 class="title-section english">Meet the team!</h1>
+                                <h1 class="title-section spanish">¡Conócenos!</h1>
                         </div>
                         <div class="col-2"></div>
                 </div>
@@ -122,42 +157,48 @@
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Camu.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Alejandro <br /> Camuñas Casas</h4>
-                                                        <p class="teamRole">Game Designer/Marketing</p>
+                                                        <p class="teamRole english">Game Designer/Marketing</p>
+                                                        <p class="teamRole spanish">Diseñador de jugabilidad/Marketing</p>
                                                 </div>
                                         </div>
                                         <div class="p-2 flex-fill bd-highlight">
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Andres.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Andrés <br /> Felipe García</h4>
-                                                        <p class="teamRole">Web Developer</p>
+                                                        <p class="teamRole english">Web Developer</p>
+                                                        <p class="teamRole spanish">Desarrollador Web</p>
                                                 </div>
                                         </div>
                                         <div class="p-2 flex-fill bd-highlight">
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Guille.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Guillermo <br /> Amigó Urda</h4>
-                                                        <p class="teamRole">Game Designer/Sound Designer</p>
+                                                        <p class="teamRole english">Game Designer/Sound Designer</p>
+                                                        <p class="teamRole spanish">Diseñador de jugabilidad/Diseñador de Sonido</p>
                                                 </div>
                                         </div>
                                         <div class="p-2 bd-highlight">
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/JoseDaniel.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Jose Daniel<br /> Campos Galán</h4>
-                                                        <p class="teamRole">Game Programmer</p>
+                                                        <p class="teamRole english">Game Programmer</p>
+                                                        <p class="teamRole spanish">Programador de jugabilidad</p>
                                                 </div>
                                         </div>
                                         <div class="p-2 bd-highlight">
                                                 <div class="box-team">
                                                         <img src="assets/img/Web//Pablo.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Pablo<br /> Rodríguez Vicente</h4>
-                                                        <p class="teamRole">Game Programmer</p>
+                                                        <p class="teamRole english">Game Programmer</p>
+                                                        <p class="teamRole spanish">Programador de jugabilidad</p>
                                                 </div>
                                         </div>
                                         <div class="p-2  bd-highlight">
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Raquel.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Raquel<br /> Gastón Vicente</h4>
-                                                        <p class="teamRole">2D Artist</p>
+                                                        <p class="teamRole english">2D Artist</p>
+                                                        <p class="teamRole spanish">Artista 2D</p>
                                                 </div>
                                         </div>
                                 </div>
@@ -170,21 +211,24 @@
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Camu.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Alejandro <br /> Camuñas Casas</h4>
-                                                        <p class="teamRole">Game Designer/Marketing</p>
+                                                        <p class="teamRole english">Game Designer/Marketing</p>
+                                                        <p class="teamRole spanish">Diseñador de jugabilidad/Marketing</p>
                                                 </div>
                                         </div>
                                         <div class="p-2  bd-highlight">
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Andres.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Andrés<br /> Felipe García</h4>
-                                                        <p class="teamRole">Web Developer</p>
+                                                        <p class="teamRole english">Web Developer</p>
+                                                        <p class="teamRole spanish">Desarrollador Web</p>
                                                 </div>
                                         </div>
                                         <div class="p-2 bd-highlight">
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Guille.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Guille<br /> Amigó Urda</h4>
-                                                        <p class="teamRole">Game Designer/Sound Designer</p>
+                                                        <p class="teamRole english">Game Designer/Sound Designer</p>
+                                                        <p class="teamRole spanish">Diseñador de jugabilidad/Diseñador de Sonido</p>
                                                 </div>
                                         </div>
                                 </div>
@@ -194,21 +238,24 @@
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/JoseDaniel.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Jose Daniel<br /> Campos Galán</h4>
-                                                        <p class="teamRole">Game Programmer</p>
+                                                        <p class="teamRole english">Game Programmer</p>
+                                                        <p class="teamRole spanish">Programador de jugabilidad</p>
                                                 </div>
                                         </div>
                                         <div class="p-2 bd-highlight">
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Pablo.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Pablo<br /> Rodríguez Vicente</h4>
-                                                        <p class="teamRole">Game Programmer</p>
+                                                        <p class="teamRole english">Game Programmer</p>
+                                                        <p class="teamRole spanish">Programador de jugabilidad</p>
                                                 </div>
                                         </div>
                                         <div class="p-2  bd-highlight">
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Raquel.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Raquel<br /> Gastón Vicente</h4>
-                                                        <p class="teamRole">2D Artist</p>
+                                                        <p class="teamRole english">2D Artist</p>
+                                                        <p class="teamRole spanish">Artista 2D</p>
                                                 </div>
                                         </div>
                                 </div>
@@ -221,14 +268,16 @@
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Camu.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Alejandro<br /> Camuñas Casas</h4>
-                                                        <p class="teamRole">Game Designer/Marketing</p>
+                                                        <p class="teamRole english">Game Designer/Marketing</p>
+                                                        <p class="teamRole spanish">Diseñador de jugabilidad/Marketing</p>
                                                 </div>
                                         </div>
                                         <div class="p-2  bd-highlight">
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Andres.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Andrés <br /> Felipe García</h4>
-                                                        <p class="teamRole">Web Developer</p>
+                                                        <p class="teamRole english">Web Developer</p>
+                                                        <p class="teamRole spanish">Desarrollador Web</p>
                                                 </div>
                                         </div>
                                 </div>
@@ -238,14 +287,16 @@
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Guille.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Guille<br /> Amigó Urda</h4>
-                                                        <p class="teamRole">Game Designer/Sound Designer</p>
+                                                        <p class="teamRole english">Game Designer/Sound Designer</p>
+                                                        <p class="teamRole spanish">Diseñador de jugabilidad/Diseñador de Sonido</p>
                                                 </div>
                                         </div>
                                         <div class="p-2 bd-highlight">
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/JoseDaniel.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Jose Daniel<br /> Campos Galán</h4>
-                                                        <p class="teamRole">Programmer</p>
+                                                        <p class="teamRole english">Programmer</p>
+                                                        <p class="teamRole spanish">Programmer</p>
                                                 </div>
                                         </div>
                                 </div>
@@ -255,14 +306,16 @@
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Pablo.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Pablo <br /> Rodríguez Vicente</h4>
-                                                        <p class="teamRole">Game Programmer</p>
+                                                        <p class="teamRole english">Game Programmer</p>
+                                                        <p class="teamRole spanish">Programador de jugabilidad</p>
                                                 </div>
                                         </div>
                                         <div class="p-2  bd-highlight">
                                                 <div class="box-team">
                                                         <img src="assets/img/Web/Raquel.jpg" alt="" class="rounded-circle img-fluid teamImage">
                                                         <h4 class="teamName">Raquel <br /> Gastón Vicente</h4>
-                                                        <p class="teamRole">2D Artist</p>
+                                                        <p class="teamRole english">2D Artist</p>
+                                                        <p class="teamRole spanish">Artista 2D</p>
                                                 </div>
                                         </div>
 
@@ -281,7 +334,8 @@
                                 <div class="col-8 merchandising-color top-row-rounded all-rounded" class="container-fluid"
                                         onclick="window.open('https://simplegamecompany.github.io/portfolio/','mywindow');"
                                         style="cursor: pointer;">
-                                        <p class="text-light title-section">Contact us!</p>
+                                        <p class="text-light title-section english">Contact us!</p>
+                                        <p class="text-light title-section spanish">¡Contáctanos!</p>
                                 </div>
                                 <div class="col-2"></div>
                         </div>
@@ -344,8 +398,10 @@
                                 <div class="row  text-light futer">
                                         <div class="col-12 mt-6 center-text">
                                                 <h2 class="display-4 title-footer">Simple Game Company</h2>
-                                                <p class="PDays">We’ve been working hard to make new games for the past
+                                                <p class="PDays english">We’ve been working hard to make new games for
+                                                        the past
                                                         %% days!</p>
+                                                <p class="PDays spanish">¡Llevamos %% días creando videojuegos!</p>
                                                 <script>
                                                         window.addEventListener("load", function () {
                                                                 var html = document.getElementsByClassName("PDays");
@@ -360,9 +416,11 @@
                                                                 }
                                                         });
                                                 </script>
-                                                <p> --- <br> &copy; 2018 - 2019 Copyright <a href="https://simplegamecompany.github.io/portfolio/"
+                                                <p class="english"> --- <br> &copy; 2018 - 2019 Copyright <a href="https://simplegamecompany.github.io/portfolio/"
                                                                 style="color:bisque">SimpleGameCompany.</a> All rights
                                                         reserved.</p>
+                                                <p class="spanish"> --- <br> &copy; 2018 - 2019 Copyright <a href="https://simplegamecompany.github.io/portfolio/"
+                                                                style="color:bisque">SimpleGameCompany.</a> Todos los derechos reservados.</p>
                                         </div>
                                 </div>
                         </div>
@@ -407,6 +465,10 @@
 
         <!--Script para que el scroll funcione-->
         <script src="js/library/creative.js"></script>
+
+        <!--Idioma: -->
+        <script src="js/languaje.js"></script>
+
 </body>
 
 </html>

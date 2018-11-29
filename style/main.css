@@ -17,7 +17,7 @@
     padding: 15px; /* Some padding */
     border-radius: 10px; /* Rounded corners */
     font-size: 18px; /* Increase font size */
-    transition: background 0.5s;
+    /*transition: background 0.5s;*/
   }
 
 #back-to-top:hover {
@@ -68,6 +68,11 @@ canvas {
     
     position: absolute;
     z-index: 2;  
+}
+.background-responsive { 
+    
+    position: absolute;
+    z-index: -9;  
 }
 #col_div_border_game_01{
     padding :0;
@@ -258,15 +263,15 @@ html {
 }
 
 body {
-    background:  #5677a8;
-    background: -moz-linear-gradient(top,   #92b8f0 0%,  #5677a8 100%);
+    background:  #92b8f0;
+    /*background: -moz-linear-gradient(top,   #92b8f0 0%,  #5677a8 100%);
     background: -webkit-linear-gradient(top,  #92b8f0 0%, #5677a8 100%);
     background: linear-gradient(to bottom,  #92b8f0 0%, #5677a8 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=' #5677a8', endColorstr='#7db9e8',GradientType=0 );
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=' #5677a8', endColorstr='#7db9e8',GradientType=0 );*/
     
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-attachment: fixed;
-    background-size: cover; /* Resize the background image to cover the entire container */
-    background-image: url("../assets/img/Web/background.png");
+    /*background-position: center;  Center the image */
+    /* background-repeat: no-repeat; Do not repeat the image */
+    /*background-attachment: fixed;*/
+    /*background-size: cover;  Resize the background image to cover the entire container */
+    /*background-image: url("../assets/img/Web/background.png");*/
 }
