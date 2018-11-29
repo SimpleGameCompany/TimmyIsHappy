@@ -1,20 +1,10 @@
 
 //#region variables
 var timmy; 
-var sky;
-var cloud;
-var hills;
-var buildings;
-var road;
-var jojoMensaje;
 var speed;
-var transparencyPause;
-var pauseContinue;
 var distanciaRecorrida;
 var tamaño;
-var puntuacionText;
-var fondoMenuPrincipal;
-var idioma = "_esp";
+var idioma = "_eng";
 var soundManager;
 var canvasManager;
 var menuObjects;
@@ -24,8 +14,24 @@ var loadingCount;
 var totalLoading;
 var imageCount;
 var actualLevel = 0;
+var days = 0;
 var levelname;
 var lose = false;
+
+var sky;
+var cloud;
+var hills;
+var buildings;
+var road;
+var puntuacionText;
+
+var fondoMenuPrincipal;
+var fondoMenuScoresEsp;
+var fondoMenuScoresEng;
+var transparencyPause;
+var pauseContinue;
+var pauseExit;
+var jojoMensaje;
 //#endregion
 
 //#region objetos
@@ -446,6 +452,7 @@ function StartMenuGame(){
             fondoMenuPrincipal = new HTMLBackGround("menu","assets/img/Menu_principal.gif",0,1,1);
         }
 
+        
         let start = new HitableObject("credits", new Vector2(640,411),"assets/img/Start_button.png",400,493);
         start.anchor = new Vector2(0.5,0.5);
         start.OnClick = function(ev){
@@ -453,19 +460,39 @@ function StartMenuGame(){
             loadGameFromLevel(ev);
         }
 
-        let credits = new HitableObject("credits", new Vector2(800,520),"assets/img/Credits_button"+idioma+".png",73,284);
+        let credits;
+        if(idioma === "_esp")
+            credits = new HitableObject("credits", new Vector2(840,490),"assets/img/Credits_button"+idioma+".png",84,273);
+        else
+            credits = new HitableObject("credits", new Vector2(872,490),"assets/img/Credits_button"+idioma+".png",84,241);
         credits.OnClick = function(ev){
-            
+
         }
 
-        let opciones = new HitableObject("opciones", new Vector2(200,520),"assets/img/Options_button"+idioma+".png",91,314);
+        let opciones;
+        if(idioma === "_esp")
+            opciones = new HitableObject("opciones", new Vector2(150,480),"assets/img/Options_button"+idioma+".png",99,309);
+        else
+            opciones = new HitableObject("opciones", new Vector2(150,480),"assets/img/Options_button"+idioma+".png",99,262);
         opciones.OnClick = function(ev){
+            fondoMenuPrincipal.Hide();
             OptionsMenu();
+        }
+
+        let puntuaciones;
+        if(idioma === "_esp")
+            puntuaciones = new HitableObject("opciones", new Vector2(439,570),"assets/img/Scores_button"+idioma+".png",77,403);
+        else
+            puntuaciones = new HitableObject("opciones", new Vector2(528,570),"assets/img/Scores_button"+idioma+".png",77,225);
+        puntuaciones.OnClick = function(ev){
+            fondoMenuPrincipal.Hide();
+            PuntuacionesMenu();
         }
 
         menuObjects[1].push(start);
         menuObjects[1].push(credits);
         menuObjects[1].push(opciones);
+        menuObjects[1].push(puntuaciones);
         
         canvasManager.AddList(menuObjects);
     
@@ -477,14 +504,94 @@ function OptionsMenu(){
         menuObjects = [];
         menuObjects[0] = [];
         menuObjects [1] = [];
-        let Fodo = new SpriteObject("fondo", new Vector2(0,0),"assets/img/fondoMenu.png",720,1280);
-        let continueButton = new HitableObject("continuar", new Vector2(640,350),"assets/img/play.png",200,300);
+        let Fondo = new SpriteObject("fondo", new Vector2(0,0),"assets/img/fondo.png",720,1280);
+        let continueButton = new HitableObject("continuar", new Vector2(200,350),"assets/img/Flecha.png",200,300);
         continueButton.anchor = new Vector2(0.5,0.5);
         continueButton.OnClick = function(ev){
             StartMenuGame();
         }
-        menuObjects[0].push(Fodo);
+        let ingles = new HitableObject("continuar", new Vector2(800,100),"assets/img/play.png",200,300);
+        ingles.anchor = new Vector2(0.5,0.5);
+        ingles.OnClick = function(ev){
+            if(idioma === "_esp"){
+                idioma = "_eng"
+                OptionsMenu();
+            }
+        }
+        let español = new HitableObject("continuar", new Vector2(800,400),"assets/img/play.png",200,300);
+        español.anchor = new Vector2(0.5,0.5);
+        español.OnClick = function(ev){
+            if(idioma === "_eng"){
+                idioma = "_esp"
+                OptionsMenu();
+            }
+        }
+        menuObjects[0].push(Fondo);
         menuObjects[1].push(continueButton);
+        menuObjects[1].push(español);
+        menuObjects[1].push(ingles);
+        
+        canvasManager.AddList(menuObjects);
+}
+
+function PuntuacionesMenu(){
+    canvasManager.ClearCanvas();
+    
+        menuObjects = [];
+        menuObjects[0] = [];
+        if(idioma === "_esp"){
+            if(fondoMenuScoresEsp){
+                fondoMenuScoresEsp.Show();
+            }else{
+                fondoMenuScoresEsp = new HTMLBackGround("menu","assets/img/Menu_scores"+idioma+".gif",0,1,1);
+            }
+        }else{
+            if(fondoMenuScoresEsp){
+                fondoMenuScoresEng.Show();
+            }else{
+                fondoMenuScoresEng = new HTMLBackGround("menu","assets/img/Menu_scores"+idioma+".gif",0,1,1);
+            }
+        }
+        let flecha = new HitableObject("continuar", new Vector2(130,570),"assets/img/Flecha.png",52,106);
+        flecha.OnClick = function(ev){
+            if(fondoMenuScoresEsp)
+                fondoMenuScoresEsp.Hide();
+            if(fondoMenuScoresEng)
+                fondoMenuScoresEng.Hide();
+            StartMenuGame();
+        }
+        menuObjects[0].push(flecha);
+        
+        canvasManager.AddList(menuObjects);
+}
+
+function PuntuacionesMenu(){
+    canvasManager.ClearCanvas();
+    
+        menuObjects = [];
+        menuObjects[0] = [];
+        if(idioma === "_esp"){
+            if(fondoMenuScoresEsp){
+                fondoMenuScoresEsp.Show();
+            }else{
+                fondoMenuScoresEsp = new HTMLBackGround("menu","assets/img/Menu_scores"+idioma+".gif",0,1,1);
+            }
+        }else{
+            if(fondoMenuScoresEsp){
+                fondoMenuScoresEng.Show();
+            }else{
+                fondoMenuScoresEng = new HTMLBackGround("menu","assets/img/Menu_scores"+idioma+".gif",0,1,1);
+            }
+        }
+        let flecha = new HitableObject("continuar", new Vector2(130,570),"assets/img/Flecha.png",52,106);
+        flecha.OnClick = function(ev){
+            if(fondoMenuScoresEsp)
+                fondoMenuScoresEsp.Hide();
+            if(fondoMenuScoresEng)
+                fondoMenuScoresEng.Hide();
+            StartMenuGame();
+        }
+        menuObjects[0].push(flecha);
         
         canvasManager.AddList(menuObjects);
 }
@@ -506,7 +613,7 @@ function loadGameFromLevel(ev){
     hills = new HTMLBackGround("hills","none",-50/2,2,4);
     road = new HTMLBackGround("road","none",-50,4,4);
     buildings = new HTMLBackGround("build","none",-35,3,4);
-    LoadLevel("nivel1",gameObjects);
+    LoadLevel("nivelprueba",gameObjects);
 }
 
 function LoadLevel(jsonName,container){
@@ -533,9 +640,9 @@ function LoadLevel(jsonName,container){
                     distanciaRecorrida = 0;
                 break;
                 case "dog":
-                    let dog = new Dog("perro",new Vector2(obj.positionx,500),"none",184,209,timmy, 1, 3);
-                    let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet"+levelname+".png",8,209,184,1/16,0);
-                    let dogAnim = new Animation("assets/img/PerroIdle_spritesheet"+levelname+".png",16,204,184,1/14,0);
+                    let dog = new Dog("perro",new Vector2(obj.positionx,500),"none",105,209,timmy, 1, 3);
+                    let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet"+levelname+".png",8,209,105,1/16,0);
+                    let dogAnim = new Animation("assets/img/PerroIdle_spritesheet"+levelname+".png",16,204,105,1/14,0);
                     totalLoading +=1;
                     //dog.anchor = new Vector2(0,0.5);
                     dog.velocity = new Vector2(speed,0);
@@ -620,14 +727,6 @@ function LoadObjects(level){
     level = "_nivel"+level;
     levelname = level;
     
-
-
-    jojoMensaje = new SpriteObject("jojo",new Vector2(946,612),"none",57,310);
-        let jojoAnim = new Animation("assets/img/To_be_continued_spritesheet.png",4,310,57,1/8,0);
-        jojoMensaje.AddAnimation(jojoAnim,"idle");
-        jojoMensaje.SetAnimation("idle");
-  
-    
     timmy = new Timmy("player", new Vector2(110,449),"none",205,138);
     let animation = new Animation("assets/img/Timmy_spritesheet"+level+".png",8,138,205,1/8,0);
     timmy.AddAnimation(animation,"idle");
@@ -651,8 +750,10 @@ function LoadObjects(level){
     gameObjects[0].push(buildings);
     gameObjects[0].push(hills);
     gameObjects[0].push(road);
-    let opciones = new HitableObject("opciones",new Vector2(1280,0),"assets/img/opciones.png",50,50);
-    opciones.anchor = new Vector2(1,0);
+    let opciones = new HitableObject("opciones",new Vector2(1196,18),"none",68,68);
+    let opcionesAnim = new Animation("assets/img/Pause_button_spritesheet.png",4,68,68,1/8,0);
+    opciones.AddAnimation(opcionesAnim,"idle");
+    opciones.SetAnimation("idle");
     opciones.OnClick = PauseGame;
     gameObjects[5].push(opciones);
 
@@ -677,12 +778,27 @@ function LoadObjects(level){
     tunelSalida.AddAnimation(tunelSalidaAnim,"idle");
     tunelSalida.SetAnimation("idle");
     gameObjects[4].push(tunelSalida); 
-    transparencyPause = new SpriteObject("transparencia",new Vector2(0,0),"assets/img/fondo.png",720,1280);
-    pauseContinue = new HitableObject("continuar",new Vector2(640,300),"assets/img/Pause_menu"+idioma+".png",166,260);
-    pauseContinue.OnClick = function(ev){canvasManager.ClearCanvas();canvasManager.AddList(gameObjects)}
-    pauseContinue.anchor = new Vector2(0.5,0.5);
+
     gameObjects[5].push(puntuacionText);
 }
+
+function LoadButtonsAndBackGrounds(){
+    transparencyPause = new SpriteObject("transparencia",new Vector2(0,0),"assets/img/fondo.png",720,1280);
+
+    pauseContinue = new HitableObject("continuar",new Vector2(640,280),"assets/img/Pause_menu_resume"+idioma+".png",97,509);
+    pauseContinue.OnClick = function(ev){canvasManager.ClearCanvas();canvasManager.AddList(gameObjects)}
+    pauseContinue.anchor = new Vector2(0.5,0.5);
+
+    pauseExit = new HitableObject("salir",new Vector2(640,370),"assets/img/Pause_menu_exit"+idioma+".png",80,163);
+    pauseExit.OnClick = function(ev){canvasManager.ClearCanvas();soundManager.StopAudio();StartMenuGame()}
+    pauseExit.anchor = new Vector2(0.5,0.5);
+
+    jojoMensaje = new SpriteObject("jojo",new Vector2(946,612),"none",57,310);
+    let jojoAnim = new Animation("assets/img/To_be_continued_spritesheet.png",4,310,57,1/8,0);
+    jojoMensaje.AddAnimation(jojoAnim,"idle");
+    jojoMensaje.SetAnimation("idle");
+}
+
 //#endregion
 
 //#region estados
@@ -724,24 +840,93 @@ function LoseGame(){
     //canvasManager.AddObject(volverMenu,5);
     canvasManager.AddObject(jojoMensaje,5);
     
-    setTimeout(StartMenuGame,1000);
+    setTimeout(LoseLevel,3000);
 }
 
 function EndLevel(){
-    let Continue = new HitableObject("continuar",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
+    canvasManager.ClearCanvas();
+    let Continue
+    if(idioma === "_esp")
+        Continue = new HitableObject("continuar",new Vector2(850,460),"assets/img/Continue_button"+idioma+".png",71,306);
+    else
+        Continue = new HitableObject("continuar",new Vector2(864,460),"assets/img/Continue_button"+idioma+".png",71,278);
+
+    let VolverAlMenu
+    if(idioma === "_esp")
+        VolverAlMenu = new HitableObject("continuar",new Vector2(814,550),"assets/img/MainMenu_button"+idioma+".png",71,378);
+    else
+        VolverAlMenu = new HitableObject("continuar",new Vector2(834,550),"assets/img/MainMenu_button"+idioma+".png",71,338);
+
+    let Completado
+    if(idioma === "_esp")
+        Completado = new HitableObject("continuar",new Vector2(431,30),"assets/img/Level_completed"+idioma+".png",192,418);
+    else
+        Completado = new HitableObject("continuar",new Vector2(450,30),"assets/img/Level_completed"+idioma+".png",192,380);
+
     let fondoNegro = new SpriteObject("fondoNegro",new Vector2(0,0),"assets/img/FondoFinal.png",720,1280);
+
     Continue.OnClick = function(ev){
         canvasManager.ClearCanvas();
         StartLoad();
-        LoadLevel("nivel"+(actualLevel+1),gameObjects);
+        let nextLevel = (actualLevel+1)
+        if(nextLevel > 3){
+            nextLevel = 1;
+            days++;
+        }
+        LoadLevel("nivel"+(nextLevel),gameObjects);
     }
-    Continue.anchor = new Vector2(0.5,0.5);
+
+    VolverAlMenu.OnClick = function(ev){
+        canvasManager.ClearCanvas();
+        StartMenuGame();
+    }
 
     canvasManager.AddObject(Continue,5);
+    canvasManager.AddObject(VolverAlMenu,5);
+    canvasManager.AddObject(Completado,5);
     canvasManager.AddObject(fondoNegro,0);
 }
 
+function LoseLevel(){
+    canvasManager.ClearCanvas();
+    let Continue
+    if(idioma === "_esp")
+        Continue = new HitableObject("continuar",new Vector2(815,464),"assets/img/PlayAgain_button"+idioma+".png",67,375);
+    else
+        Continue = new HitableObject("continuar",new Vector2(831,454),"assets/img/PlayAgain_button"+idioma+".png",87,343);
 
+    let VolverAlMenu
+    if(idioma === "_esp")
+        VolverAlMenu = new HitableObject("continuar",new Vector2(814,550),"assets/img/MainMenu_button"+idioma+".png",71,378);
+    else
+        VolverAlMenu = new HitableObject("continuar",new Vector2(834,550),"assets/img/MainMenu_button"+idioma+".png",71,338);
+
+    let Completado
+    if(idioma === "_esp")
+        Completado = new HitableObject("continuar",new Vector2(527,30),"assets/img/GameOver"+idioma+".png",186,226);
+    else
+        Completado = new HitableObject("continuar",new Vector2(534,30),"assets/img/GameOver"+idioma+".png",192,212);
+
+    let fondoNegro = new SpriteObject("fondoNegro",new Vector2(0,0),"assets/img/FondoFinal.png",720,1280);
+
+    Continue.OnClick = function(ev){
+        canvasManager.ClearCanvas();
+        StartLoad();
+        actualLevel = 1;
+        days = 0;
+        LoadLevel("nivel"+(actualLevel),gameObjects);
+    }
+
+    VolverAlMenu.OnClick = function(ev){
+        canvasManager.ClearCanvas();
+        StartMenuGame();
+    }
+
+    canvasManager.AddObject(Continue,5);
+    canvasManager.AddObject(VolverAlMenu,5);
+    canvasManager.AddObject(Completado,5);
+    canvasManager.AddObject(fondoNegro,0);
+}
 
 function StartGame(container,loadTime){
     canvasManager.ClearCanvas();
@@ -773,6 +958,7 @@ function PauseGame(ev){
     canvasManager.AddObject(fondo,2);
     canvasManager.AddObject(transparencyPause,3);
     canvasManager.AddObject(pauseContinue,4);
+    canvasManager.AddObject(pauseExit,4);
     
 }
 //#endregion
@@ -784,9 +970,8 @@ window.addEventListener("load",function(ev){
     loading.hide();
     canvasManager = new CanvasManager("gameCanvas",1280,720);
     soundManager = new SoundManager();
+    LoadButtonsAndBackGrounds();
     StartMenuGame();
-    canvasManager.Start();
-
-   
+    canvasManager.Start(); 
 })
 //#endregion

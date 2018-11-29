@@ -1,7 +1,7 @@
 [
     {
     "type":"tamaño",
-    "valor":3000
+    "valor":1500
     },
     {
     "type":"speed",
@@ -13,6 +13,6 @@
         "positionx":1000
     },{
         "type":"dog",
-        "positionx":1200
+        "positionx":1000
     }
 ]
