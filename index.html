@@ -402,20 +402,7 @@
                                                         the past
                                                         %% days!</p>
                                                 <p class="PDays spanish">¡Llevamos %% días creando videojuegos!</p>
-                                                <script>
-                                                        window.addEventListener("load", function () {
-                                                                var html = document.getElementsByClassName("PDays");
-                                                                var text = html[0].innerText;
-                                                                var firstDate = new Date("09/19/2018");
-                                                                var EndDate = new Date();
-                                                                var timeDiff = Math.abs(firstDate.getTime() - EndDate.getTime());
-                                                                var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                                                                text = text.replace("%%", diffDays);
-                                                                for (var o of html) {
-                                                                        o.innerText = text;
-                                                                }
-                                                        });
-                                                </script>
+                                                
                                                 <p class="english"> --- <br> &copy; 2018 - 2019 Copyright <a href="https://simplegamecompany.github.io/portfolio/"
                                                                 style="color:bisque">SimpleGameCompany.</a> All rights
                                                         reserved.</p>
