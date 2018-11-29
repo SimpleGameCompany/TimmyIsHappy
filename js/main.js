@@ -52,7 +52,8 @@ class Obstacle extends HitableObject{
             audio.PlayOneShot();
             this.deactivate();
             canvasManager.clickObjects.delete(this.hitColor);
-            this.active = false;
+            setTimeout(function(){this.active = false;}.bind(this),5000);
+            //this.active = false;
             //this.SetAnimation("clicked");
         }
     }
@@ -129,13 +130,13 @@ class FlyingObject extends Obstacle{
         this._AvionLoopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
         this._AvionSpawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
     }
+
     OnClick(e){
         super.OnClick(e,this._AvionDeadAudio);
         if(this._hits == 0){
             this._AvionLoopAudio.Stop();
             this._AvionSpawnAudio.Stop();
-            this.velocity = new Vector2(-speed+50,(speed+50)/2);
-            this.active = false;
+            this.velocity = new Vector2(300,-300/3); 
         }
     }
 
@@ -203,6 +204,9 @@ class Dove extends Obstacle{
 
     OnClick(e){
         super.OnClick(e,this._PalomaDeadAudio);
+        if(this._hits == 0){
+            this.velocity = new Vector2(speed,-50);
+        }
     }
 
     Update(timeDelta, hitbox){
@@ -252,6 +256,7 @@ class Car extends Obstacle{
         super.OnClick(e,this._CocheDeadAudio);
         if(this._hits==0){
             this._CocheLoopAudio.Stop();
+            this.velocity = new Vector2(300,-200);
         }
     }
 
@@ -291,14 +296,17 @@ class Dog extends Obstacle{
             if(this.interval){
                 clearInterval(this.interval);
             }
-            //this._dead = true;
+            this._dead = true;
+            this.velocity = new Vector2(300,200);
         }  
     }
 
     Update(timeDelta, hitbox){
         if(this._bark == 0 && !this._attacking){
             this._PerroAttackAudio.PlayOneShot();
-            this.velocity = new Vector2(speed-65,0);
+            this.SetAnimation("run");
+            clearInterval(this.interval);
+            this.velocity = new Vector2(speed-200,0);
             this._attacking = true;
         }else if(this.position.x <= 1280 && !this._stopped){
             this._PerroWarnAudio.PlayOneShot();
@@ -313,12 +321,15 @@ class Dog extends Obstacle{
 
     Ladrar() {
         //this.SetAnimation("ladrar");
-        this._PerroBarkAudio.PlayOneShot();
+        if(!this._dead & !this._attacking){
+            this._PerroBarkAudio.PlayOneShot();
+        }
         this._bark--;
         console.log("Guau");
         if(this._bark == 0){
             clearInterval(this.interval);
         }
+
     }
 
     StopAudio(){
@@ -384,6 +395,16 @@ class HTMLBackGround{
         this.b1.css("left",this.b1.pos + "%");
     }
 
+    Hide(){
+        this.b1.hide();
+        this.b2.hide();
+    }
+
+    Show(){
+        this.b1.show();
+        this.b2.show();
+    }
+
     Render(renderCanvas){}
 
     ChangeImg(imgSrc){
@@ -401,13 +422,34 @@ function StartMenuGame(){
         menuObjects[0] = [];
         menuObjects [1] = [];
 
-        fondoMenuPrincipal = new HTMLBackGround("menu","assets/img/Menu_principal.gif",0,1,1);
+        if (puntuacionText)
+            puntuacionText.activate = false;
+
+        if(sky)
+            sky.Hide();
+
+        if(hills)
+            hills.Hide();
+
+        if(road)
+            road.Hide();
+
+        if(buildings)
+            buildings.Hide();
+
+        if(cloud)
+            cloud.Hide();
+
+        if(fondoMenuPrincipal){
+            fondoMenuPrincipal.Show();
+        }else{
+            fondoMenuPrincipal = new HTMLBackGround("menu","assets/img/Menu_principal.gif",0,1,1);
+        }
 
         let start = new HitableObject("credits", new Vector2(640,411),"assets/img/Start_button.png",400,493);
         start.anchor = new Vector2(0.5,0.5);
         start.OnClick = function(ev){
-            fondoMenuPrincipal.b1.hide();
-            fondoMenuPrincipal.b2.hide();
+            fondoMenuPrincipal.Hide();
             loadGameFromLevel(ev);
         }
 
@@ -492,12 +534,14 @@ function LoadLevel(jsonName,container){
                 break;
                 case "dog":
                     let dog = new Dog("perro",new Vector2(obj.positionx,500),"none",184,209,timmy, 1, 3);
-                    let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet"+levelname+".png",4,209,184,1/8,0);
+                    let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet"+levelname+".png",8,209,184,1/16,0);
+                    let dogAnim = new Animation("assets/img/PerroIdle_spritesheet"+levelname+".png",16,204,184,1/14,0);
                     totalLoading +=1;
                     //dog.anchor = new Vector2(0,0.5);
                     dog.velocity = new Vector2(speed,0);
                     dog.AddAnimation(dogRunning,"run");
-                    dog.SetAnimation("run");
+                    dog.AddAnimation(dogAnim,"idle");
+                    dog.SetAnimation("idle");
                     container[3].push(dog);
                 break;
                 case "sewer":
@@ -659,13 +703,13 @@ function LoseGame(){
       }
     canvasManager.canvasScene.putImageData(image,0,0);
     let fondo = new SpriteObject("fondo",new Vector2(0,0),canvasManager.canvasElement.toDataURL(),720,1280);
-    let volverMenu = new HitableObject("volver",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
+    /*let volverMenu = new HitableObject("volver",new Vector2(640,300),"assets/img/continuar.jpg",200,350);
     volverMenu.anchor = new Vector2(0.5,0.5);
     volverMenu.OnClick = function(ev){
         puntuacionText.puntos = 0;
         StartLoad();
         LoadLevel("nivel"+actualLevel,gameObjects);
-    }
+    }*/
     canvasManager.ClearCanvas();
     for(let i = 0; i < 6; i++){
         gameObjects[i] = [];
@@ -674,14 +718,13 @@ function LoseGame(){
     hills.ChangeImg("assets/img/Fondo_sepia"+levelname+".png");
     road.ChangeImg("assets/img/AceraConCarretera_sepia"+levelname+".png");
     buildings.ChangeImg("assets/img/Edificios_sepia"+levelname+".png");
-    cloud.ChangeImg("assets/img/Nubes_sepia"+levelname+".png")
+    cloud.ChangeImg("assets/img/Nubes_sepia"+levelname+".png");
     //TODO
     canvasManager.AddObject(fondo,0);
-    canvasManager.AddObject(volverMenu,5);
+    //canvasManager.AddObject(volverMenu,5);
     canvasManager.AddObject(jojoMensaje,5);
     
-
-    //StartMenuGame();
+    setTimeout(StartMenuGame,1000);
 }
 
 function EndLevel(){
