@@ -237,9 +237,39 @@ El arte final se irá incorporando conforme se tengan los recursos necesarios.
 
 ## **4.2. Sonido**
 
-Los sonidos del juego deberán acompañar a su estilo visual, de forma que deberán tener un toque alegre, divertido y amigable, alejándonos de lo oscuro, lo profundo y lo macabro.
+Los sonidos del juego deberán acompañar a su estilo visual, de forma que deberán tener un toque alegre, divertido y amigable, alejándonos de lo oscuro, lo profundo y lo macabro. La lista de sonidos usados se formula a continuación:
 
-El sonido se irá incorporando conforme se tengan los recursos necesarios.
+* Boton_1: Sonido para los botones de la aplicación, tales como los del menú.
+* Boton_2: Un sonido alternativo para menús o requeridos.
+
+* Alcantarilla_Open: Sonido de abrir la tapa de alcantarilla
+* Alcantarilla_Close: Sonido de cerrar la tapa de alcantarilla.
+
+* Caca_Spawn: Sonido de pisar una caca de perro para denotar la aparición de esta amenaza.
+* Caca_Eliminated: Sonido de recogida en una bolsa de la caca de perro. Para cuando se elimina la trampa “Caca de perro”.
+
+* Coche_Move: Sonido loopeable del motor del coche cuando avance.
+* Coche_Bocina: Un claxon cuando está muy cerca de Timmy.
+* Coche_Eliminated: Un derrape para eliminar el coche de escena.
+
+* Paloma_Spawn: Un sonido de paloma al spawnear, un gorjeo.
+* Paloma_Eliminated: Manojo de plumas y aleteo cuando se elimina a la paloma.
+
+* Avion_Spawn: Cuando el avión aparece en la escena.
+* Avion_Eliminated: Suena el avión sobrevolar y estrellarse.
+* Avion_Loop: Sonido loopeable del avión en escena.
+
+* Perro_Warn: Un perro gruñendo y ladrando, para avisar de que va a atacaar.
+* Perro_Attack: El perro ladra, cuando ataca.
+* Perro_Eliminated: El perro huye, es eliminado.
+
+Música usada:
+Para el videojuego se han usado 4 tracks, listadas a continuación:
+
+* Menu: Songe D’Automne (licencia Attribution-Noncommercial-Share Alike 2.0 France License.)
+* Day: Sweet Georgia Brown (licencia Attribution-Noncommercial-Share Alike 2.0 France License.)
+* Afternoon:Rythme Gitan(licencia Attribution-Noncommercial-Share Alike 2.0 France License.)
+* Night: Oprachina: Fat-fast (licencia Attribution-Noncommercial-Share Alike 3.0 United States License.)
 
 # **5. Roles**
 
