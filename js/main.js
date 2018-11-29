@@ -463,6 +463,7 @@ var pauseContinue;
 var distanciaRecorrida;
 var tamaño;
 var puntuacionText;
+var fondoMenuPrincipal;
 
 function StartMenuGame(){
     canvasManager.ClearCanvas();
@@ -470,10 +471,13 @@ function StartMenuGame(){
         menuObjects = [];
         menuObjects[0] = [];
         menuObjects [1] = [];
-        let Fodo = new SpriteObject("fondo", new Vector2(0,0),"assets/img/fondoMenu.png",720,1280);
+
+        fondoMenuPrincipal = new HTMLBackGround("clouds","assets/img/Menu_principal.gif",-50/8,1,1);
+
         let continueButton = new HitableObject("continuar", new Vector2(640,350),"assets/img/play.png",200,300);
         continueButton.anchor = new Vector2(0.5,0.5);
         continueButton.OnClick = function(ev){
+            fondo.hide();
             loadGameFromLevel(ev);
         }
         let opciones = new HitableObject("opciones", new Vector2(640,590),"assets/img/setings.png",100,200);
@@ -481,7 +485,7 @@ function StartMenuGame(){
         opciones.OnClick = function(ev){
             OptionsMenu();
         }
-        menuObjects[0].push(Fodo);
+
         menuObjects[1].push(continueButton);
         menuObjects[1].push(opciones);
         
