@@ -9,7 +9,7 @@
             xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"
             xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#">
          <xmpDM:artist>SOUND IDEAS</xmpDM:artist>
-         <xmpDM:album>1003</xmpDM:album>
+         <xmpDM:album>1004</xmpDM:album>
          <xmpDM:genre>FX</xmpDM:genre>
          <xmpDM:Tracks>
             <rdf:Bag>
@@ -32,51 +32,37 @@
          </xmpDM:Tracks>
          <dc:title>
             <rdf:Alt>
-               <rdf:li xml:lang="x-default">Track 33</rdf:li>
+               <rdf:li xml:lang="x-default">Track 49</rdf:li>
             </rdf:Alt>
          </dc:title>
          <dc:format>audio/ogg; codec="vorbis"</dc:format>
-         <xmp:MetadataDate>2018-11-11T19:40:57+01:00</xmp:MetadataDate>
-         <xmp:ModifyDate>2018-11-11T19:40:57+01:00</xmp:ModifyDate>
-         <xmpMM:InstanceID>xmp.iid:89e81029-cae3-534d-9298-26d172e76932</xmpMM:InstanceID>
-         <xmpMM:DocumentID>xmp.did:89e81029-cae3-534d-9298-26d172e76932</xmpMM:DocumentID>
-         <xmpMM:OriginalDocumentID>xmp.did:9e5db567-a7c5-5748-86fc-9bfd7ca2348f</xmpMM:OriginalDocumentID>
+         <xmp:MetadataDate>2018-11-30T20:32:45+01:00</xmp:MetadataDate>
+         <xmp:ModifyDate>2018-11-30T20:32:45+01:00</xmp:ModifyDate>
+         <xmpMM:InstanceID>xmp.iid:98684f3c-5ce3-634d-91a0-6c05e0d5593d</xmpMM:InstanceID>
+         <xmpMM:DocumentID>xmp.did:98684f3c-5ce3-634d-91a0-6c05e0d5593d</xmpMM:DocumentID>
+         <xmpMM:OriginalDocumentID>xmp.did:8bea3b48-47b9-0d48-a588-51b30bd724b5</xmpMM:OriginalDocumentID>
          <xmpMM:History>
             <rdf:Seq>
                <rdf:li rdf:parseType="Resource">
                   <stEvt:action>saved</stEvt:action>
-                  <stEvt:instanceID>xmp.iid:9e5db567-a7c5-5748-86fc-9bfd7ca2348f</stEvt:instanceID>
-                  <stEvt:when>2018-11-11T19:27:29+01:00</stEvt:when>
+                  <stEvt:instanceID>xmp.iid:8bea3b48-47b9-0d48-a588-51b30bd724b5</stEvt:instanceID>
+                  <stEvt:when>2018-11-30T20:32:45+01:00</stEvt:when>
                   <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
                   <stEvt:changed>/metadata</stEvt:changed>
                </rdf:li>
                <rdf:li rdf:parseType="Resource">
                   <stEvt:action>saved</stEvt:action>
-                  <stEvt:instanceID>xmp.iid:231ee2f8-9398-9949-a366-24fdc122f9d6</stEvt:instanceID>
-                  <stEvt:when>2018-11-11T19:27:29+01:00</stEvt:when>
-                  <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
-                  <stEvt:changed>/</stEvt:changed>
-               </rdf:li>
-               <rdf:li rdf:parseType="Resource">
-                  <stEvt:action>saved</stEvt:action>
-                  <stEvt:instanceID>xmp.iid:050e93da-b4e4-5943-9ee6-28c4cccdd34f</stEvt:instanceID>
-                  <stEvt:when>2018-11-11T19:40:57+01:00</stEvt:when>
-                  <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
-                  <stEvt:changed>/metadata</stEvt:changed>
-               </rdf:li>
-               <rdf:li rdf:parseType="Resource">
-                  <stEvt:action>saved</stEvt:action>
-                  <stEvt:instanceID>xmp.iid:89e81029-cae3-534d-9298-26d172e76932</stEvt:instanceID>
-                  <stEvt:when>2018-11-11T19:40:57+01:00</stEvt:when>
+                  <stEvt:instanceID>xmp.iid:98684f3c-5ce3-634d-91a0-6c05e0d5593d</stEvt:instanceID>
+                  <stEvt:when>2018-11-30T20:32:45+01:00</stEvt:when>
                   <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
                   <stEvt:changed>/</stEvt:changed>
                </rdf:li>
             </rdf:Seq>
          </xmpMM:History>
          <xmpMM:DerivedFrom rdf:parseType="Resource">
-            <stRef:instanceID>xmp.iid:050e93da-b4e4-5943-9ee6-28c4cccdd34f</stRef:instanceID>
-            <stRef:documentID>xmp.did:231ee2f8-9398-9949-a366-24fdc122f9d6</stRef:documentID>
-            <stRef:originalDocumentID>xmp.did:9e5db567-a7c5-5748-86fc-9bfd7ca2348f</stRef:originalDocumentID>
+            <stRef:instanceID>xmp.iid:8bea3b48-47b9-0d48-a588-51b30bd724b5</stRef:instanceID>
+            <stRef:documentID>xmp.did:8bea3b48-47b9-0d48-a588-51b30bd724b5</stRef:documentID>
+            <stRef:originalDocumentID>xmp.did:8bea3b48-47b9-0d48-a588-51b30bd724b5</stRef:originalDocumentID>
          </xmpMM:DerivedFrom>
       </rdf:Description>
    </rdf:RDF>

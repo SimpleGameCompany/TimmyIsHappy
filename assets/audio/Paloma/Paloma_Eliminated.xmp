@@ -8,9 +8,9 @@
             xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#"
             xmlns:dc="http://purl.org/dc/elements/1.1/"
             xmlns:xmpDM="http://ns.adobe.com/xmp/1.0/DynamicMedia/">
-         <xmp:MetadataDate>2018-11-11T21:11:01+01:00</xmp:MetadataDate>
-         <xmp:ModifyDate>2018-11-11T21:11:01+01:00</xmp:ModifyDate>
-         <xmpMM:InstanceID>xmp.iid:7c87cde5-1320-6e4c-8d7b-8821715a08a8</xmpMM:InstanceID>
+         <xmp:MetadataDate>2018-11-30T20:13:14+01:00</xmp:MetadataDate>
+         <xmp:ModifyDate>2018-11-30T20:13:14+01:00</xmp:ModifyDate>
+         <xmpMM:InstanceID>xmp.iid:a3362d5e-2126-c845-9d48-e0d752fd8b5e</xmpMM:InstanceID>
          <xmpMM:DocumentID>xmp.did:286ffe0d-ee1d-d046-8743-c47bae44b9be</xmpMM:DocumentID>
          <xmpMM:OriginalDocumentID>xmp.did:c57936dc-ad75-874f-a391-ccbdc08b91ec</xmpMM:OriginalDocumentID>
          <xmpMM:History>
@@ -40,6 +40,20 @@
                   <stEvt:action>saved</stEvt:action>
                   <stEvt:instanceID>xmp.iid:7c87cde5-1320-6e4c-8d7b-8821715a08a8</stEvt:instanceID>
                   <stEvt:when>2018-11-11T21:11:01+01:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
+                  <stEvt:changed>/</stEvt:changed>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>saved</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:e4d897c0-b639-8742-abf6-66ce3f1f029a</stEvt:instanceID>
+                  <stEvt:when>2018-11-30T20:13:14+01:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
+                  <stEvt:changed>/metadata</stEvt:changed>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>saved</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:a3362d5e-2126-c845-9d48-e0d752fd8b5e</stEvt:instanceID>
+                  <stEvt:when>2018-11-30T20:13:14+01:00</stEvt:when>
                   <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
                   <stEvt:changed>/</stEvt:changed>
                </rdf:li>

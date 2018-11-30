@@ -36,9 +36,9 @@
             </rdf:Alt>
          </dc:title>
          <dc:format>audio/ogg; codec="vorbis"</dc:format>
-         <xmp:MetadataDate>2018-11-11T19:27:29+01:00</xmp:MetadataDate>
-         <xmp:ModifyDate>2018-11-11T19:27:29+01:00</xmp:ModifyDate>
-         <xmpMM:InstanceID>xmp.iid:231ee2f8-9398-9949-a366-24fdc122f9d6</xmpMM:InstanceID>
+         <xmp:MetadataDate>2018-11-30T20:16:31+01:00</xmp:MetadataDate>
+         <xmp:ModifyDate>2018-11-30T20:16:31+01:00</xmp:ModifyDate>
+         <xmpMM:InstanceID>xmp.iid:262da2d3-995e-814c-bdd4-91a9b2681f56</xmpMM:InstanceID>
          <xmpMM:DocumentID>xmp.did:231ee2f8-9398-9949-a366-24fdc122f9d6</xmpMM:DocumentID>
          <xmpMM:OriginalDocumentID>xmp.did:9e5db567-a7c5-5748-86fc-9bfd7ca2348f</xmpMM:OriginalDocumentID>
          <xmpMM:History>
@@ -54,6 +54,20 @@
                   <stEvt:action>saved</stEvt:action>
                   <stEvt:instanceID>xmp.iid:231ee2f8-9398-9949-a366-24fdc122f9d6</stEvt:instanceID>
                   <stEvt:when>2018-11-11T19:27:29+01:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
+                  <stEvt:changed>/</stEvt:changed>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>saved</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:0fceded9-dc3e-9c41-8bdb-0e6f26fcbe42</stEvt:instanceID>
+                  <stEvt:when>2018-11-30T20:16:31+01:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
+                  <stEvt:changed>/metadata</stEvt:changed>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>saved</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:262da2d3-995e-814c-bdd4-91a9b2681f56</stEvt:instanceID>
+                  <stEvt:when>2018-11-30T20:16:31+01:00</stEvt:when>
                   <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
                   <stEvt:changed>/</stEvt:changed>
                </rdf:li>

@@ -1,5 +1,5 @@
 <?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
-<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c140 79.160302, 2017/03/02-16:59:38        ">
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c144 79.162045, 2018/01/23-06:05:52        ">
    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <rdf:Description rdf:about=""
             xmlns:xmp="http://ns.adobe.com/xap/1.0/"
@@ -8,9 +8,9 @@
             xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#"
             xmlns:dc="http://purl.org/dc/elements/1.1/"
             xmlns:xmpDM="http://ns.adobe.com/xmp/1.0/DynamicMedia/">
-         <xmp:MetadataDate>2018-11-26T17:10:47+01:00</xmp:MetadataDate>
-         <xmp:ModifyDate>2018-11-26T17:10:47+01:00</xmp:ModifyDate>
-         <xmpMM:InstanceID>xmp.iid:d37b7b16-7d83-3d41-87c4-b9ca8bc247c5</xmpMM:InstanceID>
+         <xmp:MetadataDate>2018-11-30T20:11:43+01:00</xmp:MetadataDate>
+         <xmp:ModifyDate>2018-11-30T20:11:43+01:00</xmp:ModifyDate>
+         <xmpMM:InstanceID>xmp.iid:ac1997d7-72ea-444b-8ba6-6b1c857abae7</xmpMM:InstanceID>
          <xmpMM:DocumentID>xmp.did:d37b7b16-7d83-3d41-87c4-b9ca8bc247c5</xmpMM:DocumentID>
          <xmpMM:OriginalDocumentID>xmp.did:6225581e-8977-4047-871a-f1b60b37304e</xmpMM:OriginalDocumentID>
          <xmpMM:History>
@@ -83,6 +83,20 @@
                   <stEvt:instanceID>xmp.iid:d37b7b16-7d83-3d41-87c4-b9ca8bc247c5</stEvt:instanceID>
                   <stEvt:when>2018-11-26T17:10:47+01:00</stEvt:when>
                   <stEvt:softwareAgent>Adobe Audition CC 2017.1 (Windows)</stEvt:softwareAgent>
+                  <stEvt:changed>/</stEvt:changed>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>saved</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:8b49c324-dcaa-7b43-be69-a0e27c434ef7</stEvt:instanceID>
+                  <stEvt:when>2018-11-30T20:11:43+01:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
+                  <stEvt:changed>/metadata</stEvt:changed>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>saved</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:ac1997d7-72ea-444b-8ba6-6b1c857abae7</stEvt:instanceID>
+                  <stEvt:when>2018-11-30T20:11:43+01:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
                   <stEvt:changed>/</stEvt:changed>
                </rdf:li>
             </rdf:Seq>
