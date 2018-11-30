@@ -31,6 +31,7 @@ var fondoMenuScoresEsp;
 var fondoMenuScoresEng;
 var fondoMenuOptionsEsp;
 var fondoMenuOptionsEng;
+var fondoMenuInputName;
 var transparencyPause;
 var pauseContinue;
 var pauseExit;
@@ -41,6 +42,11 @@ var scoreParagraphs;
 var inputText;
 var daysText;
 var scoreText;
+var playerName;
+const inglesInput= "Write your name";
+const españolInput = "Escriba su nombre";
+var parrafoInput;
+
 //#endregion
 
 //#region objetos
@@ -713,6 +719,50 @@ function PuntuacionesMenu(){
 
         canvasManager.AddList(menuObjects);
 }
+
+
+
+function InputName(){
+    canvasManager.ClearCanvas();
+    if(fondoMenuInputName){
+        fondoMenuInputName.Show();
+    }else{
+        fondoMenuInputName = new HTMLBackGround("input","assets/img/Menu_vacio.gif",0,1,1);
+        fondoMenuInputName.Show();
+    }
+    if(parrafoInput){
+        parrafoInput.activate = true;
+    }else{
+        parrafoInput = new TextObject("",new Vector2(32,75),3,"Arial",canvasManager,"white");
+        parrafoInput.activate = true;
+    }
+    if(idioma === "_esp"){
+        parrafoInput.text = españolInput;
+    }else{
+        parrafoInput.text = inglesInput;
+    }
+    inputText.Show();
+
+    let continuar;
+    if(idioma === "_esp")
+        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/continue_button_esp.png",71,306);
+    else
+        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/continue_button_eng.png",71,278);
+    continuar.anchor = new Vector2(0.5,0.5);
+    
+    continuar.OnClick = function(ev){
+        playerName = inputText.val();
+        inputText.Hide();
+        fondoMenuInputName.Hide();
+        parrafoInput.activate = false;
+        loadGameFromLevel(ev);
+
+    }
+
+
+    canvasManager.AddObject(continuar,0);
+
+}
 //#endregion
 
 //#region cargas
@@ -1018,7 +1068,8 @@ function EndLevel(){
 
     VolverAlMenu.OnClick = function(ev){
         canvasManager.ClearCanvas();      
-        LoseLevel();
+        WriteScore();
+        StartMenuGame();
     }
 
     canvasManager.AddObject(Continue,4);
@@ -1057,7 +1108,6 @@ function LoseLevel(){
         StartLoad();
         actualLevel = 1;
         days = 0;
-        inputText.Hide();
         puntuacionText.position = new Vector2(0,0);
         WriteScore();
         daysText.activate = false;
@@ -1067,11 +1117,9 @@ function LoseLevel(){
     VolverAlMenu.OnClick = function(ev){
         canvasManager.ClearCanvas();
         WriteScore();
-        inputText.Hide();
         daysText.activate = false;
         StartMenuGame();
     }
-    inputText.Show();
     canvasManager.AddObject(Continue,5);
     canvasManager.AddObject(VolverAlMenu,5);
     canvasManager.AddObject(Completado,5);
@@ -1114,7 +1162,7 @@ function PauseGame(ev){
 
 
 function WriteScore(){
-    let name = inputText.text;//window.prompt("Su nombre","nombre");
+    let name =playerName;//window.prompt("Su nombre","nombre");
     if(name != null && name != ""){
     let Score = {"puntos":Math.abs(puntuacionText.puntos),"name":name}
     scoreArray.push(Score);
@@ -1125,8 +1173,7 @@ function WriteScore(){
 }
 //#endregion
 
-const inglesInput= "Your Name";
-const españolInput = "Su nombre";
+
 
 //#region eventos
 window.addEventListener("load",function(ev){
