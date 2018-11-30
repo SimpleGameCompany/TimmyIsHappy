@@ -167,18 +167,17 @@ class FlyingObject extends Obstacle{
         this._AvionSpawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
     }
 
-    OnClick(e){
-        super.OnClick(e,this._AvionDeadAudio);
-        if(this._hits == 0){
-            this._AvionLoopAudio.Stop();
-            this._AvionSpawnAudio.Stop();
+    OnClick(e){       
+        if(this._hits == 1){
+            this.StopAudio();
             this.velocity = new Vector2(300,-300/3); 
         }
+        super.OnClick(e,this._AvionDeadAudio);
     }
 
     Update(timeDelta, hitbox){
         if(this.position.x <= 1280 && !this._inCanvas){
-            this._AvionSpawnAudio.volume = 0.6;
+            this._AvionSpawnAudio.volume = 1;
             this._AvionSpawnAudio.PlayOneShot();
             this._inCanvas = true;
             this.velocity = new Vector2(-300,300/3);
@@ -236,12 +235,14 @@ class Dove extends Obstacle{
         super(name, position, imgSrc, height, width, player, hits);
         this._PalomaDeadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg",0);
         this._PalomaSpawnAudio = new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0);
+        this.dead = false;
     }
 
     OnClick(e){
         super.OnClick(e,this._PalomaDeadAudio);
         if(this._hits == 0){
-            this.velocity = new Vector2(speed,-50);
+            this.velocity = new Vector2(speed,-150);
+            this.dead = true;
         }
     }
 
@@ -250,7 +251,7 @@ class Dove extends Obstacle{
             this._PalomaSpawnAudio.PlayOneShot();
             this._inCanvas = true;
         }
-        if(this.position.x <= 400 && !this._shoot){
+        if(this.position.x <= 400 && !this._shoot && !this.dead){
             let caca = new DovePoop("cacapaloma",new Vector2(this.position.x+25,this.position.y+75),"none",53,52,timmy,1);
             this._shoot = true;
         }
