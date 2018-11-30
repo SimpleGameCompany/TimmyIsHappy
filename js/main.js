@@ -327,14 +327,13 @@ class Dog extends Obstacle{
     }
 
     OnClick(e){
-        super.OnClick(e,this._PerroDeadAudio);
-        if(this._hits == 0){
-            if(this.interval){
-                clearInterval(this.interval);
-            }
-            this._dead = true;
-            this.velocity = new Vector2(300,200);
-        }  
+        if(this.interval){
+            clearInterval(this.interval);
+        }
+        this._dead = true;
+        this.StopAudio();
+        this.velocity = new Vector2(300,200);
+        super.OnClick(e,this._PerroDeadAudio);    
     }
 
     Update(timeDelta, hitbox){
