@@ -32,6 +32,9 @@ var transparencyPause;
 var pauseContinue;
 var pauseExit;
 var jojoMensaje;
+var scoreArray;
+const storageName = "timmyScores";
+var scoreParagraphs;
 //#endregion
 
 //#region objetos
@@ -564,41 +567,38 @@ function PuntuacionesMenu(){
                 fondoMenuScoresEsp.Hide();
             if(fondoMenuScoresEng)
                 fondoMenuScoresEng.Hide();
+            scoreParagraphs.Hide();
             StartMenuGame();
         }
         menuObjects[0].push(flecha);
         
-        canvasManager.AddList(menuObjects);
-}
+        if(scoreParagraphs == undefined){
+            scoreParagraphs = [];
+            for(let i = 0; i<10;i++){
+                let parafo = new TextObject("",new Vector2(38,(i*5)+30),3,"Arial",canvasManager,"white");
+                scoreParagraphs.push(parafo);
+            }
+            scoreParagraphs.Hide = function(){
+                for(let i of this){
+                    i.activate = false;
+                    i.text = "";
+                }
+            }
+            scoreParagraphs.Show = function(){
+                for(let i of this){
+                    i.activate = true;
+                }
+            }
+            scoreParagraphs.FillText = function(scores){
+                for(let i = 0;i<scores.length && i <10 ;i++){
+                    scoreParagraphs[i].text = i+1+":"+ scores[i]; 
+                }
+            }
 
-function PuntuacionesMenu(){
-    canvasManager.ClearCanvas();
-    
-        menuObjects = [];
-        menuObjects[0] = [];
-        if(idioma === "_esp"){
-            if(fondoMenuScoresEsp){
-                fondoMenuScoresEsp.Show();
-            }else{
-                fondoMenuScoresEsp = new HTMLBackGround("menu","assets/img/Menu_scores"+idioma+".gif",0,1,1);
-            }
-        }else{
-            if(fondoMenuScoresEsp){
-                fondoMenuScoresEng.Show();
-            }else{
-                fondoMenuScoresEng = new HTMLBackGround("menu","assets/img/Menu_scores"+idioma+".gif",0,1,1);
-            }
         }
-        let flecha = new HitableObject("continuar", new Vector2(130,570),"assets/img/Flecha.png",52,106);
-        flecha.OnClick = function(ev){
-            if(fondoMenuScoresEsp)
-                fondoMenuScoresEsp.Hide();
-            if(fondoMenuScoresEng)
-                fondoMenuScoresEng.Hide();
-            StartMenuGame();
-        }
-        menuObjects[0].push(flecha);
-        
+        scoreParagraphs.Show();
+        scoreParagraphs.FillText(scoreArray);
+
         canvasManager.AddList(menuObjects);
 }
 //#endregion
@@ -796,7 +796,7 @@ function LoadButtonsAndBackGrounds(){
     pauseContinue.anchor = new Vector2(0.5,0.5);
 
     pauseExit = new HitableObject("salir",new Vector2(640,370),"assets/img/Pause_menu_exit"+idioma+".png",80,163);
-    pauseExit.OnClick = function(ev){canvasManager.ClearCanvas();soundManager.StopAudio();StartMenuGame()}
+    pauseExit.OnClick = function(ev){canvasManager.ClearCanvas();soundManager.StopAudio();LoseLevel()}
     pauseExit.anchor = new Vector2(0.5,0.5);
 
     jojoMensaje = new SpriteObject("jojo",new Vector2(946,612),"none",57,310);
@@ -884,6 +884,9 @@ function EndLevel(){
 
     VolverAlMenu.OnClick = function(ev){
         canvasManager.ClearCanvas();
+        scoreArray.push(Math.abs(puntuacionText.puntos));
+        scoreArray.sort(compareNumbers);
+        window.localStorage.setItem(storageName,JSON.stringify(scoreArray));
         StartMenuGame();
     }
 
@@ -920,11 +923,17 @@ function LoseLevel(){
         StartLoad();
         actualLevel = 1;
         days = 0;
+        scoreArray.push(Math.abs(puntuacionText.puntos));
+        scoreArray.sort(compareNumbers);
+        window.localStorage.setItem(storageName,JSON.stringify(scoreArray));
         LoadLevel("nivel"+(actualLevel),gameObjects);
     }
 
     VolverAlMenu.OnClick = function(ev){
         canvasManager.ClearCanvas();
+        scoreArray.push(Math.abs(puntuacionText.puntos));
+        scoreArray.sort(compareNumbers);
+        window.localStorage.setItem(storageName,JSON.stringify(scoreArray));
         StartMenuGame();
     }
 
@@ -978,6 +987,17 @@ window.addEventListener("load",function(ev){
     soundManager = new SoundManager();
     LoadButtonsAndBackGrounds();
     StartMenuGame();
+    scoreArray = window.localStorage.getItem(storageName);
+    if(scoreArray == undefined){
+        scoreArray = [];
+        window.localStorage.setItem(storageName,JSON.stringify(scoreArray));
+    }else{
+        scoreArray = JSON.parse(scoreArray);
+    }
     canvasManager.Start(); 
 })
+
+function compareNumbers(a, b) {
+    return b - a;
+  }
 //#endregion

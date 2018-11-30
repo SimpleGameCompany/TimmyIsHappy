@@ -69,6 +69,10 @@ canvas {
     position: absolute;
     z-index: 10;  
 }
+
+#imagenesToLoad{
+    display: none;
+}
 .background-responsive { 
     
     position: absolute;
