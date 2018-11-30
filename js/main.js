@@ -35,9 +35,36 @@ var jojoMensaje;
 var scoreArray;
 const storageName = "timmyScores";
 var scoreParagraphs;
+var inputText;
+var daysText;
+var scoreText;
 //#endregion
 
 //#region objetos
+class Input {
+    constructor(pos,sampleText,title,fontsize){
+        this.inputHtml = $("<input type='text' name='"+title+"' value='"+sampleText+"' class = 'inputClass'></input>").appendTo($(canvasManager.canvasElement).parent());
+        this.inputHtml.css("left",pos.x+"%");
+        this.inputHtml.css("top",pos.y+"%");
+        this.inputHtml.css("font-size",fontsize+"vw");
+        
+        
+    }
+
+    Show(){
+        this.inputHtml.show();
+    }
+    Hide(){
+        this.inputHtml.hide();
+    }
+
+    get text(){
+       return this.inputHtml.val();
+    }
+}
+
+
+
 class Obstacle extends HitableObject{
     /**
      * 
@@ -431,8 +458,10 @@ function StartMenuGame(){
         menuObjects[0] = [];
         menuObjects [1] = [];
 
-        if (puntuacionText)
+        if (puntuacionText){
             puntuacionText.activate = false;
+            puntuacionText.position = new Vector2(20,40);
+        }
 
         if(sky)
             sky.Hide();
@@ -522,6 +551,9 @@ function OptionsMenu(){
                 idioma = "_eng"
                 OptionsMenu();
                 ponerIngles();
+                scoreText = "Score: ";
+                if(days != null)
+                days.textT = "Completed Days: ";
                 actualizaDias();
             }
         }
@@ -532,6 +564,9 @@ function OptionsMenu(){
                 idioma = "_esp"
                 OptionsMenu();
                 ponerEspanol();
+                scoreText = "Puntos: "
+                if(days != null)
+                days.textT = "Dias Completados: ";
                 actualizaDias();
             }
         }
@@ -591,7 +626,7 @@ function PuntuacionesMenu(){
             }
             scoreParagraphs.FillText = function(scores){
                 for(let i = 0;i<scores.length && i <10 ;i++){
-                    scoreParagraphs[i].text = i+1+":"+ scores[i]; 
+                    scoreParagraphs[i].text = scores[i].name+" : "+ scores[i].puntos; 
                 }
             }
 
@@ -607,7 +642,20 @@ function PuntuacionesMenu(){
 function loadGameFromLevel(ev){
     StartLoad();
     canvasManager.ClearCanvas();
+    if(idioma === "_esp"){
     puntuacionText = new TextObject("Puntos: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
+    daysText = new TextObject("Días Completado: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
+    daysText.textT = "Días Completado: ";
+    daysText.activate = false;
+    scoreText = "Puntos: ";
+    }else{
+        puntuacionText = new TextObject("Score: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
+        daysText = new TextObject("Completed Days: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
+        daysText.textT = "Completed Days: ";
+        scoreText = "Score: " ;
+        daysText.activate = false;
+    }
+
     puntuacionText.activate=false;
     puntuacionText.puntos = 0;
     gameObjects = [];
@@ -628,7 +676,7 @@ function LoadLevel(jsonName,container){
     puntuacionText.actualtime = 0;
     puntuacionText.Update = function(timeDelta,hitBox){
         if(this.actualtime >=this.time){
-        puntuacionText.text = "Puntos: "+Math.abs(puntuacionText.puntos);
+        puntuacionText.text = scoreText+Math.abs(puntuacionText.puntos);
         this.actualtime = 0;
         }else{
             this.actualtime+=timeDelta;
@@ -851,6 +899,9 @@ function LoseGame(){
 
 function EndLevel(){
     canvasManager.ClearCanvas();
+    daysText.activate = true;
+    daysText.text = daysText.textT+days;
+    puntuacionText.position = new Vector2(15,40);
     let Continue
     if(idioma === "_esp")
         Continue = new HitableObject("continuar",new Vector2(850,460),"assets/img/Continue_button"+idioma+".png",71,306);
@@ -879,15 +930,13 @@ function EndLevel(){
             nextLevel = 1;
             days++;
         }
+        puntuacionText.position = new Vector2(0,0);
         LoadLevel("nivel"+(nextLevel),gameObjects);
     }
 
     VolverAlMenu.OnClick = function(ev){
-        canvasManager.ClearCanvas();
-        scoreArray.push(Math.abs(puntuacionText.puntos));
-        scoreArray.sort(compareNumbers);
-        window.localStorage.setItem(storageName,JSON.stringify(scoreArray));
-        StartMenuGame();
+        canvasManager.ClearCanvas();      
+        LoseLevel();
     }
 
     canvasManager.AddObject(Continue,5);
@@ -898,6 +947,9 @@ function EndLevel(){
 
 function LoseLevel(){
     canvasManager.ClearCanvas();
+    daysText.activate = true;
+    daysText.text = daysText.textT+days;
+    puntuacionText.position = new Vector2(15,40);
     let Continue
     if(idioma === "_esp")
         Continue = new HitableObject("continuar",new Vector2(815,464),"assets/img/PlayAgain_button"+idioma+".png",67,375);
@@ -923,20 +975,21 @@ function LoseLevel(){
         StartLoad();
         actualLevel = 1;
         days = 0;
-        scoreArray.push(Math.abs(puntuacionText.puntos));
-        scoreArray.sort(compareNumbers);
-        window.localStorage.setItem(storageName,JSON.stringify(scoreArray));
-        LoadLevel("nivel"+(actualLevel),gameObjects);
+        inputText.Hide();
+        puntuacionText.position = new Vector2(0,0);
+        WriteScore();
+        daysText.activate = false;
+        LoadLevel("nivel1",gameObjects);
     }
 
     VolverAlMenu.OnClick = function(ev){
         canvasManager.ClearCanvas();
-        scoreArray.push(Math.abs(puntuacionText.puntos));
-        scoreArray.sort(compareNumbers);
-        window.localStorage.setItem(storageName,JSON.stringify(scoreArray));
+        WriteScore();
+        inputText.Hide();
+        daysText.activate = false;
         StartMenuGame();
     }
-
+    inputText.Show();
     canvasManager.AddObject(Continue,5);
     canvasManager.AddObject(VolverAlMenu,5);
     canvasManager.AddObject(Completado,5);
@@ -976,8 +1029,21 @@ function PauseGame(ev){
     canvasManager.AddObject(pauseExit,4);
     
 }
-//#endregion
 
+
+function WriteScore(){
+    let name = inputText.text;//window.prompt("Su nombre","nombre");
+    if(name != null && name != ""){
+    let Score = {"puntos":Math.abs(puntuacionText.puntos),"name":name}
+    scoreArray.push(Score);
+    scoreArray.sort(compareNumbers);
+    window.localStorage.setItem(storageName,JSON.stringify(scoreArray));
+    }
+
+}
+//#endregion
+const inglesInput= "Your Name";
+const españolInput = "Su nombre";
 //#region eventos
 window.addEventListener("load",function(ev){
     loading = $(".loading");
@@ -994,10 +1060,15 @@ window.addEventListener("load",function(ev){
     }else{
         scoreArray = JSON.parse(scoreArray);
     }
+    if(idioma !== "_esp")
+        inputText = new Input(new Vector2(32,50),"name",inglesInput,2);
+    else
+        inputText = new Input(new Vector2(32,50),"name",españolInput,2);
+    inputText.Hide();
     canvasManager.Start(); 
 })
 
 function compareNumbers(a, b) {
-    return b - a;
+    return b.puntos - a.puntos;
   }
 //#endregion

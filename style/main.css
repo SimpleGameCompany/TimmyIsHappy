@@ -69,7 +69,13 @@ canvas {
     position: absolute;
     z-index: 10;  
 }
-
+.inputClass{
+    position: absolute;
+    box-sizing: content-box;
+    text-align: center;
+    z-index: 10;
+    
+}
 #imagenesToLoad{
     display: none;
 }
