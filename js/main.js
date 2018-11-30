@@ -5,6 +5,7 @@ var speed;
 var distanciaRecorrida;
 var tamaño;
 var idioma = "_eng";
+var mute = false;
 var soundManager;
 var canvasManager;
 var menuObjects;
@@ -28,6 +29,8 @@ var puntuacionText;
 var fondoMenuPrincipal;
 var fondoMenuScoresEsp;
 var fondoMenuScoresEng;
+var fondoMenuOptionsEsp;
+var fondoMenuOptionsEng;
 var transparencyPause;
 var pauseContinue;
 var pauseExit;
@@ -538,16 +541,50 @@ function OptionsMenu(){
         menuObjects = [];
         menuObjects[0] = [];
         menuObjects [1] = [];
-        let Fondo = new SpriteObject("fondo", new Vector2(0,0),"assets/img/fondo.png",720,1280);
-        let continueButton = new HitableObject("continuar", new Vector2(200,350),"assets/img/Flecha.png",200,300);
-        continueButton.anchor = new Vector2(0.5,0.5);
-        continueButton.OnClick = function(ev){
+
+        if(idioma === "_esp"){
+            if(fondoMenuOptionsEsp){
+                fondoMenuOptionsEsp.Show();
+            }else{
+                fondoMenuOptionsEsp = new HTMLBackGround("menu","assets/img/Menu_opciones"+idioma+".gif",0,1,1);
+            }
+        }else{
+            if(fondoMenuOptionsEng){
+                fondoMenuOptionsEng.Show();
+            }else{
+                fondoMenuOptionsEng = new HTMLBackGround("menu","assets/img/Menu_opciones"+idioma+".gif",0,1,1);
+            }
+        }
+
+        let flecha;
+        flecha = new HitableObject("continuar", new Vector2(130,570),"assets/img/Flecha.png",52,106);
+        flecha.OnClick = function(ev){
+            if(fondoMenuOptionsEsp)
+                fondoMenuOptionsEsp.Hide();
+            if(fondoMenuOptionsEng)
+                fondoMenuOptionsEng.Hide();
             StartMenuGame();
         }
-        let ingles = new HitableObject("continuar", new Vector2(800,100),"assets/img/play.png",200,300);
-        ingles.anchor = new Vector2(0.5,0.5);
+
+        let idiomaTexto;
+        if(idioma === "_esp")
+            idiomaTexto = new SpriteObject("idioma", new Vector2(233,472),"assets/img/Language"+idioma+".png",114,315);
+        else
+            idiomaTexto = new SpriteObject("idioma", new Vector2(233,472),"assets/img/Language"+idioma+".png",114,315);
+
+        let ingles = new HitableObject("ingles", new Vector2(606,472),"none",101,162);
+        let inglesAnim;
+        if(idioma === "_esp"){
+            inglesAnim = new Animation("assets/img/Bandera_Eng_spritesheet.png",4,162,101,1/8,0);
+        }else{
+            inglesAnim = new Animation("assets/img/Bandera_Eng_seleccionada_spritesheet.png",4,162,101,1/8,0);
+        }
+        ingles.AddAnimation(inglesAnim,"idle");
+        ingles.SetAnimation("idle");
         ingles.OnClick = function(ev){
             if(idioma === "_esp"){
+                if(fondoMenuOptionsEsp)
+                    fondoMenuOptionsEsp.Hide();
                 idioma = "_eng"
                 OptionsMenu();
                 ponerIngles();
@@ -557,10 +594,20 @@ function OptionsMenu(){
                 actualizaDias();
             }
         }
-        let español = new HitableObject("continuar", new Vector2(800,400),"assets/img/play.png",200,300);
-        español.anchor = new Vector2(0.5,0.5);
+
+        let español = new HitableObject("español", new Vector2(840,472),"none",101,162);
+        let españolAnim;
+        if(idioma === "_eng"){
+            españolAnim = new Animation("assets/img/Bandera_Esp_spritesheet.png",4,162,101,1/8,0);
+        }else{
+            españolAnim = new Animation("assets/img/Bandera_Esp_seleccionada_spritesheet.png",4,162,101,1/8,0);
+        }
+        español.AddAnimation(españolAnim,"idle");
+        español.SetAnimation("idle");
         español.OnClick = function(ev){
             if(idioma === "_eng"){
+                if(fondoMenuOptionsEng)
+                    fondoMenuOptionsEng.Hide();
                 idioma = "_esp"
                 OptionsMenu();
                 ponerEspanol();
@@ -570,10 +617,40 @@ function OptionsMenu(){
                 actualizaDias();
             }
         }
-        menuObjects[0].push(Fondo);
-        menuObjects[1].push(continueButton);
+
+        let sonido = new HitableObject("sonido", new Vector2(720,281),"none",91,101);
+        let sonidoAnim;
+        if(mute){
+            sonidoAnim = new Animation("assets/img/VolumenOff_spritesheet.png",4,101,91,1/8,0);
+        }else{
+            sonidoAnim = new Animation("assets/img/VolumenOn_spritesheet.png",4,101,91,1/8,0);
+        }
+        sonido.AddAnimation(sonidoAnim,"idle");
+        sonido.SetAnimation("idle");
+        sonido.OnClick = function(){
+            if(mute){
+                mute = false;
+                OptionsMenu();
+            }else{
+                mute = true;
+                OptionsMenu();
+            }
+        }
+
+
+        let sonidoText;
+        if(mute){
+            sonidoText = new SpriteObject("sonido", new Vector2(460,274),"assets/img/Sound"+idioma+".png",104,235);
+        }else{
+            sonidoText = new SpriteObject("sonido", new Vector2(460,274),"assets/img/Sound"+idioma+".png",104,235);
+        }
+
+        menuObjects[1].push(flecha);
+        menuObjects[1].push(idiomaTexto);
         menuObjects[1].push(español);
         menuObjects[1].push(ingles);
+        menuObjects[1].push(sonido);
+        menuObjects[1].push(sonidoText);
         
         canvasManager.AddList(menuObjects);
 }
@@ -590,7 +667,7 @@ function PuntuacionesMenu(){
                 fondoMenuScoresEsp = new HTMLBackGround("menu","assets/img/Menu_scores"+idioma+".gif",0,1,1);
             }
         }else{
-            if(fondoMenuScoresEsp){
+            if(fondoMenuScoresEng){
                 fondoMenuScoresEng.Show();
             }else{
                 fondoMenuScoresEng = new HTMLBackGround("menu","assets/img/Menu_scores"+idioma+".gif",0,1,1);
@@ -659,9 +736,7 @@ function loadGameFromLevel(ev){
     puntuacionText.activate=false;
     puntuacionText.puntos = 0;
     gameObjects = [];
-    for (let i = 0; i < 6; i++) {
-        gameObjects[i] = [];
-    }
+    
     sky = new HTMLBackGround("sun","none",0,0,1);
     cloud = new HTMLBackGround("clouds","none",-50/8,1,2);
     hills = new HTMLBackGround("hills","none",-50/2,2,4);
@@ -672,6 +747,10 @@ function loadGameFromLevel(ev){
 
 function LoadLevel(jsonName,container){
     
+    for (let i = 0; i < 6; i++) {
+        gameObjects[i] = [];
+    }
+
     puntuacionText.time = 0.5;
     puntuacionText.actualtime = 0;
     puntuacionText.Update = function(timeDelta,hitBox){
@@ -786,8 +865,30 @@ function LoadObjects(level){
     timmy.AddAnimation(animation,"idle");
     totalLoading++;
     timmy.SetAnimation("idle");
-    //timmy.anchor = new Vector2(0.5,0.5);
     gameObjects[2].push(timmy);
+
+    let black = new SpriteObject("black", new Vector2(tamaño,0),"assets/img/FondoFinal.png",720,1280);
+    black.velocity = new Vector2(speed,0);
+    gameObjects[4].push(black);
+    let tunelLejos = new SpriteObject("tunellejos", new Vector2(tamaño-494,0),"none",720,496);
+    let tunelLejosAnim = new Animation("assets/img/TunelLejos_spritesheet"+levelname+".png",4,496,720,1/8,0);
+    tunelLejos.velocity = new Vector2(speed,0);
+    tunelLejos.AddAnimation(tunelLejosAnim,"idle");
+    tunelLejos.SetAnimation("idle");
+    gameObjects[1].push(tunelLejos);
+    let tunelCerca = new SpriteObject("tunelcerca", new Vector2(tamaño-495,0),"none",720,496);
+    let tunelCercaAnim = new Animation("assets/img/TunelCerca_spritesheet"+levelname+".png",4,496,720,1/8,0);
+    tunelCerca.velocity = new Vector2(speed,0);
+    tunelCerca.AddAnimation(tunelCercaAnim,"idle");
+    tunelCerca.SetAnimation("idle");
+    gameObjects[4].push(tunelCerca);
+    let tunelSalida = new SpriteObject("tunelsalida", new Vector2(0,0),"none",720,315);
+    let tunelSalidaAnim = new Animation("assets/img/TunelSalida_spritesheet"+levelname+".png",4,315,720,1/8,0);
+    tunelSalida.velocity = new Vector2(speed,0);
+    tunelSalida.AddAnimation(tunelSalidaAnim,"idle");
+    tunelSalida.SetAnimation("idle");
+    gameObjects[4].push(tunelSalida); 
+
     sky.ChangeImg("assets/img/Cielo_animado"+level+".gif");  
     sky.vel = 0;
     gameObjects[0].push(sky);
@@ -811,27 +912,7 @@ function LoadObjects(level){
     opciones.OnClick = PauseGame;
     gameObjects[5].push(opciones);
 
-    let black = new SpriteObject("black", new Vector2(tamaño,0),"assets/img/FondoFinal.png",720,1280);
-    black.velocity = new Vector2(speed,0);
-    gameObjects[4].push(black);
-    let tunelLejos = new SpriteObject("tunellejos", new Vector2(tamaño-494,0),"none",720,496);
-    let tunelLejosAnim = new Animation("assets/img/TunelLejos_spritesheet"+levelname+".png",4,496,720,1/8,0);
-    tunelLejos.velocity = new Vector2(speed,0);
-    tunelLejos.AddAnimation(tunelLejosAnim,"idle");
-    tunelLejos.SetAnimation("idle");
-    gameObjects[1].push(tunelLejos);
-    let tunelCerca = new SpriteObject("tunelcerca", new Vector2(tamaño-495,0),"none",720,496);
-    let tunelCercaAnim = new Animation("assets/img/TunelCerca_spritesheet"+levelname+".png",4,496,720,1/8,0);
-    tunelCerca.velocity = new Vector2(speed,0);
-    tunelCerca.AddAnimation(tunelCercaAnim,"idle");
-    tunelCerca.SetAnimation("idle");
-    gameObjects[4].push(tunelCerca);
-    let tunelSalida = new SpriteObject("tunelsalida", new Vector2(0,0),"none",720,315);
-    let tunelSalidaAnim = new Animation("assets/img/TunelSalida_spritesheet"+levelname+".png",4,315,720,1/8,0);
-    tunelSalida.velocity = new Vector2(speed,0);
-    tunelSalida.AddAnimation(tunelSalidaAnim,"idle");
-    tunelSalida.SetAnimation("idle");
-    gameObjects[4].push(tunelSalida); 
+    
 
     gameObjects[5].push(puntuacionText);
 }
@@ -931,6 +1012,7 @@ function EndLevel(){
             days++;
         }
         puntuacionText.position = new Vector2(0,0);
+        daysText.activate = false;
         LoadLevel("nivel"+(nextLevel),gameObjects);
     }
 
@@ -939,10 +1021,10 @@ function EndLevel(){
         LoseLevel();
     }
 
-    canvasManager.AddObject(Continue,5);
-    canvasManager.AddObject(VolverAlMenu,5);
-    canvasManager.AddObject(Completado,5);
-    canvasManager.AddObject(fondoNegro,0);
+    canvasManager.AddObject(Continue,4);
+    canvasManager.AddObject(VolverAlMenu,4);
+    canvasManager.AddObject(Completado,4);
+    canvasManager.AddObject(fondoNegro,1);
 }
 
 function LoseLevel(){
@@ -1042,10 +1124,13 @@ function WriteScore(){
 
 }
 //#endregion
+
 const inglesInput= "Your Name";
 const españolInput = "Su nombre";
+
 //#region eventos
 window.addEventListener("load",function(ev){
+    console.log("debug");
     loading = $(".loading");
     loading.click = function(ev){ev.preventDefault()}
     loading.hide();
