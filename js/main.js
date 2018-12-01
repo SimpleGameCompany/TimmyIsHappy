@@ -280,7 +280,7 @@ class DovePoop extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
         this.velocity = new Vector2(-110,190);
-        let anim = new Animation("assets/img/CacaPaloma_spritesheet.png",4,52,53,1/8,0);
+        let anim = new Animation("assets/img/CacaPaloma_spritesheet"+levelname+".png",4,52,53,1/8,0);
         this.AddAnimation(anim,"idle");
         this.SetAnimation("idle");
         canvasManager.AddObject(this,2);
@@ -498,7 +498,7 @@ function StartMenuGame(){
         start.anchor = new Vector2(0.5,0.5);
         start.OnClick = function(ev){
             fondoMenuPrincipal.Hide();
-            loadGameFromLevel(ev);
+            InputName();
         }
 
         let credits;
@@ -733,7 +733,7 @@ function InputName(){
     if(parrafoInput){
         parrafoInput.activate = true;
     }else{
-        parrafoInput = new TextObject("",new Vector2(32,75),3,"Arial",canvasManager,"white");
+        parrafoInput = new TextObject("",new Vector2(32,15),3,"Arial",canvasManager,"white");
         parrafoInput.activate = true;
     }
     if(idioma === "_esp"){
@@ -751,7 +751,7 @@ function InputName(){
     continuar.anchor = new Vector2(0.5,0.5);
     
     continuar.OnClick = function(ev){
-        playerName = inputText.val();
+        playerName = inputText.text
         inputText.Hide();
         fondoMenuInputName.Hide();
         parrafoInput.activate = false;
