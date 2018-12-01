@@ -18,14 +18,12 @@ var actualLevel = 0;
 var days = 0;
 var levelname;
 var lose = false;
-
 var sky;
 var cloud;
 var hills;
 var buildings;
 var road;
 var puntuacionText;
-
 var fondoMenuPrincipal;
 var fondoMenuScoresEsp;
 var fondoMenuScoresEng;
@@ -46,6 +44,9 @@ var playerName;
 const inglesInput= "Write your name";
 const españolInput = "Escriba su nombre";
 var parrafoInput;
+var volume = 1;
+var menuMusic;
+var gameMusic;
 
 //#endregion
 
@@ -141,8 +142,8 @@ class Sewer extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits, open){
         super(name, position, imgSrc, height, width, player, hits);
         this._open = open;
-        this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0);
-        this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0);
+        this._openAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Open.ogg",0,volume);
+        this._closeAudio = new AudioObject("assets/audio/Alcantarilla/Alcantarilla_Close.ogg",0,volume);
     }
 
     OnClick(e){
@@ -171,9 +172,9 @@ class Sewer extends Obstacle{
 class FlyingObject extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._AvionDeadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0);
-        this._AvionLoopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5);
-        this._AvionSpawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0);
+        this._AvionDeadAudio = new AudioObject("assets/audio/Avion/Avion_Eliminated.ogg",0,volume);
+        this._AvionLoopAudio = new AudioObject("assets/audio/Avion/Avion_Loop.ogg",0.5,volume);
+        this._AvionSpawnAudio = new AudioObject("assets/audio/Avion/Avion_Spawn.ogg",0,volume);
     }
 
     OnClick(e){       
@@ -186,7 +187,6 @@ class FlyingObject extends Obstacle{
 
     Update(timeDelta, hitbox){
         if(this.position.x <= 1280 && !this._inCanvas){
-            this._AvionSpawnAudio.volume = 1;
             this._AvionSpawnAudio.PlayOneShot();
             this._inCanvas = true;
             this.velocity = new Vector2(-300,300/3);
@@ -210,8 +210,8 @@ class FlyingObject extends Obstacle{
 class Poop extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._CacaDeadAudio = new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg",0);
-        this._CacaSpawnAudio = new AudioObject("assets/audio/Caca/Caca_Spawn.ogg",0);
+        this._CacaDeadAudio = new AudioObject("assets/audio/Caca/Caca_Eliminated.ogg",0,volume);
+        this._CacaSpawnAudio = new AudioObject("assets/audio/Caca/Caca_Spawn.ogg",0,volume);
     }
 
     OnClick(e){
@@ -242,15 +242,15 @@ class Poop extends Obstacle{
 class Dove extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._PalomaDeadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg",0);
-        this._PalomaSpawnAudio = new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0);
+        this._PalomaDeadAudio = new AudioObject("assets/audio/Paloma/Paloma_Eliminated.ogg",0,volume);
+        this._PalomaSpawnAudio = new AudioObject("assets/audio/Paloma/Paloma_Spawn.ogg",0,volume);
         this.dead = false;
     }
 
     OnClick(e){
         super.OnClick(e,this._PalomaDeadAudio);
         if(this._hits == 0){
-            this.velocity = new Vector2(speed,-150);
+            this.velocity = new Vector2(speed,-300);
             this.dead = true;
         }
     }
@@ -292,9 +292,9 @@ class DovePoop extends Obstacle{
 class Car extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
-        this._CocheLoopAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg",0.9);
-        this._CocheClaxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0);
-        this._CocheDeadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0);
+        this._CocheLoopAudio = new AudioObject("assets/audio/Coche/Coche_Move.ogg",0.9,volume);
+        this._CocheClaxonAudio = new AudioObject("assets/audio/Coche/Coche_Bocina.ogg",0,volume);
+        this._CocheDeadAudio = new AudioObject("assets/audio/Coche/Coche_Eliminated.ogg",0,volume);
         this._inCanvas = false;
     }
 
@@ -302,7 +302,8 @@ class Car extends Obstacle{
         super.OnClick(e,this._CocheDeadAudio);
         if(this._hits==0){
             this._CocheLoopAudio.Stop();
-            this.velocity = new Vector2(300,-200);
+            this.velocity = new Vector2(300,-200).normalize().mult(700);
+            this.SetAnimation("die");
         }
     }
 
@@ -330,10 +331,11 @@ class Dog extends Obstacle{
         this.interval;
         this._dead = false;
         this._attacking = false;
-        this._PerroDeadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0);
-        this._PerroBarkAudio = new AudioObject("assets/audio/Perro/Dog_bark_1.ogg",0);
-        this._PerroWarnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0);
-        this._PerroAttackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0);
+        this._PerroDeadAudio = new AudioObject("assets/audio/Perro/Perro_Eliminated.ogg",0,volume);
+        this._PerroBarkAudio = new AudioObject("assets/audio/Perro/Dog_bark_1.ogg",0,volume);
+        this._PerroWarnAudio = new AudioObject("assets/audio/Perro/Perro_Warn.ogg",0,volume);
+        this._PerroAttackAudio = new AudioObject("assets/audio/Perro/Perro_Attack.ogg",0,volume);
+        
     }
 
     OnClick(e){
@@ -342,7 +344,8 @@ class Dog extends Obstacle{
         }
         this._dead = true;
         this.StopAudio();
-        this.velocity = new Vector2(300,200);
+        this.velocity = new Vector2(300,200).normalize().mult(700);
+        this.SetAnimation("die");
         super.OnClick(e,this._PerroDeadAudio);    
     }
 
@@ -351,7 +354,7 @@ class Dog extends Obstacle{
             this._PerroAttackAudio.PlayOneShot();
             this.SetAnimation("run");
             clearInterval(this.interval);
-            this.velocity = new Vector2(speed-200,0);
+            this.velocity = new Vector2(speed-200,0).normalize().mult(300);
             this._attacking = true;
         }else if(this.position.x <= 1280 && !this._stopped){
             this._PerroWarnAudio.PlayOneShot();
@@ -597,6 +600,13 @@ function OptionsMenu(){
                 scoreText = "Score: ";
                 if(days != null)
                 days.textT = "Completed Days: ";
+                pauseContinue = new HitableObject("continuar", new Vector2(640, 280), "assets/img/Pause_menu_resume" + idioma + ".png", 97, 509);
+                pauseContinue.OnClick = function (ev) { canvasManager.ClearCanvas(); canvasManager.AddList(gameObjects) }
+                pauseContinue.anchor = new Vector2(0.5, 0.5);
+
+                pauseExit = new HitableObject("salir", new Vector2(640, 370), "assets/img/Pause_menu_exit" + idioma + ".png", 80, 163);
+                pauseExit.OnClick = function (ev) { canvasManager.ClearCanvas(); soundManager.StopAudio(); LoseLevel() }
+                pauseExit.anchor = new Vector2(0.5, 0.5);
                 actualizaDias();
             }
         }
@@ -620,6 +630,13 @@ function OptionsMenu(){
                 scoreText = "Puntos: "
                 if(days != null)
                 days.textT = "Dias Completados: ";
+                pauseContinue = new HitableObject("continuar", new Vector2(640, 280), "assets/img/Pause_menu_resume" + idioma + ".png", 97, 509);
+                pauseContinue.OnClick = function (ev) { canvasManager.ClearCanvas(); canvasManager.AddList(gameObjects) }
+                pauseContinue.anchor = new Vector2(0.5, 0.5);
+
+                pauseExit = new HitableObject("salir", new Vector2(640, 370), "assets/img/Pause_menu_exit" + idioma + ".png", 80, 163);
+                pauseExit.OnClick = function (ev) { canvasManager.ClearCanvas(); soundManager.StopAudio(); LoseLevel() }
+                pauseExit.anchor = new Vector2(0.5, 0.5);
                 actualizaDias();
             }
         }
@@ -636,9 +653,15 @@ function OptionsMenu(){
         sonido.OnClick = function(){
             if(mute){
                 mute = false;
+                menuMusic.prop("muted",mute);
+                gameMusic.prop("muted",mute);
+                volume = 1;
                 OptionsMenu();
             }else{
                 mute = true;
+                menuMusic.prop("muted",mute);
+                gameMusic.prop("muted",mute);
+                volume = 0;
                 OptionsMenu();
             }
         }
@@ -693,7 +716,7 @@ function PuntuacionesMenu(){
         if(scoreParagraphs == undefined){
             scoreParagraphs = [];
             for(let i = 0; i<10;i++){
-                let parafo = new TextObject("",new Vector2(38,(i*5)+30),3,"Arial",canvasManager,"white");
+                let parafo = new TextObject("",new Vector2(38,(i*6)+30),2,"Arial",canvasManager,"white");
                 scoreParagraphs.push(parafo);
             }
             scoreParagraphs.Hide = function(){
@@ -740,9 +763,9 @@ function InputName(){
 
     let continuar;
     if(idioma === "_esp")
-        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_button_esp.png",71,306);
+        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_input_button_esp.png",71,306);
     else
-        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_button_eng.png",71,278);
+        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_input_button_eng.png",71,278);
     continuar.anchor = new Vector2(0.5,0.5);
     
     continuar.OnClick = function(ev){
@@ -750,6 +773,9 @@ function InputName(){
         inputText.Hide();
         fondoMenuInputName.Hide();
         parrafoInput.activate = false;
+        menuMusic.StopAudio();
+        gameMusic.changeTrack("assest/audio/music_nivel1.mp3");
+        
         loadGameFromLevel(ev);
 
     }
@@ -767,14 +793,14 @@ function loadGameFromLevel(ev){
     canvasManager.ClearCanvas();
     if(idioma === "_esp"){
     puntuacionText = new TextObject("Puntos: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
-    daysText = new TextObject("Días Completado: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
-    daysText.textT = "Días Completado: ";
+    daysText = new TextObject("Días completados: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
+    daysText.textT = "Días completados: ";
     daysText.activate = false;
     scoreText = "Puntos: ";
     }else{
         puntuacionText = new TextObject("Score: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
-        daysText = new TextObject("Completed Days: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
-        daysText.textT = "Completed Days: ";
+        daysText = new TextObject("Completed days: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
+        daysText.textT = "Completed days: ";
         scoreText = "Score: " ;
         daysText.activate = false;
     }
@@ -822,11 +848,13 @@ function LoadLevel(jsonName,container){
                     let dog = new Dog("perro",new Vector2(obj.positionx,500),"none",105,209,timmy, 1, 3);
                     let dogRunning = new Animation("assets/img/PerroCorriendo_spritesheet"+levelname+".png",8,209,105,1/16,0);
                     let dogAnim = new Animation("assets/img/PerroIdle_spritesheet"+levelname+".png",16,204,105,1/14,0);
+                    let dogrotate = new Animation("assets/img/PerroRotando_spritesheet"+levelname+".png",8,205,105,1/16,0);
                     totalLoading +=1;
                     //dog.anchor = new Vector2(0,0.5);
                     dog.velocity = new Vector2(speed,0);
                     dog.AddAnimation(dogRunning,"run");
                     dog.AddAnimation(dogAnim,"idle");
+                    dog.AddAnimation(dogrotate,"die");
                     dog.SetAnimation("idle");
                     container[3].push(dog);
                 break;
@@ -852,7 +880,9 @@ function LoadLevel(jsonName,container){
                     totalLoading +=1;
                     //car.anchor = new Vector2(0,0.5);
                     car.velocity = new Vector2(speed - 20,0);
+                    let carrotate = new Animation("assets/img/CocheRotando_spritesheet"+levelname+".png",8,557,184,1/16,0);
                     car.AddAnimation(carAnim,"idle");
+                    car.AddAnimation(carrotate,"die");
                     car.SetAnimation("idle");
                     container[4].push(car);
                 break;
@@ -867,9 +897,9 @@ function LoadLevel(jsonName,container){
                     container[3].push(dove);
                 break;
                 case "poop":
-                    let poop = new Poop("caca",new Vector2(obj.positionx,615),"none", 55,33,timmy,1);
-                    let poopAnim = new Animation("assets/img/Caca_spritesheet"+levelname+".png",4,33,55,1/8,0);
-                    let poopAnimDestroyed = new Animation("assets/img/BolsaCaca_spritesheet"+levelname+".png",4,33,55,1/8,0);
+                    let poop = new Poop("caca",new Vector2(obj.positionx,615),"none", 55,63,timmy,1);
+                    let poopAnim = new Animation("assets/img/Caca_spritesheet"+levelname+".png",4,55,63,1/8,0);
+                    let poopAnimDestroyed = new Animation("assets/img/BolsaCaca_spritesheet"+levelname+".png",4,55,63,1/8,0);
                     totalLoading +=1;
                     //poop.anchor = new Vector2(0,0.5);
                     poop.velocity = new Vector2(speed,0);
@@ -1011,7 +1041,7 @@ function LoseGame(){
     for(let i = 0; i < 6; i++){
         gameObjects[i] = [];
     }
-    sky.ChangeImg("assets/img/Cielo_sepia.png");
+    sky.ChangeImg("assets/img/Cielo_sepia"+levelname+".png");
     hills.ChangeImg("assets/img/Fondo_sepia"+levelname+".png");
     road.ChangeImg("assets/img/AceraConCarretera_sepia"+levelname+".png");
     buildings.ChangeImg("assets/img/Edificios_sepia"+levelname+".png");
@@ -1020,7 +1050,7 @@ function LoseGame(){
     canvasManager.AddObject(fondo,0);
     //canvasManager.AddObject(volverMenu,5);
     canvasManager.AddObject(jojoMensaje,5);
-    
+    lose = false;
     setTimeout(LoseLevel,3000);
 }
 
@@ -1064,8 +1094,10 @@ function EndLevel(){
 
     VolverAlMenu.OnClick = function(ev){
         canvasManager.ClearCanvas();      
-        days.activate = false;
+        daysText.activate = false;
         WriteScore();
+        gameMusic.StopAudio();
+        menuMusic.trigger("play");
         StartMenuGame();
     }
 
@@ -1114,6 +1146,8 @@ function LoseLevel(){
     VolverAlMenu.OnClick = function(ev){
         canvasManager.ClearCanvas();
         WriteScore();
+        gameMusic.StopAudio();
+        menuMusic.trigger("play");
         daysText.activate = false;
         StartMenuGame();
     }
@@ -1134,6 +1168,7 @@ function GoGame (loadtime){
         canvasManager.RenderAndUpdate(0);
         puntuacionText.activate=true;
         StopLoad();
+        gameMusic.changeTrack("assets/audio/Music/music"+levelname+".mp3");
         canvasManager.AddList(gameObjects);
         canvasManager.Start();
 }
@@ -1194,9 +1229,24 @@ window.addEventListener("load",function(ev){
     else
         inputText = new Input(new Vector2(32,50),"name",españolInput,2);
     inputText.Hide();
+    menuMusic = $("#music_menu");
+    menuMusic.trigger("play");
+    menuMusic.StopAudio = stopAudio.bind(menuMusic);
+    gameMusic = $("#gameAudio");
+    gameMusic.StopAudio = stopAudio.bind(gameMusic);
+    gameMusic.changeTrack = function(src){
+        this.StopAudio();
+        this.attr("src",src);
+        this.trigger("play");
+    }
     canvasManager.Start(); 
 })
-
+function stopAudio(){
+    //pause playing
+    this.trigger('pause');
+    //set play time to 0
+    this.prop("currentTime",0);
+  }
 function compareNumbers(a, b) {
     return b.puntos - a.puntos;
   }
