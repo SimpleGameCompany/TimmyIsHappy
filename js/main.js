@@ -740,9 +740,9 @@ function InputName(){
 
     let continuar;
     if(idioma === "_esp")
-        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/continue_button_esp.png",71,306);
+        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_button_esp.png",71,306);
     else
-        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/continue_button_eng.png",71,278);
+        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_button_eng.png",71,278);
     continuar.anchor = new Vector2(0.5,0.5);
     
     continuar.OnClick = function(ev){
@@ -1064,6 +1064,7 @@ function EndLevel(){
 
     VolverAlMenu.OnClick = function(ev){
         canvasManager.ClearCanvas();      
+        days.activate = false;
         WriteScore();
         StartMenuGame();
     }
