@@ -730,17 +730,12 @@ function InputName(){
         fondoMenuInputName = new HTMLBackGround("input","assets/img/Menu_vacio.gif",0,1,1);
         fondoMenuInputName.Show();
     }
-    if(parrafoInput){
-        parrafoInput.activate = true;
-    }else{
-        parrafoInput = new TextObject("",new Vector2(32,15),3,"Arial",canvasManager,"white");
-        parrafoInput.activate = true;
-    }
     if(idioma === "_esp"){
-        parrafoInput.text = españolInput;
+        parrafoInput = new SpriteObject("texto",new Vector2(327,117),"assets/img/Input_esp.png",75,640);
     }else{
-        parrafoInput.text = inglesInput;
+        parrafoInput = new SpriteObject("texto",new Vector2(384,115),"assets/img/Input_eng.png",88,529);
     }
+
     inputText.Show();
 
     let continuar;
@@ -761,6 +756,7 @@ function InputName(){
 
 
     canvasManager.AddObject(continuar,0);
+    canvasManager.AddObject(parrafoInput,1);
 
 }
 //#endregion
