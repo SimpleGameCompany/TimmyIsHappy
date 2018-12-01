@@ -104,3 +104,4 @@ lang();
 
 comprobarIdioma();
 contarDias();
+actualizaDias();
