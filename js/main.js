@@ -1050,7 +1050,7 @@ function LoseGame(){
     canvasManager.AddObject(fondo,0);
     //canvasManager.AddObject(volverMenu,5);
     canvasManager.AddObject(jojoMensaje,5);
-    
+    lose = false;
     setTimeout(LoseLevel,3000);
 }
 
