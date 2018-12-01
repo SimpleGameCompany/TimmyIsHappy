@@ -61,6 +61,7 @@ class Vector2 {
       let magnitude = this.magnitude;
       this.x /= magnitude;
       this.y /= magnitude;
+      return this;
     }
   }
 }
@@ -68,12 +69,13 @@ class Vector2 {
 class AudioObject{
 
 
-  constructor(audioSrc, loopBuffer){
+  constructor(audioSrc, loopBuffer,volume){
     this._audioElement = new Audio(audioSrc);
     this._loopBuffer = loopBuffer;
     this._isLoad = false;
     this._audioElement.oncanplay = this.SetPlayTrue.bind(this);
     this._audioElement.load();
+    this._audioElement.volume = volume;
   }
 
   PlayOneShot(){
