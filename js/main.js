@@ -187,7 +187,6 @@ class FlyingObject extends Obstacle{
 
     Update(timeDelta, hitbox){
         if(this.position.x <= 1280 && !this._inCanvas){
-            this._AvionSpawnAudio.volume = 1;
             this._AvionSpawnAudio.PlayOneShot();
             this._inCanvas = true;
             this.velocity = new Vector2(-300,300/3);
@@ -764,9 +763,9 @@ function InputName(){
 
     let continuar;
     if(idioma === "_esp")
-        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_button_esp.png",71,306);
+        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_input_button_esp.png",71,306);
     else
-        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_button_eng.png",71,278);
+        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_input_button_eng.png",71,278);
     continuar.anchor = new Vector2(0.5,0.5);
     
     continuar.OnClick = function(ev){
@@ -898,9 +897,9 @@ function LoadLevel(jsonName,container){
                     container[3].push(dove);
                 break;
                 case "poop":
-                    let poop = new Poop("caca",new Vector2(obj.positionx,615),"none", 55,33,timmy,1);
-                    let poopAnim = new Animation("assets/img/Caca_spritesheet"+levelname+".png",4,33,55,1/8,0);
-                    let poopAnimDestroyed = new Animation("assets/img/BolsaCaca_spritesheet"+levelname+".png",4,33,55,1/8,0);
+                    let poop = new Poop("caca",new Vector2(obj.positionx,615),"none", 55,63,timmy,1);
+                    let poopAnim = new Animation("assets/img/Caca_spritesheet"+levelname+".png",4,55,63,1/8,0);
+                    let poopAnimDestroyed = new Animation("assets/img/BolsaCaca_spritesheet"+levelname+".png",4,55,63,1/8,0);
                     totalLoading +=1;
                     //poop.anchor = new Vector2(0,0.5);
                     poop.velocity = new Vector2(speed,0);
