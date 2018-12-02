@@ -940,7 +940,7 @@ function LoadLevel(jsonName,container){
                         if(levelname === "_nivel3"){
                             let luz = new SpriteObject("farola", new Vector2(i-21-329,0),"assets/img/LuzFarola"+levelname+".png",698,698);
                             luz.velocity = new Vector2(speed,0);
-                            container[4].push(luz);
+                            container[1].push(luz);
                         }
                     }
                     for(var oscuridad of obj.oscuridades){
