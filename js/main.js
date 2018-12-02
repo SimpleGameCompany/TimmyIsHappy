@@ -1234,6 +1234,7 @@ window.addEventListener("load",function(ev){
     menuMusic.StopAudio = stopAudio.bind(menuMusic);
     gameMusic = $("#gameAudio");
     gameMusic.StopAudio = stopAudio.bind(gameMusic);
+    gameMusic.prop("loop",true);
     gameMusic.changeTrack = function(src){
         this.StopAudio();
         this.attr("src",src);
