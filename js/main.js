@@ -394,15 +394,31 @@ class Farola extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
         this.oscuridad = new SpriteObject("oscuridad", new Vector2(position.x-382,0),"assets/img/OscuridadFarola_nivel3.png",720,1274);
+        this._FarolaSpawn = new AudioObject("assets/audio/Farola/Farola_Spawn.ogg");
+        this._FarolaEliminated = new AudioObject("assets/audio/Farola/Farola_Eliminated.ogg");
         this.oscuridad.velocity = new Vector2(speed,0);
     }
 
     OnClick(e){
-        super.OnClick(e,undefined);    
+        super.OnClick(e,this._FarolaEliminated);    
         this.oscuridad.active = false;
     }
 
     OnCollision(){}
+
+    Update(timeDelta, hitbox){
+        if(this.oscuridad.x <= 1280 && !this._inCanvas){
+            this._FarolaSpawn.PlayOneShot();
+            this._inCanvas = true;
+        }  
+        super.Update(timeDelta, hitbox);
+    }
+
+    StopAudio(){
+        this._FarolaSpawn.Stop();
+        this._FarolaEliminated.Stop();
+        clearInterval(this.interval);
+    }
 }
 
 class Timmy extends SpriteObject{
@@ -940,7 +956,7 @@ function LoadLevel(jsonName,container){
                         if(levelname === "_nivel3"){
                             let luz = new SpriteObject("farola", new Vector2(i-21-329,0),"assets/img/LuzFarola"+levelname+".png",698,698);
                             luz.velocity = new Vector2(speed,0);
-                            container[1].push(luz);
+                            container[0].push(luz);
                         }
                     }
                     for(var oscuridad of obj.oscuridades){
