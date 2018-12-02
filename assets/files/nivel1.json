@@ -10,9 +10,8 @@
     },
 
     {
-        "type":"sewer",
-        "positionx":1400,
-        "open":true
+        "type":"poop",
+        "positionx":1200
     },
     {
         "type":"sewer",
@@ -30,6 +29,10 @@
         "open":true
     },
     {
+        "type":"poop",
+        "positionx":2300
+    },
+    {
         "type":"sewer",
         "positionx":2500,
         "open":true
@@ -40,14 +43,12 @@
         "open":true
     },
     {
-        "type":"sewer",
-        "positionx":3000,
-        "open":true
+        "type":"poop",
+        "positionx":3000
     },
     {
-        "type":"sewer",
-        "positionx":3600,
-        "open":true
+        "type":"poop",
+        "positionx":3600
     },
     {
         "type":"sewer",
@@ -55,19 +56,21 @@
         "open":true
     },
     {
+        "type":"poop",
+        "positionx":3900
+    },
+    {
         "type":"sewer",
         "positionx":4000,
         "open":false
     },
     {
-        "type":"sewer",
-        "positionx":4300,
-        "open":false
+        "type":"poop",
+        "positionx":4300
     },
     {
-        "type":"sewer",
-        "positionx":4500,
-        "open":true
+        "type":"poop",
+        "positionx":4500
     },
     {
         "type":"sewer",
@@ -85,9 +88,8 @@
         "open":true
     },
     {
-        "type":"sewer",
-        "positionx":5900,
-        "open":false
+        "type":"poop",
+        "positionx":5900
     },
     {
         "type":"sewer",
@@ -95,9 +97,8 @@
         "open":true
     },
     {
-        "type":"sewer",
-        "positionx":6500,
-        "open":true
+        "type":"poop",
+        "positionx":6500
     },
     {
         "type":"sewer",
@@ -105,9 +106,8 @@
         "open":false
     },
     {
-        "type":"sewer",
-        "positionx":7100,
-        "open":true
+        "type":"poop",
+        "positionx":7100
     },
     {
         "type":"sewer",
@@ -135,26 +135,24 @@
         "open":true
     },
     {
-        "type":"sewer",
-        "positionx":9200,
-        "open":true
+        "type":"poop",
+        "positionx":9200
     },
     {
-        "type":"sewer",
-        "positionx":9400,
-        "open":true
+        "type":"poop",
+        "positionx":9400
     },
 
 
 
     {
         "type":"dove",
-        "positionx":1300,
+        "positionx":1600,
         "positiony":40
     },
     {
         "type":"dove",
-        "positionx":1500,
+        "positionx":1800,
         "positiony":25
     },  
     {
@@ -252,8 +250,16 @@
         "positionx":8900,
         "positiony":120
     },
-
-
+    {
+        "type":"dove",
+        "positionx":9200,
+        "positiony":120
+    },    
+    {
+        "type":"dove",
+        "positionx":9400,
+        "positiony":120
+    },
 
     {
         "type":"car",
@@ -265,11 +271,15 @@
     },
     {
         "type":"car",
-        "positionx":3500
+        "positionx":4000
     },
     {
         "type":"car",
         "positionx":4700
+    },
+    {
+        "type":"car",
+        "positionx":5400
     },
     {
         "type":"car",
@@ -289,20 +299,16 @@
     },
     {
         "type":"car",
-        "positionx":8500
-    },
-    {
-        "type":"car",
-        "positionx":5200
-    },
-    {
-        "type":"car",
         "positionx":7800
     },
     {
         "type":"car",
         "positionx":8000
     },  
+    {
+        "type":"car",
+        "positionx":8500
+    },
     {
         "type":"car",
         "positionx":9000
@@ -314,49 +320,14 @@
     {
         "type":"car",
         "positionx":9900
-    }, 
+    },
 
-    
 
     {
-        "type":"plane",
-        "positionx":1000
-    },
-    {
-        "type":"plane",
-        "positionx":1700
-    },
-    {
-        "type":"plane",
-        "positionx":2600
-    },
-    {
-        "type":"plane",
-        "positionx":3400
-    },
-    {
-        "type":"plane",
-        "positionx":4100
-    },
-    {
-        "type":"plane",
-        "positionx":5000
-    },
-    {
-        "type":"plane",
-        "positionx":6000
-    },
-    {
-        "type":"plane",
-        "positionx":7500
-    },
-    {
-        "type":"plane",
-        "positionx":8500
-    },
-    {
-        "type":"plane",
-        "positionx":8000
+        "type":"farolas",
+        "distancia":500,
+        "oscuridades":
+        []
     }
 
 ]

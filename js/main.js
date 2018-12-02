@@ -95,7 +95,8 @@ class Obstacle extends HitableObject{
     OnClick(e,audio){
         this._hits --;
         if(this._hits == 0){
-            audio.PlayOneShot();
+            if(audio)
+                audio.PlayOneShot();
             this.deactivate();
             canvasManager.clickObjects.delete(this.hitColor);
             setTimeout(function(){this.active = false;}.bind(this),5000);
@@ -389,6 +390,37 @@ class Dog extends Obstacle{
     }
 }
 
+class Farola extends Obstacle{
+    constructor(name, position, imgSrc, height, width, player, hits){
+        super(name, position, imgSrc, height, width, player, hits);
+        this.oscuridad = new SpriteObject("oscuridad", new Vector2(position.x-382,0),"assets/img/OscuridadFarola_nivel3.png",720,1274);
+        this._FarolaSpawn = new AudioObject("assets/audio/Farola/Farola_Spawn.ogg",0,volume);
+        this._FarolaEliminated = new AudioObject("assets/audio/Farola/Farola_Eliminated.ogg",0,volume);
+        this.oscuridad.velocity = new Vector2(speed,0);
+    }
+
+    OnClick(e){
+        super.OnClick(e,this._FarolaEliminated);    
+        this.oscuridad.active = false;
+    }
+
+    OnCollision(){}
+
+    Update(timeDelta, hitbox){
+        if(this.oscuridad.position.x <= 1280 && !this._inCanvas){
+            this._FarolaSpawn.PlayOneShot();
+            this._inCanvas = true;
+        }  
+        super.Update(timeDelta, hitbox);
+    }
+
+    StopAudio(){
+        this._FarolaSpawn.Stop();
+        this._FarolaEliminated.Stop();
+        clearInterval(this.interval);
+    }
+}
+
 class Timmy extends SpriteObject{
     constructor(name, position,img,height,width){
         super(name,position,img,height,width); 
@@ -399,13 +431,8 @@ class Timmy extends SpriteObject{
         distanciaRecorrida -= deltaTime*speed;
         puntuacionText.puntos +=Math.floor(deltaTime*speed); 
         if(distanciaRecorrida >= tamaño){
-            if(actualLevel <3){
-                canvasManager.ClearCanvas();
-                EndLevel();
-            }else{
-                canvasManager.ClearCanvas();
-                StartMenuGame();
-            }
+            canvasManager.ClearCanvas();
+            EndLevel();
         }
     }
 }
@@ -814,7 +841,7 @@ function loadGameFromLevel(ev){
     hills = new HTMLBackGround("hills","none",-50/2,2,4);
     road = new HTMLBackGround("road","none",-50,4,4);
     buildings = new HTMLBackGround("build","none",-35,3,4);
-    LoadLevel("nivelprueba",gameObjects);
+    LoadLevel("nivel3",gameObjects);
 }
 
 function LoadLevel(jsonName,container){
@@ -880,7 +907,7 @@ function LoadLevel(jsonName,container){
                     totalLoading +=1;
                     //car.anchor = new Vector2(0,0.5);
                     car.velocity = new Vector2(speed - 20,0);
-                    let carrotate = new Animation("assets/img/CocheRotando_spritesheet"+levelname+".png",8,557,184,1/16,0);
+                    let carrotate = new Animation("assets/img/CocheRotando_spritesheet"+levelname+".png",8,557,622,1/16,0);
                     car.AddAnimation(carAnim,"idle");
                     car.AddAnimation(carrotate,"die");
                     car.SetAnimation("idle");
@@ -918,6 +945,27 @@ function LoadLevel(jsonName,container){
                     plane.SetAnimation("idle");
                     container[4].push(plane);
                 break; 
+                case "farolas":
+                    for(let i = 315+500; i<tamaño - 494; i+=obj.distancia){
+                        let farola = new SpriteObject("farola", new Vector2(i-21,315),"none",269,43);
+                        let farolaAnim = new Animation("assets/img/Farola_spritesheet"+levelname+".png",4,43,269,1/8,0);
+                        farola.velocity = new Vector2(speed,0);
+                        farola.AddAnimation(farolaAnim,"idle");
+                        farola.SetAnimation("idle");
+                        container[0].push(farola);
+                        if(levelname === "_nivel3"){
+                            let luz = new SpriteObject("farola", new Vector2(i-21-329,0),"assets/img/LuzFarola"+levelname+".png",698,698);
+                            luz.velocity = new Vector2(speed,0);
+                            container[0].push(luz);
+                        }
+                    }
+                    for(var oscuridad of obj.oscuridades){
+                        let farolaObs = new Farola("farolaobs",new Vector2(oscuridad+315-21-255,0),"assets/img/OscuridadHit.png",720,510,timmy,1);
+                        farolaObs.velocity = new Vector2(speed,0);
+                        container[5].push(farolaObs);
+                        container[5].push(farolaObs.oscuridad);
+                    }
+                break;
                 default:
                 break;
             }
@@ -1009,7 +1057,6 @@ function LoadButtonsAndBackGrounds(){
     jojoMensaje.AddAnimation(jojoAnim,"idle");
     jojoMensaje.SetAnimation("idle");
 }
-
 //#endregion
 
 //#region estados
@@ -1050,12 +1097,14 @@ function LoseGame(){
     canvasManager.AddObject(fondo,0);
     //canvasManager.AddObject(volverMenu,5);
     canvasManager.AddObject(jojoMensaje,5);
-    
+    lose = false;
     setTimeout(LoseLevel,3000);
 }
 
 function EndLevel(){
     canvasManager.ClearCanvas();
+    if (actualLevel == 3)
+        days++;
     daysText.activate = true;
     daysText.text = daysText.textT+days;
     puntuacionText.position = new Vector2(15,40);
@@ -1085,7 +1134,6 @@ function EndLevel(){
         let nextLevel = (actualLevel+1)
         if(nextLevel > 3){
             nextLevel = 1;
-            days++;
         }
         puntuacionText.position = new Vector2(0,0);
         daysText.activate = false;
@@ -1099,6 +1147,7 @@ function EndLevel(){
         gameMusic.StopAudio();
         menuMusic.trigger("play");
         StartMenuGame();
+        days = 0;
     }
 
     canvasManager.AddObject(Continue,4);
@@ -1136,10 +1185,10 @@ function LoseLevel(){
         canvasManager.ClearCanvas();
         StartLoad();
         actualLevel = 1;
-        days = 0;
         puntuacionText.position = new Vector2(0,0);
         WriteScore();
         daysText.activate = false;
+        days = 0;
         LoadLevel("nivel1",gameObjects);
     }
 
@@ -1150,6 +1199,7 @@ function LoseLevel(){
         menuMusic.trigger("play");
         daysText.activate = false;
         StartMenuGame();
+        days = 0;
     }
     canvasManager.AddObject(Continue,5);
     canvasManager.AddObject(VolverAlMenu,5);
@@ -1168,7 +1218,7 @@ function GoGame (loadtime){
         canvasManager.RenderAndUpdate(0);
         puntuacionText.activate=true;
         StopLoad();
-        gameMusic.changeTrack("assets/audio/Music/music"+levelname+".mp3");
+        gameMusic.changeTrack("assets/audio/Music/Theme"+levelname+".mp3");
         canvasManager.AddList(gameObjects);
         canvasManager.Start();
 }
@@ -1205,11 +1255,10 @@ function WriteScore(){
 }
 //#endregion
 
-
-
 //#region eventos
 window.addEventListener("load",function(ev){
     console.log("debug");
+    ponerIngles();
     loading = $(".loading");
     loading.click = function(ev){ev.preventDefault()}
     loading.hide();
