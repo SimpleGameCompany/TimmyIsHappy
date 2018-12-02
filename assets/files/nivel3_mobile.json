@@ -5,7 +5,7 @@
     },
     {
         "type":"speed",
-        "speed":-100,
+        "speed":-120,
 	    "nivel":3
     },
 
@@ -17,18 +17,23 @@
     },
     {
         "type":"sewer",
+        "positionx":1800,
+        "open":true
+    },
+    {
+        "type":"sewer",
         "positionx":2000,
         "open":true
     },
     {
         "type":"sewer",
-        "positionx":2700,
+        "positionx":3000,
         "open":true
     },
     {
         "type":"sewer",
-        "positionx":3400,
-        "open":true
+        "positionx":3600,
+        "open":false
     },
     {
         "type":"sewer",
@@ -37,18 +42,13 @@
     },
     {
         "type":"sewer",
-        "positionx":4000,
-        "open":true
-    },
-    {
-        "type":"sewer",
         "positionx":4200,
         "open":false
     },
     {
         "type":"sewer",
-        "positionx":4800,
-        "open":false
+        "positionx":4500,
+        "open":true
     },
     {
         "type":"sewer",
@@ -77,6 +77,11 @@
     },
     {
         "type":"sewer",
+        "positionx":7500,
+        "open":false
+    },
+    {
+        "type":"sewer",
         "positionx":8000,
         "open":true
     },
@@ -99,13 +104,18 @@
     },
     {
         "type":"dove",
-        "positionx":2000,
-        "positiony":150
-    },  
+        "positionx":2300,
+        "positiony":100
+    },
     {
         "type":"dove",
         "positionx":2700,
         "positiony":100
+    },
+    {
+        "type":"dove",
+        "positionx":3000,
+        "positiony":180
     },
     {
         "type":"dove",
@@ -121,7 +131,7 @@
         "type":"dove",
         "positionx":4300,
         "positiony":150
-    },    
+    },   
     {
         "type":"dove",
         "positionx":4900,
@@ -134,13 +144,13 @@
     },    
     {
         "type":"dove",
-        "positionx":6300,
-        "positiony":60
+        "positionx":5700,
+        "positiony":70
     },
     {
         "type":"dove",
-        "positionx":6500,
-        "positiony":150
+        "positionx":6300,
+        "positiony":60
     },
     {
         "type":"dove",
@@ -169,6 +179,11 @@
     },
     {
         "type":"dove",
+        "positionx":9200,
+        "positiony":210
+    },
+    {
+        "type":"dove",
         "positionx":9500,
         "positiony":100
     }, 
@@ -181,6 +196,10 @@
     {
         "type":"car",
         "positionx":3000
+    },
+    {
+        "type":"car",
+        "positionx":4000
     },
     {
         "type":"car",
@@ -205,7 +224,7 @@
     },
     {
         "type":"plane",
-        "positionx":3200
+        "positionx":4400
     },
     {
         "type":"plane",
@@ -222,15 +241,19 @@
     },
     {
         "type":"dog",
+        "positionx":1900
+    },
+    {
+        "type":"dog",
         "positionx":3500
     },
     {
         "type":"dog",
-        "positionx":5000
+        "positionx":5600
     },
     {
         "type":"dog",
-        "positionx":6500
+        "positionx":7000
     },
     {
         "type":"dog",
@@ -245,7 +268,10 @@
         "positionx":9000
     },
 
-
+    {
+        "type":"poop",
+        "positionx":2300
+    },
     {
         "type":"poop",
         "positionx":2900
@@ -260,7 +286,7 @@
     },
     {
         "type":"poop",
-        "positionx":5700
+        "positionx":5100
     },
     {
         "type":"poop",
@@ -272,22 +298,25 @@
     },
     {
         "type":"poop",
-        "positionx":7000
-    },
-    {
-        "type":"poop",
         "positionx":7600
     },
     {
         "type":"poop",
-        "positionx":8200
+        "positionx":7800
     },
     {
         "type":"poop",
         "positionx":9200
+    },
+
+    {
+        "type":"farolas",
+        "distancia":500,
+        "oscuridades":
+        [
+            2000,4300,7500,9000
+        ]
     }
-
-
 
 
 ]
