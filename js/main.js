@@ -449,7 +449,7 @@ class HTMLBackGround{
         this.b2.css("width",100*scale +"%");
         this.vel = vel;
         this.b1.pos = 0;
-        this.b2.pos = 100*scale;
+        this.b2.pos = 99.75*scale;
         this.scale = scale;
         this.active = true;
     }
@@ -1097,8 +1097,9 @@ function LoseGame(){
     canvasManager.AddObject(fondo,0);
     //canvasManager.AddObject(volverMenu,5);
     canvasManager.AddObject(jojoMensaje,5);
+    gameMusic.changeTrack("assets/audio/Music/Theme_Die.ogg");
     lose = false;
-    setTimeout(LoseLevel,3000);
+    setTimeout(LoseLevel,5000);
 }
 
 function EndLevel(){
@@ -1158,6 +1159,7 @@ function EndLevel(){
 
 function LoseLevel(){
     canvasManager.ClearCanvas();
+    gameMusic.trigger("pause");
     daysText.activate = true;
     daysText.text = daysText.textT+days;
     puntuacionText.position = new Vector2(15,40);
