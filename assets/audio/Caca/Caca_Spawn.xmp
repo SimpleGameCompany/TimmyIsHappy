@@ -10,9 +10,9 @@
             xmlns:xmpDM="http://ns.adobe.com/xmp/1.0/DynamicMedia/">
          <xmp:CreatorTool>Adobe Audition CS6 (Macintosh)</xmp:CreatorTool>
          <xmp:CreateDate>2013-05-11T11:51:55+01:00</xmp:CreateDate>
-         <xmp:MetadataDate>2018-11-12T21:24:01+01:00</xmp:MetadataDate>
-         <xmp:ModifyDate>2018-11-12T21:24:01+01:00</xmp:ModifyDate>
-         <xmpMM:InstanceID>xmp.iid:b2d85b60-1d02-9142-a0d4-dee705f743cb</xmpMM:InstanceID>
+         <xmp:MetadataDate>2018-12-02T13:21:53+01:00</xmp:MetadataDate>
+         <xmp:ModifyDate>2018-12-02T13:21:53+01:00</xmp:ModifyDate>
+         <xmpMM:InstanceID>xmp.iid:2892dd5f-4f2f-c94a-9f94-e125782df900</xmpMM:InstanceID>
          <xmpMM:DocumentID>xmp.did:b2d85b60-1d02-9142-a0d4-dee705f743cb</xmpMM:DocumentID>
          <xmpMM:OriginalDocumentID>xmp.did:752963F5092068118C14EDC2401DAC2E</xmpMM:OriginalDocumentID>
          <xmpMM:History>
@@ -56,6 +56,20 @@
                   <stEvt:action>saved</stEvt:action>
                   <stEvt:instanceID>xmp.iid:b2d85b60-1d02-9142-a0d4-dee705f743cb</stEvt:instanceID>
                   <stEvt:when>2018-11-12T21:24:01+01:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
+                  <stEvt:changed>/</stEvt:changed>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>saved</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:e654c63c-429a-d944-aef4-cb4f91e05da1</stEvt:instanceID>
+                  <stEvt:when>2018-12-02T13:21:53+01:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
+                  <stEvt:changed>/metadata</stEvt:changed>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>saved</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:2892dd5f-4f2f-c94a-9f94-e125782df900</stEvt:instanceID>
+                  <stEvt:when>2018-12-02T13:21:53+01:00</stEvt:when>
                   <stEvt:softwareAgent>Adobe Audition CC 2018.1 (Windows)</stEvt:softwareAgent>
                   <stEvt:changed>/</stEvt:changed>
                </rdf:li>
