@@ -302,7 +302,9 @@ class Car extends Obstacle{
         super.OnClick(e,this._CocheDeadAudio);
         if(this._hits==0){
             this._CocheLoopAudio.Stop();
-            this.velocity = new Vector2(300,-200).normalize().mult(700);
+            let x = Math.random();
+            let y = Math.random()-0.5;
+            this.velocity = new Vector2(x,y).normalize().mult(700);
             this.SetAnimation("die");
         }
     }
@@ -344,7 +346,9 @@ class Dog extends Obstacle{
         }
         this._dead = true;
         this.StopAudio();
-        this.velocity = new Vector2(300,200).normalize().mult(700);
+        let x = Math.random();
+        let y = Math.random()-0.5;
+        this.velocity = new Vector2(x,y).normalize().mult(700);
         this.SetAnimation("die");
         super.OnClick(e,this._PerroDeadAudio);    
     }
@@ -354,7 +358,7 @@ class Dog extends Obstacle{
             this._PerroAttackAudio.PlayOneShot();
             this.SetAnimation("run");
             clearInterval(this.interval);
-            this.velocity = new Vector2(speed-200,0).normalize().mult(300);
+            this.velocity = new Vector2(speed-400,0).normalize().mult(300);
             this._attacking = true;
         }else if(this.position.x <= 1280 && !this._stopped){
             this._PerroWarnAudio.PlayOneShot();
