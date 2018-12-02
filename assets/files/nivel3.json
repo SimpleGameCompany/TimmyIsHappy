@@ -6,7 +6,7 @@
     {
         "type":"speed",
         "speed":-120,
-	    "nivel":2
+	    "nivel":3
     },
 
 
@@ -395,9 +395,16 @@
     {
         "type":"poop",
         "positionx":9200
+    },
+
+    {
+        "type":"farolas",
+        "distancia":500,
+        "oscuridades":
+        [
+            2000,4000,6000
+        ]
     }
-
-
 
 
 ]
