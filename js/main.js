@@ -394,8 +394,8 @@ class Farola extends Obstacle{
     constructor(name, position, imgSrc, height, width, player, hits){
         super(name, position, imgSrc, height, width, player, hits);
         this.oscuridad = new SpriteObject("oscuridad", new Vector2(position.x-382,0),"assets/img/OscuridadFarola_nivel3.png",720,1274);
-        this._FarolaSpawn = new AudioObject("assets/audio/Farola/Farola_Spawn.ogg");
-        this._FarolaEliminated = new AudioObject("assets/audio/Farola/Farola_Eliminated.ogg");
+        this._FarolaSpawn = new AudioObject("assets/audio/Farola/Farola_Spawn.ogg",0,volume);
+        this._FarolaEliminated = new AudioObject("assets/audio/Farola/Farola_Eliminated.ogg",0,volume);
         this.oscuridad.velocity = new Vector2(speed,0);
     }
 
@@ -407,7 +407,7 @@ class Farola extends Obstacle{
     OnCollision(){}
 
     Update(timeDelta, hitbox){
-        if(this.oscuridad.x <= 1280 && !this._inCanvas){
+        if(this.oscuridad.position.x <= 1280 && !this._inCanvas){
             this._FarolaSpawn.PlayOneShot();
             this._inCanvas = true;
         }  
