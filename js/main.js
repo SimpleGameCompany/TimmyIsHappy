@@ -743,7 +743,7 @@ function PuntuacionesMenu(){
         if(scoreParagraphs == undefined){
             scoreParagraphs = [];
             for(let i = 0; i<10;i++){
-                let parafo = new TextObject("",new Vector2(38,(i*6)+30),2,"Arial",canvasManager,"white");
+                let parafo = new TextObject("",new Vector2(38,(i*5.75)+29),1.5,"Arial",canvasManager,"black");
                 scoreParagraphs.push(parafo);
             }
             scoreParagraphs.Hide = function(){

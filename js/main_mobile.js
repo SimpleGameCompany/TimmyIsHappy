@@ -1,3 +1,4 @@
+
 //#region variables
 var timmy; 
 var speed;
@@ -302,9 +303,7 @@ class Car extends Obstacle{
         super.OnClick(e,this._CocheDeadAudio);
         if(this._hits==0){
             this._CocheLoopAudio.Stop();
-            let x = Math.random();
-            let y = Math.random()-0.5;
-            this.velocity = new Vector2(x,y).normalize().mult(700);
+            this.velocity = new Vector2(300,-200).normalize().mult(700);
             this.SetAnimation("die");
         }
     }
@@ -346,9 +345,7 @@ class Dog extends Obstacle{
         }
         this._dead = true;
         this.StopAudio();
-        let x = Math.random();
-        let y = Math.random()-0.5;
-        this.velocity = new Vector2(x,y).normalize().mult(700);
+        this.velocity = new Vector2(300,200).normalize().mult(700);
         this.SetAnimation("die");
         super.OnClick(e,this._PerroDeadAudio);    
     }
@@ -358,7 +355,7 @@ class Dog extends Obstacle{
             this._PerroAttackAudio.PlayOneShot();
             this.SetAnimation("run");
             clearInterval(this.interval);
-            this.velocity = new Vector2(speed-400,0).normalize().mult(300);
+            this.velocity = new Vector2(speed-200,0).normalize().mult(300);
             this._attacking = true;
         }else if(this.position.x <= 1280 && !this._stopped){
             this._PerroWarnAudio.PlayOneShot();
@@ -746,7 +743,7 @@ function PuntuacionesMenu(){
         if(scoreParagraphs == undefined){
             scoreParagraphs = [];
             for(let i = 0; i<10;i++){
-                let parafo = new TextObject("",new Vector2(38,(i*6)+30),2,"Arial",canvasManager,"white");
+                let parafo = new TextObject("",new Vector2(38,(i*5.75)+29),1.5,"Arial",canvasManager,"black");
                 scoreParagraphs.push(parafo);
             }
             scoreParagraphs.Hide = function(){
@@ -840,8 +837,6 @@ function loadGameFromLevel(ev){
     gameObjects = [];
     
     sky = new HTMLBackGround("sun","none",0,0,1);
-    cloud = new HTMLBackGround("clouds","none",-50/8,1,2);
-    hills = new HTMLBackGround("hills","none",-50/2,2,4);
     road = new HTMLBackGround("road","none",-50,4,4);
     buildings = new HTMLBackGround("build","none",-35,3,4);
     LoadLevel("nivel3",gameObjects);
@@ -1016,21 +1011,16 @@ function LoadObjects(level){
     tunelSalida.SetAnimation("idle");
     gameObjects[4].push(tunelSalida); 
 
-    sky.ChangeImg("assets/img/Cielo_animado"+level+".gif");  
+    sky.ChangeImg("assets/img/Fondo_completo_animado"+level+".gif");  
     sky.vel = 0;
     gameObjects[0].push(sky);
-    cloud.ChangeImg("assets/img/Nubes_animado"+level+".gif");
-    cloud.vel = (speed*100)/1280/8;
-    gameObjects[0].push(cloud);
     totalLoading++;
     buildings.vel = (speed*100)/1280/2;
     buildings.ChangeImg("assets/img/Edificios_animado"+level+".gif");
-    hills.vel = (speed*100)/1280/4;
-    hills.ChangeImg("assets/img/Fondo_animado"+level+".gif");
     road.vel = (speed*100)/1280;
     road.ChangeImg("assets/img/AceraConCarretera_animado"+level+".gif");
+    
     gameObjects[0].push(buildings);
-    gameObjects[0].push(hills);
     gameObjects[0].push(road);
     let opciones = new HitableObject("opciones",new Vector2(1196,18),"none",68,68);
     let opcionesAnim = new Animation("assets/img/Pause_button_spritesheet.png",4,68,68,1/8,0);
@@ -1092,10 +1082,8 @@ function LoseGame(){
         gameObjects[i] = [];
     }
     sky.ChangeImg("assets/img/Cielo_sepia"+levelname+".png");
-    hills.ChangeImg("assets/img/Fondo_sepia"+levelname+".png");
     road.ChangeImg("assets/img/AceraConCarretera_sepia"+levelname+".png");
     buildings.ChangeImg("assets/img/Edificios_sepia"+levelname+".png");
-    cloud.ChangeImg("assets/img/Nubes_sepia"+levelname+".png");
     //TODO
     canvasManager.AddObject(fondo,0);
     //canvasManager.AddObject(volverMenu,5);
@@ -1286,6 +1274,7 @@ window.addEventListener("load",function(ev){
     menuMusic.StopAudio = stopAudio.bind(menuMusic);
     gameMusic = $("#gameAudio");
     gameMusic.StopAudio = stopAudio.bind(gameMusic);
+    gameMusic.prop("loop",true);
     gameMusic.changeTrack = function(src){
         this.StopAudio();
         this.attr("src",src);
