@@ -38,7 +38,7 @@
   - [4.1. Arte](#41-arte)
   - [4.2. Sonido](#42-sonido)
 - [5. Roles](#5-roles)
-
+- [6. Referencias](#6-referencias)
 <div id="introduccion"></ol>
 
 # 1. Introducción 
@@ -75,7 +75,8 @@ Es un juego de estética 2D para navegador, en PC y dispositivos móviles, con c
 
 El género del juego es un "Infinite Runner", donde el personaje se mueve infinitamente en un escenario, que habitualmente se genera de forma modular y procedural. 
 
-En este caso, sin embargo, se acompañará con escenarios prefabricados, para poder ofrecer un reto constante que no dependa exclusivamente de la aleatoriedad para funcionar (ya que a menudo los algoritmos de este tipo de juegos resultan algo injustos por su carácter aleatorio). Un ejemplo similar de "Infinite Runner" sería el minijuego del T-Rex que aparece en la ventana de Google Chrome cuando no hay conexión a la red.
+En este caso, sin embargo, se acompañará con escenarios prefabricados, para poder ofrecer un reto constante que no dependa exclusivamente de la aleatoriedad para funcionar (ya que a menudo los algoritmos de este tipo de juegos resultan algo injustos por su carácter aleatorio). 
+Un ejemplo similar de "Infinite Runner" sería el minijuego del T-Rex que aparece en la ventana de Google Chrome cuando no hay conexión a la red.
 
 <div id="EstiloVisual"></>
 
@@ -90,6 +91,7 @@ La estética tendrá un estilo visual de temática cartoon, no realista, y será
 La idea principal del juego radica en la escalabilidad. La versión básica consistirá en un juego pequeño pero fácilmente escalable, para poder permitir una longeva vida del videojuego, si este tiene éxito comercial.
 
 Esta escalabilidad es posible gracias al sistema de niveles del juego, de forma que, en un futuro y si efectivamente el juego tiene cierto renombre, se pueden incluir nuevos niveles, dinámicas, estilos, etc.
+En esta primera versión, se incluyen un total de tres niveles jugables, con diferentes dificultades.
 
 <div id="jugabilidad"></>
 
@@ -101,9 +103,8 @@ Los niveles serán realizados de forma progresiva y estarán colocados de manera
 
 * **Diferentes trampas**: Harán que el jugador tenga que estar atento a distintas partes de la pantalla, debido a que las amenazas aparecen por zonas diferentes del escenario, no en un mismo lugar, lo que evita que el jugador se estanque en un patrón y el juego se vuelva aburrido.
 
-* **No controlamos a Timmy**: seremos una entidad o deidad que tendrá que limpiar el camino para Timmy, a quien debemos proteger de su propio despiste.
+* **No controlamos a Timmy**: Seremos una entidad o deidad que tendrá que limpiar el camino para Timmy, a quien debemos proteger de su propio despiste.
 
-Para la actual fecha límite, el objetivo es preparar con éxito **3 niveles.**
 
 <div id="Propositoypublicoobjetivo"></>
 
@@ -111,7 +112,8 @@ Para la actual fecha límite, el objetivo es preparar con éxito **3 niveles.**
 
 Nuestro objetivo es obtener un juego 2D, de estética atractiva y llamativa, rápido, dinámico y simple (que se pueda jugar con una sola mano), que sirva para entretener durante los momentos aburridos del jugador.
 
-Es un juego apto para todos los públicos, tanto para los amantes de los juegos de móvil como para un perfil de jugador más ocasional o "casual", y disfrutable en cualquier momento (en viajes, en casa, etc). Nuestro objetivo sería cumplir un PEGI 12, puesto que hay violencia no implícita ni mostrada, pero de hecho su temática funciona sobre dicha violencia tanto del jugador hacia las “trampas” (mover un coche) como de las propias trampas (el coche va hacia Timmy).
+Es un juego apto para todos los públicos, tanto para los amantes de los juegos de móvil como para un perfil de jugador más ocasional o "casual", y disfrutable en cualquier momento (en viajes, en casa, etc). 
+Nuestro objetivo sería cumplir un PEGI 12, puesto que hay violencia no implícita ni mostrada, pero de hecho su temática funciona sobre dicha violencia tanto del jugador hacia las “trampas” (mover un coche) como de las propias trampas (el coche va hacia Timmy).
 
 <div id="mecanicas"></>
 
@@ -127,7 +129,8 @@ En esta sección, trataremos todas las cuestiones referentes al funcionamiento b
 
 * **Dificultad:** la dificultad irá aumentando con cada nivel, de forma que el nivel de noche, por ejemplo, será más complicado que el de mediodía. Así, nos ajustamos al modelo de "Infinite Runner", en el cual la dificultad aumenta cuanto más juegas, para que sea un reto cada vez mayor.
 
-* **Trampas:** los niveles tendrán trampas o amenazas distribuidas por el escenario. Inicialmente, algunas trampas aparecerán activadas, y otras desactivadas. Al hacer click sobre una trampa, esta cambiará al estado opuesto (si estaba activada, se desactiva, y viceversa), y ya no podrá volver a ser cambiada. Por ello, deberá tenerse cuidado antes de interactuar con ellas, y pensar antes de actuar. Entre las trampas principales, encontramos:
+* **Trampas:** los niveles tendrán trampas o amenazas distribuidas por el escenario. Una descripción detallada se encontrará en la sección 2.2: Trampas, pero aquí se muestra una lista básica de ellas:
+
 
 <table>
   <tr>
@@ -224,6 +227,15 @@ El núcleo de la jugabilidad serán las trampas. Los niveles tendrán un número
 4.  *Arte*: Avión.
 5.  *Sonido:* Turbinas del avión, avión accidentado.
 
+**Farola**
+
+
+1. Funcionalidad: esta trampa aparece en los niveles más complejos del juego, obstruyendo la visión del jugador e impidiendo que haga click en otras trampas.
+2. Forma de neutralizar: un click ilumina la zona.
+3. Animaciones: se enciende la luz (cambia de luminosidad).
+4. Arte: farola y oscuridad.
+5. Sonido: Al encenderse y al apagarse.
+
 <div id="Flujodejuego(GameLoop)"></>
 
 ## 2.3. Flujo de juego (Game Loop)
@@ -281,7 +293,7 @@ Durante Timmy is Happy, tendremos tres tipos de niveles distintos, en el que pri
 
 * *Mapa de Día:* El primer escenario y el escenario predeterminado, tendrá los enemigos más básicos y serán los niveles más sencillos desde un punto de vista de diseño, siendo introductorios a nuevos personajes o como tutorial.
 
-* *Mapa de Tormenta:* Un punto medio en el que la dificultad aumenta y aparecen amenazas únicas de este tipo de mapas. Tendrán un tinte de lluvia que cubre el mapa y hacen un poco más difícil la visión del mapa.
+* *Mapa de Atardecer:* Un punto medio en el que la dificultad aumenta y aparecen amenazas únicas de este tipo de mapas. 
 
 * *Mapa de Noche:* Serían la dificultad máxima alcanzable, llevando enemigos más difíciles y surgiendo situaciones en las que la oscuridad obstruye la visión y es más difícil vislumbrar de las amenazas que vienen a por Timmy.
 
@@ -416,7 +428,12 @@ Los sonidos del juego deberán acompañar a su estilo visual, de forma que deber
 
 * *Perro_Eliminated*: El perro huye, es eliminado.
 
-Música usada:
+* *Farola_Spawn*: Aparece oscuridad que cubre la zona de una farola.
+
+* *Farola_Eliminated*:La oscuridad desaparece.
+
+
+**Música usada**:
 Para el videojuego se han usado 4 tracks, listadas a continuación:
 
 * *Menu: Songe D’Automne* (licencia Attribution-Noncommercial-Share Alike 2.0 France License.)
@@ -443,3 +460,13 @@ Para la realización del trabajo tendremos un equipo de 6 personas, siguiendo lo
 
 * *Guillermo Amigó Urda*: Diseñador de Juego y diseñador de Sonido.
 
+
+<div id="referencias"></>
+
+# 6. Referencias
+
+* JQuery: https://jquery.com/
+* Bootstrap: https://getbootstrap.com/
+* Bootstrap Made: https://bootstrapmade.com/
+* Roundabout - Yes: https://www.youtube.com/channel/UCJ2BSIyIU84ZtJ9MiLh0jZA
+* Free Music Archive: http://freemusicarchive.org
