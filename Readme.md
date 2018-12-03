@@ -10,7 +10,7 @@
   - [Game Design Document](#game-design-document)
 - [Índice](#%C3%ADndice)
 - [1. Introducción](#1-introducci%C3%B3n)
-  - [**1.1. Concepto**](#11-concepto)
+  - [1.1. Concepto](#11-concepto)
   - [1.2. Características principales](#12-caracter%C3%ADsticas-principales)
   - [1.3. Género](#13-g%C3%A9nero)
   - [1.4. Estilo Visual](#14-estilo-visual)
@@ -19,7 +19,7 @@
   - [1.7. Propósito y público objetivo](#17-prop%C3%B3sito-y-p%C3%BAblico-objetivo)
 - [2. Mecánicas del juego](#2-mec%C3%A1nicas-del-juego)
   - [2.1. Jugabilidad](#21-jugabilidad)
-  - [**2.2. Trampas**](#22-trampas)
+  - [2.2. Trampas](#22-trampas)
   - [2.3. Flujo de juego (Game Loop)](#23-flujo-de-juego-game-loop)
   - [2.4. Personajes](#24-personajes)
   - [2.5. Movimiento](#25-movimiento)
@@ -28,7 +28,6 @@
   - [2.8. Niveles](#28-niveles)
 - [3. Interfaz](#3-interfaz)
   - [3.1. Diagrama de Flujo](#31-diagrama-de-flujo)
-  - [!image alt text](#image-alt-text)
   - [3.2. Pantalla de Menú Principal](#32-pantalla-de-men%C3%BA-principal)
   - [3.3. Pantalla de Puntuaciones](#33-pantalla-de-puntuaciones)
   - [3.4. Pantalla de Créditos y Contacto](#34-pantalla-de-cr%C3%A9ditos-y-contacto)
@@ -39,6 +38,7 @@
   - [4.2. Sonido](#42-sonido)
 - [5. Roles](#5-roles)
 - [6. Referencias](#6-referencias)
+
 <div id="introduccion"></ol>
 
 # 1. Introducción 
@@ -227,7 +227,7 @@ El núcleo de la jugabilidad serán las trampas. Los niveles tendrán un número
 4.  *Arte*: Avión.
 5.  *Sonido:* Turbinas del avión, avión accidentado.
 
-**Farola**
+**Farola**:
 
 
 1. Funcionalidad: esta trampa aparece en los niveles más complejos del juego, obstruyendo la visión del jugador e impidiendo que haga click en otras trampas.
@@ -470,3 +470,4 @@ Para la realización del trabajo tendremos un equipo de 6 personas, siguiendo lo
 * Bootstrap Made: https://bootstrapmade.com/
 * Roundabout - Yes: https://www.youtube.com/channel/UCJ2BSIyIU84ZtJ9MiLh0jZA
 * Free Music Archive: http://freemusicarchive.org
+* Jamendo: https://www.jamendo.com/
