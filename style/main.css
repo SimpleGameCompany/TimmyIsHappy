@@ -100,7 +100,8 @@ canvas {
 .canvasContainer {
     position: relative;
     padding: 0px;
-    border:2px solid #000000;
+    border-top:2px solid #000000;
+    border-bottom: 2px solid #000000;
 }
 
 #gameCanvas {
