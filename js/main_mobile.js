@@ -53,7 +53,8 @@ var gameMusic;
 //#region objetos
 class Input {
     constructor(pos,sampleText,title,fontsize){
-        this.inputHtml = $("<input type='text' name='"+title+"' value='"+sampleText+"' class = 'inputClass'></input>").appendTo($(canvasManager.canvasElement).parent());
+        var onfocuss=    "this.value="+ '" '+ '"';
+        this.inputHtml = $("<input type='text' onfocus='"+onfocuss + "'  name='"+title+"' value='"+sampleText+"' class = 'inputClass'></input>").appendTo($(canvasManager.canvasElement).parent());
         this.inputHtml.css("left",pos.x+"%");
         this.inputHtml.css("top",pos.y+"%");
         this.inputHtml.css("font-size",fontsize+"vw");
