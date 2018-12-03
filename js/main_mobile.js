@@ -868,16 +868,16 @@ function LoadLevel(jsonName,container){
                 case "tutorialPoop":
                     let tutpoop;
                     if(idioma === "_esp")
-                        tutpoop = new Poop("caca",new Vector2(obj.positionx-438/2,615-375+63),"none", 438,375,timmy,1);
-                    else
-                        tutpoop = new Poop("caca",new Vector2(obj.positionx-365/2,615-375+63),"none", 365,375,timmy,1);
+                    tutpoop = new Poop("caca",new Vector2(obj.positionx-438/2,615-375+125),"none", 438,375,timmy,1);
+                else
+                    tutpoop = new Poop("caca",new Vector2(obj.positionx-365/2,615-375+125),"none", 365,375,timmy,1);
 
                     let tutpoopAnim;
                     if(idioma === "_esp")
                         tutpoopAnim = new Animation("assets/img/Tutorial_spritesheet"+idioma+".png",4,438,375,1/8,0);
                     else
                         tutpoopAnim = new Animation("assets/img/Tutorial_spritesheet"+idioma+".png",4,438,375,1/8,0);
-                    let tutpoopAnimDestroyed = new Animation("assets/img/WellDone_spritesheet_sinCaca"+idioma+".png",4,438,375,1/8,0);
+                    let tutpoopAnimDestroyed = new Animation("assets/img/WellDone_spritesheet"+idioma+".png",4,438,375,1/8,0);
                     totalLoading +=1;
                     //poop.anchor = new Vector2(0,0.5);
                     tutpoop.velocity = new Vector2(speed,0);
