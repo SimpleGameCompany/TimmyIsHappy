@@ -801,7 +801,6 @@ function InputName(){
         fondoMenuInputName.Hide();
         parrafoInput.activate = false;
         menuMusic.StopAudio();
-        gameMusic.changeTrack("assest/audio/music_nivel1.mp3");
         
         loadGameFromLevel(ev);
 
