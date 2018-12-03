@@ -303,7 +303,9 @@ class Car extends Obstacle{
         super.OnClick(e,this._CocheDeadAudio);
         if(this._hits==0){
             this._CocheLoopAudio.Stop();
-            this.velocity = new Vector2(300,-200).normalize().mult(700);
+            let x = Math.random();
+            let y = Math.random()-0.5;
+            this.velocity = new Vector2(x,y).normalize().mult(700);
             this.SetAnimation("die");
         }
     }
@@ -345,7 +347,9 @@ class Dog extends Obstacle{
         }
         this._dead = true;
         this.StopAudio();
-        this.velocity = new Vector2(300,200).normalize().mult(700);
+        let x = Math.random();
+        let y = Math.random()-0.5;
+        this.velocity = new Vector2(x,y).normalize().mult(700);
         this.SetAnimation("die");
         super.OnClick(e,this._PerroDeadAudio);    
     }
@@ -355,7 +359,7 @@ class Dog extends Obstacle{
             this._PerroAttackAudio.PlayOneShot();
             this.SetAnimation("run");
             clearInterval(this.interval);
-            this.velocity = new Vector2(speed-200,0).normalize().mult(300);
+            this.velocity = new Vector2(speed-600,0).normalize().mult(300);
             this._attacking = true;
         }else if(this.position.x <= 1280 && !this._stopped){
             this._PerroWarnAudio.PlayOneShot();
@@ -860,6 +864,27 @@ function LoadLevel(jsonName,container){
     $.getJSON("assets/files/"+jsonName+".json", function (json) {
         for(var obj of json){
             switch(obj.type){
+                case "tutorialPoop":
+                    let tutpoop;
+                    if(idioma === "_esp")
+                        tutpoop = new Poop("caca",new Vector2(obj.positionx-438/2,615-375+63),"none", 438,375,timmy,1);
+                    else
+                        tutpoop = new Poop("caca",new Vector2(obj.positionx-365/2,615-375+63),"none", 365,375,timmy,1);
+
+                    let tutpoopAnim;
+                    if(idioma === "_esp")
+                        tutpoopAnim = new Animation("assets/img/Caca_spritesheet"+levelname+".png",1,438,375,1,0);
+                    else
+                        tutpoopAnim = new Animation("assets/img/Caca_spritesheet"+levelname+".png",1,365,375,1,0);
+                    let tutpoopAnimDestroyed = new Animation("assets/img/BolsaCaca_spritesheet"+levelname+".png",4,55,63,1/8,0);
+                    totalLoading +=1;
+                    //poop.anchor = new Vector2(0,0.5);
+                    tutpoop.velocity = new Vector2(speed,0);
+                    tutpoop.AddAnimation(tutpoopAnim,"idle");
+                    tutpoop.AddAnimation(tutpoopAnimDestroyed,"clicked");
+                    tutpoop.SetAnimation("idle");
+                    container[1].push(tutpoop);
+                break;
                 case "speed":
                     speed = obj.speed;
                     LoadObjects(obj.nivel);
