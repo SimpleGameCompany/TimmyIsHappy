@@ -9,7 +9,7 @@
     "nivel":1
     },
     {
-        "type":"poop",
+        "type":"tutorialPoop",
         "positionx":1000
     },{
         "type":"dog",
