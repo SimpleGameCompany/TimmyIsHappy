@@ -47,7 +47,7 @@ var parrafoInput;
 var volume = 1;
 var menuMusic;
 var gameMusic;
-
+var levelJson;
 //#endregion
 
 //#region objetos
@@ -845,11 +845,11 @@ function loadGameFromLevel(ev){
     hills = new HTMLBackGround("hills","none",-50/2,2,4);
     road = new HTMLBackGround("road","none",-50,4,4);
     buildings = new HTMLBackGround("build","none",-35,3,4);
-    LoadLevel("nivel1",gameObjects);
+    LoadLevel("nivelprueba",gameObjects);
 }
 
 function LoadLevel(jsonName,container){
-    
+    levelJson = jsonName;
     for (let i = 0; i < 6; i++) {
         gameObjects[i] = [];
     }
@@ -876,17 +876,17 @@ function LoadLevel(jsonName,container){
 
                     let tutpoopAnim;
                     if(idioma === "_esp")
-                        tutpoopAnim = new Animation("assets/img/Caca_spritesheet"+levelname+".png",1,438,375,1,0);
+                        tutpoopAnim = new Animation("assets/img/Tutorial_spritesheet"+idioma+".png",4,438,375,1/8,0);
                     else
-                        tutpoopAnim = new Animation("assets/img/Caca_spritesheet"+levelname+".png",1,365,375,1,0);
-                    let tutpoopAnimDestroyed = new Animation("assets/img/BolsaCaca_spritesheet"+levelname+".png",4,55,63,1/8,0);
+                        tutpoopAnim = new Animation("assets/img/Tutorial_spritesheet"+idioma+".png",4,438,375,1/8,0);
+                    let tutpoopAnimDestroyed = new Animation("assets/img/WellDone_spritesheet_sinCaca"+idioma+".png",4,438,375,1/8,0);
                     totalLoading +=1;
                     //poop.anchor = new Vector2(0,0.5);
                     tutpoop.velocity = new Vector2(speed,0);
                     tutpoop.AddAnimation(tutpoopAnim,"idle");
                     tutpoop.AddAnimation(tutpoopAnimDestroyed,"clicked");
                     tutpoop.SetAnimation("idle");
-                    container[1].push(tutpoop);
+                    container[4].push(tutpoop);
                 break;
                 case "speed":
                     speed = obj.speed;
@@ -958,7 +958,7 @@ function LoadLevel(jsonName,container){
                     poop.AddAnimation(poopAnim,"idle");
                     poop.AddAnimation(poopAnimDestroyed,"clicked");
                     poop.SetAnimation("idle");
-                    container[1].push(poop);
+                    container[4].push(poop);
                 break;
                 case "plane":
                     let plane = new FlyingObject("avion",new Vector2(obj.positionx,-480),"none",480,1111,timmy,2);
@@ -1163,6 +1163,11 @@ function EndLevel(){
         }
         puntuacionText.position = new Vector2(0,0);
         daysText.activate = false;
+        if(levelJson == "nivelprueba"){
+            nextLevel--;
+            puntuacionText.puntos = 0;
+        }
+            
         LoadLevel("nivel"+(nextLevel),gameObjects);
     }
 
