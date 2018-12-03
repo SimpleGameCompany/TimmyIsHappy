@@ -76,7 +76,8 @@ canvas {
     box-sizing: content-box;
     text-align: center;
     z-index: 10;
-    
+    border: 2px solid black;
+    border-radius: 80px;
 }
 #imagenesToLoad{
     display: none;
