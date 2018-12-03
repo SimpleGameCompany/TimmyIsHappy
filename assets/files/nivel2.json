@@ -390,6 +390,12 @@
     {
         "type":"plane",
         "positionx":2000
-    }
+    },
 
+    {
+        "type":"farolas",
+        "distancia":500,
+        "oscuridades":
+        []
+    }
 ]

@@ -227,7 +227,13 @@
     {
         "type":"car",
         "positionx":9900
-    }
+    },
 
+ {
+        "type":"farolas",
+        "distancia":1000,
+        "oscuridades":
+        []
+    }
 
 ]

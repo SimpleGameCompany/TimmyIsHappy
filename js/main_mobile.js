@@ -839,7 +839,7 @@ function loadGameFromLevel(ev){
     sky = new HTMLBackGround("sun","none",0,0,1);
     road = new HTMLBackGround("road","none",-50,4,4);
     buildings = new HTMLBackGround("build","none",-35,3,4);
-    LoadLevel("nivel3",gameObjects);
+    LoadLevel("nivel1_mobile",gameObjects);
 }
 
 function LoadLevel(jsonName,container){
@@ -1081,7 +1081,7 @@ function LoseGame(){
     for(let i = 0; i < 6; i++){
         gameObjects[i] = [];
     }
-    sky.ChangeImg("assets/img/Cielo_sepia"+levelname+".png");
+    sky.ChangeImg("assets/img/Fondo_completo_sepia"+levelname+".png");
     road.ChangeImg("assets/img/AceraConCarretera_sepia"+levelname+".png");
     buildings.ChangeImg("assets/img/Edificios_sepia"+levelname+".png");
     //TODO
@@ -1090,7 +1090,7 @@ function LoseGame(){
     canvasManager.AddObject(jojoMensaje,5);
     lose = false;
     gameMusic.changeTrack("assets/audio/Music/Theme_Die.ogg");
-    setTimeout(LoseLevel,3000);
+    setTimeout(LoseLevel,6000);
 }
 
 function EndLevel(){
@@ -1129,7 +1129,7 @@ function EndLevel(){
         }
         puntuacionText.position = new Vector2(0,0);
         daysText.activate = false;
-        LoadLevel("nivel"+(nextLevel),gameObjects);
+        LoadLevel("nivel"+(nextLevel)+"_mobile",gameObjects);
     }
 
     VolverAlMenu.OnClick = function(ev){
@@ -1139,6 +1139,7 @@ function EndLevel(){
         gameMusic.StopAudio();
         menuMusic.trigger("play");
         StartMenuGame();
+        puntuacionText.puntos = 0;
         days = 0;
     }
 
@@ -1175,14 +1176,16 @@ function LoseLevel(){
     let fondoNegro = new SpriteObject("fondoNegro",new Vector2(0,0),"assets/img/FondoFinal.png",720,1280);
 
     Continue.OnClick = function(ev){
+        
         canvasManager.ClearCanvas();
         StartLoad();
         actualLevel = 1;
         puntuacionText.position = new Vector2(0,0);
         WriteScore();
         daysText.activate = false;
+        puntuacionText.puntos = 0;
         days = 0;
-        LoadLevel("nivel1",gameObjects);
+        LoadLevel("nivel1_mobile",gameObjects);
     }
 
     VolverAlMenu.OnClick = function(ev){
@@ -1192,6 +1195,7 @@ function LoseLevel(){
         menuMusic.trigger("play");
         daysText.activate = false;
         StartMenuGame();
+        puntuacionText.puntos = 0;
         days = 0;
     }
     canvasManager.AddObject(Continue,5);
