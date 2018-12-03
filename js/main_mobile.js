@@ -127,6 +127,23 @@ class Obstacle extends HitableObject{
 }
 
 class SoundManager{
+    constructor(){
+        this.clickbutton1 = new AudioObject("assets/audio/Botones/Boton_1.ogg",0,1);
+        this.clickbutton2 = new AudioObject("assets/audio/Botones/Boton_2.ogg",0,1);
+    }
+
+    PlayButton1(){
+        if(!mute){
+            this.clickbutton1.PlayOneShot();
+        }
+    }
+
+    PlayButton2(){
+        if(!mute){
+            this.clickbutton2.PlayOneShot();
+        }
+    }
+
     StopAudio(){
         for(let i= 0; i<gameObjects.length; i++){
             for(let j = 0; j<gameObjects[i].length; j++){
@@ -532,6 +549,7 @@ function StartMenuGame(){
         let start = new HitableObject("credits", new Vector2(640,411),"assets/img/Start_button.png",400,493);
         start.anchor = new Vector2(0.5,0.5);
         start.OnClick = function(ev){
+            soundManager.PlayButton1();
             fondoMenuPrincipal.Hide();
             InputName();
         }
@@ -542,6 +560,7 @@ function StartMenuGame(){
         else
             credits = new HitableObject("credits", new Vector2(872,490),"assets/img/Credits_button"+idioma+".png",84,241);
         credits.OnClick = function(ev){
+            soundManager.PlayButton1();
             $('html, body').animate({
                 scrollTop: $("#team_section").offset().top + 20
             }, 1000);
@@ -553,6 +572,7 @@ function StartMenuGame(){
         else
             opciones = new HitableObject("opciones", new Vector2(150,480),"assets/img/Options_button"+idioma+".png",99,262);
         opciones.OnClick = function(ev){
+            soundManager.PlayButton1();
             fondoMenuPrincipal.Hide();
             OptionsMenu();
         }
@@ -563,6 +583,7 @@ function StartMenuGame(){
         else
             puntuaciones = new HitableObject("opciones", new Vector2(528,570),"assets/img/Scores_button"+idioma+".png",77,225);
         puntuaciones.OnClick = function(ev){
+            soundManager.PlayButton1();
             fondoMenuPrincipal.Hide();
             PuntuacionesMenu();
         }
@@ -600,6 +621,7 @@ function OptionsMenu(){
         let flecha;
         flecha = new HitableObject("continuar", new Vector2(130,570),"assets/img/Flecha.png",52,106);
         flecha.OnClick = function(ev){
+            soundManager.PlayButton1();
             if(fondoMenuOptionsEsp)
                 fondoMenuOptionsEsp.Hide();
             if(fondoMenuOptionsEng)
@@ -624,6 +646,7 @@ function OptionsMenu(){
         ingles.SetAnimation("idle");
         ingles.OnClick = function(ev){
             if(idioma === "_esp"){
+                soundManager.PlayButton1();
                 if(fondoMenuOptionsEsp)
                     fondoMenuOptionsEsp.Hide();
                 idioma = "_eng"
@@ -654,6 +677,7 @@ function OptionsMenu(){
         español.SetAnimation("idle");
         español.OnClick = function(ev){
             if(idioma === "_eng"){
+                soundManager.PlayButton1();
                 if(fondoMenuOptionsEng)
                     fondoMenuOptionsEng.Hide();
                 idioma = "_esp"
@@ -696,6 +720,7 @@ function OptionsMenu(){
                 volume = 0;
                 OptionsMenu();
             }
+            soundManager.PlayButton1();
         }
 
 
@@ -736,6 +761,7 @@ function PuntuacionesMenu(){
         }
         let flecha = new HitableObject("continuar", new Vector2(130,570),"assets/img/Flecha.png",52,106);
         flecha.OnClick = function(ev){
+            soundManager.PlayButton1();
             if(fondoMenuScoresEsp)
                 fondoMenuScoresEsp.Hide();
             if(fondoMenuScoresEng)
@@ -801,6 +827,9 @@ function InputName(){
     continuar.anchor = new Vector2(0.5,0.5);
     
     continuar.OnClick = function(ev){
+        let n = inputText.text.trim();
+        if(n != ''){
+            soundManager.PlayButton1();
         playerName = inputText.text
         inputText.Hide();
         fondoMenuInputName.Hide();
@@ -808,6 +837,10 @@ function InputName(){
         menuMusic.StopAudio();
         
         loadGameFromLevel(ev);
+        }else{
+            soundManager.PlayButton2();
+            InputName();
+        }
 
     }
 
@@ -1146,6 +1179,7 @@ function EndLevel(){
     let fondoNegro = new SpriteObject("fondoNegro",new Vector2(0,0),"assets/img/FondoFinal.png",720,1280);
 
     Continue.OnClick = function(ev){
+        soundManager.PlayButton1();
         canvasManager.ClearCanvas();
         StartLoad();
         let nextLevel = (actualLevel+1)
@@ -1158,6 +1192,7 @@ function EndLevel(){
     }
 
     VolverAlMenu.OnClick = function(ev){
+        soundManager.PlayButton1();
         canvasManager.ClearCanvas();      
         daysText.activate = false;
         WriteScore();
@@ -1201,7 +1236,7 @@ function LoseLevel(){
     let fondoNegro = new SpriteObject("fondoNegro",new Vector2(0,0),"assets/img/FondoFinal.png",720,1280);
 
     Continue.OnClick = function(ev){
-        
+        soundManager.PlayButton1();
         canvasManager.ClearCanvas();
         StartLoad();
         actualLevel = 1;
@@ -1214,6 +1249,7 @@ function LoseLevel(){
     }
 
     VolverAlMenu.OnClick = function(ev){
+        soundManager.PlayButton1();
         canvasManager.ClearCanvas();
         WriteScore();
         gameMusic.StopAudio();
@@ -1254,6 +1290,7 @@ function StopLoad(){
 }
 
 function PauseGame(ev){
+    soundManager.PlayButton1();
     let fondo = new SpriteObject("fondo",new Vector2(0,0),canvasManager.canvasElement.toDataURL(),720,1280);
     
     canvasManager.ClearCanvas();
