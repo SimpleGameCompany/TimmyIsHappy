@@ -311,10 +311,10 @@
 
     {
         "type":"farolas",
-        "distancia":500,
+        "distancia":1000,
         "oscuridades":
         [
-            2000,4300,7500,9000
+            2000,4000,7000,9000
         ]
     }
 

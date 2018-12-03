@@ -450,7 +450,7 @@ class HTMLBackGround{
         this.b2.css("width",100*scale +"%");
         this.vel = vel;
         this.b1.pos = 0;
-        this.b2.pos = 99.75*scale;
+        this.b2.pos = 100*scale;
         this.scale = scale;
         this.active = true;
     }
@@ -460,10 +460,10 @@ class HTMLBackGround{
         this.b2.pos += (this.vel*deltaTime)
        
         if(this.b1.pos <=-100*this.scale){
-            this.b1.pos = 100*this.scale;
+            this.b1.pos = 99.99*this.scale;
         }
         if(this.b2.pos <=-100*this.scale){
-            this.b2.pos = 100*this.scale;
+            this.b2.pos = 99.99*this.scale;
         }
 
 
@@ -802,7 +802,6 @@ function InputName(){
         fondoMenuInputName.Hide();
         parrafoInput.activate = false;
         menuMusic.StopAudio();
-        gameMusic.changeTrack("assest/audio/music_nivel1.mp3");
         
         loadGameFromLevel(ev);
 
@@ -842,7 +841,7 @@ function loadGameFromLevel(ev){
     hills = new HTMLBackGround("hills","none",-50/2,2,4);
     road = new HTMLBackGround("road","none",-50,4,4);
     buildings = new HTMLBackGround("build","none",-35,3,4);
-    LoadLevel("nivel3",gameObjects);
+    LoadLevel("nivel1",gameObjects);
 }
 
 function LoadLevel(jsonName,container){

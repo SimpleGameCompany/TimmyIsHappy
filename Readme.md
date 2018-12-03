@@ -1,17 +1,51 @@
-Timmy is Happy
+# Timmy is Happy
 
 * * *
 
+## Game Design Document
 
-Game Design Document
+# Índice
 
-**Índice**
+- [Timmy is Happy](#timmy-is-happy)
+  - [Game Design Document](#game-design-document)
+- [Índice](#%C3%ADndice)
+- [1. Introducción](#1-introducci%C3%B3n)
+  - [**1.1. Concepto**](#11-concepto)
+  - [1.2. Características principales](#12-caracter%C3%ADsticas-principales)
+  - [1.3. Género](#13-g%C3%A9nero)
+  - [1.4. Estilo Visual](#14-estilo-visual)
+  - [1.5. Alcance](#15-alcance)
+  - [1.6. Jugabilidad](#16-jugabilidad)
+  - [1.7. Propósito y público objetivo](#17-prop%C3%B3sito-y-p%C3%BAblico-objetivo)
+- [2. Mecánicas del juego](#2-mec%C3%A1nicas-del-juego)
+  - [2.1. Jugabilidad](#21-jugabilidad)
+  - [**2.2. Trampas**](#22-trampas)
+  - [2.3. Flujo de juego (Game Loop)](#23-flujo-de-juego-game-loop)
+  - [2.4. Personajes](#24-personajes)
+  - [2.5. Movimiento](#25-movimiento)
+  - [2.6. Cámara](#26-c%C3%A1mara)
+  - [2.7. Controles](#27-controles)
+  - [2.8. Niveles](#28-niveles)
+- [3. Interfaz](#3-interfaz)
+  - [3.1. Diagrama de Flujo](#31-diagrama-de-flujo)
+  - [!image alt text](#image-alt-text)
+  - [3.2. Pantalla de Menú Principal](#32-pantalla-de-men%C3%BA-principal)
+  - [3.3. Pantalla de Puntuaciones](#33-pantalla-de-puntuaciones)
+  - [3.4. Pantalla de Créditos y Contacto](#34-pantalla-de-cr%C3%A9ditos-y-contacto)
+  - [3.5. Pantalla de Nivel](#35-pantalla-de-nivel)
+  - [3.6. Pantalla de Fin de Nivel (Game Over)](#36-pantalla-de-fin-de-nivel-game-over)
+- [4. Arte y Sonido](#4-arte-y-sonido)
+  - [4.1. Arte](#41-arte)
+  - [4.2. Sonido](#42-sonido)
+- [5. Roles](#5-roles)
 
-[[TOC]]
+<div id="introduccion"></ol>
 
-# **1. Introducción**
+# 1. Introducción 
 
-*Timmy is happy***_ _**es un videojuego de navegador, con estética 2D y de un único jugador, desarrollado en base al consorcio W3C (JavaScript, CSS y HTML). En este documento se van a plasmar los aspectos relacionados con el diseño fundamental del videojuego, de forma que nos sirva como carta de presentación ante futuros colaboradores.
+***Timmy is happy*** es un videojuego de navegador, con estética 2D y de un único jugador, desarrollado en base al consorcio W3C (JavaScript, CSS y HTML). En este documento se van a plasmar los aspectos relacionados con el diseño fundamental del videojuego, de forma que nos sirva como carta de presentación ante futuros colaboradores.
+
+<div id="Concepto"></>
 
 ## **1.1. Concepto**
 
@@ -23,7 +57,9 @@ El modelo estructural del videojuego será el de un "Infinite Runner" en el que 
 
 Es un juego de estética 2D para navegador, en PC y dispositivos móviles, con coloridos gráficos y animaciones, e infinidad de horas jugables.
 
-## **1.2. Características principales**
+<div id="Caracteristicasprincipales"></>
+
+## 1.2. Características principales
 
 * **Controles sencillos**: Solo se requiere un toque en la pantalla o un click de ratón para jugar, lo que facilita una curva de aprendizaje intuitiva.
 
@@ -31,24 +67,33 @@ Es un juego de estética 2D para navegador, en PC y dispositivos móviles, con c
 
 * **Cómodo:** en cualquier dispositivo móvil, al igual que en el navegador del PC, gracias a la sencillez de los controles mencionados.
 
-* **Temática divertida: **la naturaleza de la premisa del juego, así como de la sencillez de sus mecánicas, dan lugar a una dinámica final que busca provocar la sonrisa en el jugador, al mismo tiempo que atraparle en su jugabilidad.
+* **Temática divertida:** la naturaleza de la premisa del juego, así como de la sencillez de sus mecánicas, dan lugar a una dinámica final que busca provocar la sonrisa en el jugador, al mismo tiempo que atraparle en su jugabilidad.
 
+<div id="Genero"></>
+
+## 1.3. Género
 
 El género del juego es un "Infinite Runner", donde el personaje se mueve infinitamente en un escenario, que habitualmente se genera de forma modular y procedural. 
 
 En este caso, sin embargo, se acompañará con escenarios prefabricados, para poder ofrecer un reto constante que no dependa exclusivamente de la aleatoriedad para funcionar (ya que a menudo los algoritmos de este tipo de juegos resultan algo injustos por su carácter aleatorio). Un ejemplo similar de "Infinite Runner" sería el minijuego del T-Rex que aparece en la ventana de Google Chrome cuando no hay conexión a la red.
 
-## **1.4. Estilo Visual**
+<div id="EstiloVisual"></>
+
+## 1.4. Estilo Visual
 
 La estética tendrá un estilo visual de temática cartoon, no realista, y será generalmente de aspecto amigable, colores pintorescos y animaciones exageradas, y contará con un arte propio y diferenciable.
 
-## **1.5. Alcance**
+<div id="Alcance"></>
+
+## 1.5. Alcance
 
 La idea principal del juego radica en la escalabilidad. La versión básica consistirá en un juego pequeño pero fácilmente escalable, para poder permitir una longeva vida del videojuego, si este tiene éxito comercial.
 
 Esta escalabilidad es posible gracias al sistema de niveles del juego, de forma que, en un futuro y si efectivamente el juego tiene cierto renombre, se pueden incluir nuevos niveles, dinámicas, estilos, etc.
 
-## **1.6. Jugabilidad**
+<div id="jugabilidad"></>
+
+## 1.6. Jugabilidad
 
 Los niveles serán realizados de forma progresiva y estarán colocados de manera contigua, de forma que, aunque son niveles independientes, serán tratados como un único mapa infinito. Tendremos las siguientes características:
 
@@ -60,23 +105,29 @@ Los niveles serán realizados de forma progresiva y estarán colocados de manera
 
 Para la actual fecha límite, el objetivo es preparar con éxito **3 niveles.**
 
-## **1.7. Propósito y público objetivo**
+<div id="Propositoypublicoobjetivo"></>
+
+## 1.7. Propósito y público objetivo
 
 Nuestro objetivo es obtener un juego 2D, de estética atractiva y llamativa, rápido, dinámico y simple (que se pueda jugar con una sola mano), que sirva para entretener durante los momentos aburridos del jugador.
 
 Es un juego apto para todos los públicos, tanto para los amantes de los juegos de móvil como para un perfil de jugador más ocasional o "casual", y disfrutable en cualquier momento (en viajes, en casa, etc). Nuestro objetivo sería cumplir un PEGI 12, puesto que hay violencia no implícita ni mostrada, pero de hecho su temática funciona sobre dicha violencia tanto del jugador hacia las “trampas” (mover un coche) como de las propias trampas (el coche va hacia Timmy).
 
-# **2. Mecánicas del juego**
+<div id="mecanicas"></>
+
+# 2. Mecánicas del juego
 
 En esta sección, trataremos todas las cuestiones referentes al funcionamiento básico y avanzado del juego, así como las distintas trampas que aparecen en el escenario, y se explicarán controles, mapa y desarrollo de la "partida típica".
 
-## **2.1. Jugabilidad**
+<div id="Jugabilidad"></>
+
+## 2.1. Jugabilidad
 
 * **Niveles:** los niveles del juego consistirán en una ciudad en distintos momentos del día (mediodía, de noche, etc.), de forma que empezaremos en un momento del día determinado, al terminar, pasaremos al siguiente nivel, en otro momento del día, y así sucesivamente. Cada momento del día, es decir, cada nivel, tendrá unas características algo distintas al resto.
 
-* **Dificultad: **la dificultad irá aumentando con cada nivel, de forma que el nivel de noche, por ejemplo, será más complicado que el de mediodía. Así, nos ajustamos al modelo de "Infinite Runner", en el cual la dificultad aumenta cuanto más juegas, para que sea un reto cada vez mayor.
+* **Dificultad:** la dificultad irá aumentando con cada nivel, de forma que el nivel de noche, por ejemplo, será más complicado que el de mediodía. Así, nos ajustamos al modelo de "Infinite Runner", en el cual la dificultad aumenta cuanto más juegas, para que sea un reto cada vez mayor.
 
-* **Trampas: **los niveles tendrán trampas o amenazas distribuidas por el escenario. Inicialmente, algunas trampas aparecerán activadas, y otras desactivadas. Al hacer click sobre una trampa, esta cambiará al estado opuesto (si estaba activada, se desactiva, y viceversa), y ya no podrá volver a ser cambiada. Por ello, deberá tenerse cuidado antes de interactuar con ellas, y pensar antes de actuar. Entre las trampas principales, encontramos:
+* **Trampas:** los niveles tendrán trampas o amenazas distribuidas por el escenario. Inicialmente, algunas trampas aparecerán activadas, y otras desactivadas. Al hacer click sobre una trampa, esta cambiará al estado opuesto (si estaba activada, se desactiva, y viceversa), y ya no podrá volver a ser cambiada. Por ello, deberá tenerse cuidado antes de interactuar con ellas, y pensar antes de actuar. Entre las trampas principales, encontramos:
 
 <table>
   <tr>
@@ -117,9 +168,65 @@ En esta sección, trataremos todas las cuestiones referentes al funcionamiento b
 </table>
 
 
-* **Progresión del jugador: **finalmente, los esfuerzos del jugador se verán recompensados en forma de puntos y total de niveles completados (agrupados en días, cada 3 niveles constituyen un día). Este sistema animará al jugador a volver a jugar otra partida para superar su puntuación o la de sus amigos, asegurándonos de que el jugador siempre recurra al juego para buscar un reto mayor.
+* **Progresión del jugador:** finalmente, los esfuerzos del jugador se verán recompensados en forma de puntos y total de niveles completados (agrupados en días, cada 3 niveles constituyen un día). Este sistema animará al jugador a volver a jugar otra partida para superar su puntuación o la de sus amigos, asegurándonos de que el jugador siempre recurra al juego para buscar un reto mayor.
 
-## **2.2. Flujo de juego (Game Loop)**
+<div id="Trampas"></>
+
+## **2.2. Trampas**
+
+El núcleo de la jugabilidad serán las trampas. Los niveles tendrán un número determinado y asignado previamente de amenazas distribuidas por el escenario. La funcionalidad básica es el toque o la repetición de toques en la trampa para eliminarla o cambiar su estado a uno positivo. A continuación se detalla la lista de trampas, así como su comportamiento y tratamiento. Todas ellas tienen animaciones asignadas y sonidos para notificar su existencia o eliminación al jugador, para no depender solo de su estímulo visual.
+
+**Caca de perro**:
+
+1.  *Funcionalidad*: Esta trampa aparece a nivel del suelo y permanece quieta (se mueve a velocidad del escenario) todo el rato.
+2.  *Forma de neutralizar*: Un solo click la desactiva permanentemente.
+3.  *Animaciones*: La caca al ser pulsada, se convierte en un bolsita negra al haberse recogido con éxito.
+4.  *Arte:* Una caca de perro olorosa y una bolsita negra de plástico. 
+5.  *Sonido*: Un sonido al aparecer y un sonido de guardar en bolsita al eliminarla.
+
+**Alcantarilla:**
+
+1.  *Funcionalidad*: Esta trampa aparece a nivel del suelo y permanece quieta (se mueve a velocidad del escenario). Aparece en uno de dos estados, abierta o cerrada. Si llega a Timmy abierta, se pierde el juego (se cae). Si llega cerrada, la partida continúa.
+2.  *Forma de neutralizar*: No se puede eliminar, pero un click cambia su estado. La idea es hacer click si está abierta, y evitar hacer click si está cerrada.
+3.  *Animaciones*: Abrirse y cerrarse.
+4.  *Arte*: Una tapa de alcantarilla y su respectivo agujero.
+5.  *Sonido*: Abrir y cerrar una alcantarilla.
+
+**Perro**:
+
+1.  *Funcionalidad:* El perro aparece a nivel medio y  se mueve a velocidad de escenario. No ataca al jugador, sino que gruñe una vez por segundo, hasta dos. Al tercer segundo, ladra. A cuarto segundo, realiza un sprint (yendo a 65 puntos de velocidad respecto del escenario)hacia el jugador, siendo muy difícil su eliminación. Si alcanza al jugador se pierde la partida.
+2.  *Forma de neutralizar:* Una pulsación sobre el perro en cualquier momento causa su eliminación del mapa con una animación.
+3.  *Animaciones:* Ladrar, esprintar al jugador, salir volando hacia una dirección arbitraria (aérea) mientras rota.
+4.  *Arte*: Un perro.
+5.  *Sonido:* gruñido, ladridos, impacto.
+
+**Coche**:
+
+1.  *Funcionalidad:* Esta trampa aparece a nivel medio y se mueve un poco más rápido que el escenario (a 20 unidades más de su velocidad), y si no es neutralizado, atropella a Timmy haciendo que se pierda la partida.
+2.  *Forma de neutralizar*: Necesita de dos clicks para ser neutralizado.
+3.  *Animaciones*: El coche avanzando, el coche volando en dirección arbitraria, mientras rota y se escala negativamente (viaja hacia el fondo del escenario).
+4. *Arte*: Un coche parecido a un escarabajo.
+5. *Sonido*: Motor de coche, claxon.
+
+**Paloma**:
+
+1.  *Funcionalidad*: Esta trampa aparece a nivel alto y avanza a una velocidad ligeramente mayor al escenario (10 unidades más rápido que el escenario). El jugador pierde si se acerca mucho al jugador.
+2.  *Forma de neutralizar*: Un solo click la neutraliza.
+3.  *Animaciones*: Paloma volando, paloma volando en dirección arbitraria, cagarruta viajando hacia el jugador.
+4.  *Arte:* Una paloma y su cagarruta al acercarse.
+5.  *Sonido*: sonidos de Paloma y de plumas.
+
+**Avión**:
+
+1.  *Funcionalidad*: Esta trampa aparece a nivel alto y obstaculiza un tercio de la pantalla por la parte media superior izquierda de la pantalla, manteniéndose estático mientras vuela (no se mueve de la pantalla).
+2.  *Forma de neutralizar*: Dos clicks neutralizan el avión.
+3.  *Animaciones:* Avion volando hacia arriba, avión moviéndose en su sitio.
+4.  *Arte*: Avión.
+5.  *Sonido:* Turbinas del avión, avión accidentado.
+
+<div id="Flujodejuego(GameLoop)"></>
+
+## 2.3. Flujo de juego (Game Loop)
 
 El Game Loop estándar de una partida consistirá en lo siguiente:
 
@@ -137,27 +244,38 @@ También habrá trampas al revés, que sólo se activan si el jugador las pulsa.
 
 Si Timmy llega a un final de nivel sin haber sido alcanzado por ninguna amenaza, pasará por un túnel. Durante este túnel, se notificará de que se ha superado el nivel, se mostrarán los datos de puntuación del nivel, y al hacer click en la pantalla, se continuará al siguiente. Al continuar, Timmy seguirá andando por el túnel hasta la salida, donde comenzará el siguiente nivel, con un aumento de dificultad. Cada nivel será una hora del día, y cuando pasen 3, se cambiará. Se notificará el cambio de día y será parte de la puntuación (Por ejemplo "¡Perdiste! Has aguantado: 3 días. Puntos: 3500.").
 
-## **2.3. Personajes**
+<div id="Personajes"></>
+
+## 2.4. Personajes
 
 * **Timmy**: Un chico despistado, que se nos muestra en pantalla paseando de forma distraída por la ajetreada ciudad. Siempre se mete en problemas por ir demasiado abstraído del mundo, y necesitaría un ángel de la guarda para no salir mal parado de sus problemas. Lo único que hace en el juego es andar de forma poco cuidadosa.
 
 * **Dios**: El jugador tomará el papel de Dios, que gestionará las amenazas que intentan dañar a Timmy, intentando eliminarlas de su camino. Será, por lo tanto, un ser amable que intenta ayudar a Timmy en todo momento, incluso aunque ello suponga causar algo de caos en la ciudad. Se desconoce por qué solo quiere proteger a Timmy.
 
-## **2.4. Movimiento**
+<div id="Movimiento"></>
+
+## 2.5. Movimiento
 
 El movimiento del juego consistirá en el scroll lateral de la pantalla de derecha a izquierda, estando Timmy en la zona izquierda de la misma, y apareciendo las amenazas por la derecha. No hay movimiento del jugador en sí, sino que se deberá hacer click o pulsar (en móviles) en las diversas amenazas que aparecen para ir eliminándolas.
 
 Así, el único control como tal será el click o pulsación con el dedo, dependiendo del dispositivo, para hacer desaparecer (o aparecer) una amenaza. Esta sencillez en los controles nos permite, por un lado, crear una curva de aprendizaje asequible e intuitiva, y por otro, crear numerosas dinámicas jugables (activar trampa, desactivarla, activar una trampa de tipo indirecto, etc.) a partir de un mismo control.
 
-## **2.5. Cámara**
+<div id="Camara"></>
+
+
+## 2.6. Cámara
 
 La cámara en Timmy is Happy será fija, siendo visible todo el escenario, y solo será el escenario el que se mueva. Por lo tanto la cámara no es controlable.
 
-## **2.6. Controles**
+<div id="Controles"></>
+
+## 2.7. Controles
 
 Los controles constan únicamente del click o pulsación de la pantalla en móvil sobre la región de la pantalla. Por lo tanto, pulsar sobre un objeto cambiará su estado (eliminar un objeto, etc.).
 
-## **2.7. Niveles**
+<div id="Niveles"></>
+
+## 2.8. Niveles
 
 Durante Timmy is Happy, tendremos tres tipos de niveles distintos, en el que principalmente cambia la estética de los mismos. 
 
@@ -167,33 +285,46 @@ Durante Timmy is Happy, tendremos tres tipos de niveles distintos, en el que pri
 
 * *Mapa de Noche:* Serían la dificultad máxima alcanzable, llevando enemigos más difíciles y surgiendo situaciones en las que la oscuridad obstruye la visión y es más difícil vislumbrar de las amenazas que vienen a por Timmy.
 
-# **3. Interfaz**
+<div id="interfaz"></>
 
-## **3.1. Diagrama de Flujo**
+# 3. Interfaz
+
+<div id="DiagramadeFlujo"></>
+
+
+## 3.1. Diagrama de Flujo
 
 A continuación, se muestra el diagrama de flujo y transición entre pantallas durante el desarrollo del juego:
 
 ## ![image alt text](assets/GDD/image_0.png)
 
-## **3.2. Pantalla de Menú Principal**
+<div id="PantalladeMenuPrincipal"></>
+
+## 3.2. Pantalla de Menú Principal
 
 A continuación se muestra el esquema básico de la pantalla de Menú Principal:
 
  ![image alt text](assets/GDD/image_1.png)
 
-**3.3. Pantalla de Puntuaciones**
+<div id="PantalladePuntuaciones></>
+
+## 3.3. Pantalla de Puntuaciones
 
 A continuación, se muestra el esquema básico de la pantalla de Puntuaciones:
 
 ![image alt text](assets/GDD/image_2.png)
 
-**3.4. Pantalla de Créditos y Contacto**
+<div id="PantallasdeCreditosyContacto"></>
+
+## 3.4. Pantalla de Créditos y Contacto
 
 A continuación, se muestra el esquema básico de la pantalla de Contacto:
 
 ![image alt text](assets/GDD/image_3.png)
 
-## **3.5. Pantalla de Nivel**
+<div id="PantalladeNivel"></>
+
+## 3.5. Pantalla de Nivel
 
 A continuación, se muestra el esquema básico de la pantalla de un nivel típico del juego:
 
@@ -211,15 +342,21 @@ A continuación, se muestra el esquema básico de la pantalla de un nivel típic
 
 ![image alt text](assets/GDD/image_7.png)
 
-## **3.6. Pantalla de Fin de Nivel (Game Over)**
+<div id="PantalladeFindeNivel(GameOver)"></>
+
+## 3.6. Pantalla de Fin de Nivel (Game Over)
 
 A continuación se muestra el esquema básico de la pantalla de Game Over:
 
 ![image alt text](assets/GDD/image_8.png)
 
-# **4. Arte y Sonido**
+<div id="arteysonido"></>
 
-## **4.1. Arte**
+# 4. Arte y Sonido
+
+<div id="Arte"></>
+
+## 4.1. Arte
 
 El apartado artístico del videojuego será colorido y alegre, con un estilo de dibujado propio (en contraposición a Pixel Art), animaciones algo exageradas y, en general, una estética *cartoony*.
 
@@ -235,55 +372,74 @@ A continuación, se muestran algunos bocetos conceptuales:
 
 El arte final se irá incorporando conforme se tengan los recursos necesarios.
 
-## **4.2. Sonido**
+<div id="Sonido"></>
 
-Los sonidos del juego deberán acompañar a su estilo visual, de forma que deberán tener un toque alegre, divertido y amigable, alejándonos de lo oscuro, lo profundo y lo macabro. La lista de sonidos usados se formula a continuación:
+## 4.2. Sonido
 
-* Boton_1: Sonido para los botones de la aplicación, tales como los del menú.
-* Boton_2: Un sonido alternativo para menús o requeridos.
+Los sonidos del juego deberán acompañar a su estilo visual, de forma que deberán tener un toque alegre y divertido.
 
-* Alcantarilla_Open: Sonido de abrir la tapa de alcantarilla
-* Alcantarilla_Close: Sonido de cerrar la tapa de alcantarilla.
+* *Boton_1*: Sonido para los botones de la aplicación, tales como los del menú.
 
-* Caca_Spawn: Sonido de pisar una caca de perro para denotar la aparición de esta amenaza.
-* Caca_Eliminated: Sonido de recogida en una bolsa de la caca de perro. Para cuando se elimina la trampa “Caca de perro”.
+* *Boton_2*: Un sonido alternativo para menús o requeridos.
 
-* Coche_Move: Sonido loopeable del motor del coche cuando avance.
-* Coche_Bocina: Un claxon cuando está muy cerca de Timmy.
-* Coche_Eliminated: Un derrape para eliminar el coche de escena.
+* *Alcantarilla_Open*: Sonido de abrir la tapa de alcantarilla
 
-* Paloma_Spawn: Un sonido de paloma al spawnear, un gorjeo.
-* Paloma_Eliminated: Manojo de plumas y aleteo cuando se elimina a la paloma.
+* *Alcantarilla_Close*: Sonido de cerrar la tapa de alcantarilla.
 
-* Avion_Spawn: Cuando el avión aparece en la escena.
-* Avion_Eliminated: Suena el avión sobrevolar y estrellarse.
-* Avion_Loop: Sonido loopeable del avión en escena.
+* *Caca_Spawn*: Sonido de pisar una caca de perro para denotar la aparición de esta amenaza.
 
-* Perro_Warn: Un perro gruñendo y ladrando, para avisar de que va a atacaar.
-* Perro_Attack: El perro ladra, cuando ataca.
-* Perro_Eliminated: El perro huye, es eliminado.
+* *Caca_Eliminated*:Sonido de recogida en una bolsa de la caca de perro. Para cuando se elimina la trampa "Caca de perro".
+
+* *Coche_Move*: Sonido loopeable del motor del coche cuando avance.
+
+* *Coche_Bocina*: Un claxon cuando está muy cerca de Timmy.
+
+* *Coche_Eliminated*: Un derrape para eliminar el coche de escena.
+
+* *Paloma_Spawn*: Un sonido de paloma al spawnear, un gorjeo.
+
+* *Paloma_Eliminated*: Manojo de plumas y aleteo cuando se elimina a la paloma.
+
+* *Avion_Spawn*: Cuando el avión aparece en la escena.
+
+* *Avion_Eliminated*: Suena el avión sobrevolar y estrellarse.
+  
+* *Avion_Spawn*: Cuando el avión aparece en la escena.
+  
+* *Avion_Eliminated*: Suena el avión sobrevolar y estrellarse.
+  
+* *Avion_Loop*: Sonido loopeable del avión en escena.
+
+* *Perro_Warn*: Un perro gruñendo y ladrando, para avisar de que va a atacaar.
+
+* *Perro_Attack*: El perro ladra, cuando ataca.
+
+* *Perro_Eliminated*: El perro huye, es eliminado.
 
 Música usada:
 Para el videojuego se han usado 4 tracks, listadas a continuación:
 
-* Menu: Songe D’Automne (licencia Attribution-Noncommercial-Share Alike 2.0 France License.)
-* Day: Sweet Georgia Brown (licencia Attribution-Noncommercial-Share Alike 2.0 France License.)
-* Afternoon:Rythme Gitan(licencia Attribution-Noncommercial-Share Alike 2.0 France License.)
-* Night: Oprachina: Fat-fast (licencia Attribution-Noncommercial-Share Alike 3.0 United States License.)
+* *Menu: Songe D’Automne* (licencia Attribution-Noncommercial-Share Alike 2.0 France License.)
+* *Day: Sweet Georgia Brown* (licencia Attribution-Noncommercial-Share Alike 2.0 France License.)
+* *Afternoon:Rythme Gitan*(licencia Attribution-Noncommercial-Share Alike 2.0 France License.)
+* *Night: Oprachina: Fat-fast* (licencia Attribution-Noncommercial-Share Alike 3.0 United States License.)
 
-# **5. Roles**
+
+<div id="roles"></>
+
+# 5. Roles
 
 Para la realización del trabajo tendremos un equipo de 6 personas, siguiendo los siguientes roles:
 
 * *Alejandro Camuñas Casas*: Diseñador de Juego y diseñador Web.
 
-* *Andrés Felipe García:* Diseñador y programador Web.
+* *Andrés Felipe García*: Diseñador y programador Web.
 
-* *Jose Daniel Campos Galán:* Programador Web.
+* *Jose Daniel Campos Galán*: Programador Web.
 
-* *Pablo Rodriguez Vicente:* Programador Web.
+* *Pablo Rodriguez Vicente*: Programador Web.
 
-* *Raquel Gastón Vicente: *Artista 2D.
+* *Raquel Gastón Vicente*: Artista 2D.
 
-* *Guillermo Amigó Urda:* Diseñador de Juego y diseñador de Sonido.
+* *Guillermo Amigó Urda*: Diseñador de Juego y diseñador de Sonido.
 
