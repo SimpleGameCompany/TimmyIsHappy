@@ -920,7 +920,7 @@ function LoadLevel(jsonName,container){
                     container[4].push(tutpoop);
                 break;
                 case "speed":
-                    speed = obj.speed;
+                    speed = obj.speed +(days*-10);
                     LoadObjects(obj.nivel);
                 break;
                 case "tamaño":
