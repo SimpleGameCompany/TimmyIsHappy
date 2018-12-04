@@ -329,7 +329,7 @@ Por otra parte, esta pantalla aparece al iniciar una nueva partida, y sirve para
 
 ![image alt text](assets/GDD/Input.png)
  
-<div id="PantalladePuntuaciones></>
+<div id="PantalladePuntuaciones"></>
 
 ## 3.3. Pantalla de Puntuaciones
 
