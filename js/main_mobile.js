@@ -621,6 +621,10 @@ function OptionsMenu(){
 
         let flecha;
         flecha = new HitableObject("continuar", new Vector2(130,570),"assets/img/Flecha.png",52,106);
+        let flechaAnim;
+        flechaAnim = new Animation("assets/img/Flecha_spritesheet.png",4,106,52,1/8,0);
+        flecha.AddAnimation(flechaAnim,"idle");
+        flecha.SetAnimation("idle");
         flecha.OnClick = function(ev){
             soundManager.PlayButton1();
             if(fondoMenuOptionsEsp)
@@ -763,6 +767,10 @@ function PuntuacionesMenu(){
             }
         }
         let flecha = new HitableObject("continuar", new Vector2(130,570),"assets/img/Flecha.png",52,106);
+        let flechaAnim;
+        flechaAnim = new Animation("assets/img/Flecha_spritesheet.png",4,106,52,1/8,0);
+        flecha.AddAnimation(flechaAnim,"idle");
+        flecha.SetAnimation("idle");
         flecha.OnClick = function(ev){
             soundManager.PlayButton1();
             if(fondoMenuScoresEsp)
