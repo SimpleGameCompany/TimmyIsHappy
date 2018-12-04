@@ -858,7 +858,11 @@ function InputName(){
 
     }
 
-    flecha = new HitableObject("continuar", new Vector2(130,570),"assets/img/Flecha.png",52,106);
+    let flecha = new HitableObject("continuar", new Vector2(130,570),"assets/img/Flecha.png",52,106);
+    let flechaAnim;
+        flechaAnim = new Animation("assets/img/Flecha_spritesheet.png",4,106,52,1/8,0);
+        flecha.AddAnimation(flechaAnim,"idle");
+        flecha.SetAnimation("idle");
     flecha.OnClick = function(ev){
         soundManager.PlayButton1();
         inputText.Hide();
@@ -878,7 +882,7 @@ function loadGameFromLevel(ev){
     StartLoad();
     canvasManager.ClearCanvas();
     if(idioma === "_esp"){
-    puntuacionText = new TextObject("Puntos: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
+    puntuacionText = new TextObject("Puntos: ",new Vector2(1,0),3,"Arial",canvasManager,"white");
     
     daysText = new TextObject("Días completados: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
     
@@ -1221,7 +1225,7 @@ function EndLevel(){
         if(nextLevel > 3){
             nextLevel = 1;
         }
-        puntuacionText.position = new Vector2(0,0);
+        puntuacionText.position = new Vector2(1,0);
         daysText.activate = false;
         if(levelJson == "nivelprueba"){
             nextLevel--;
@@ -1283,7 +1287,7 @@ function LoseLevel(){
         canvasManager.ClearCanvas();
         StartLoad();
         actualLevel = 1;
-        puntuacionText.position = new Vector2(0,0);
+        puntuacionText.position = new Vector2(1,0);
         WriteScore();
         daysText.activate = false;
         puntuacionText.puntos = 0;
