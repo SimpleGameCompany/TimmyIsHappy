@@ -860,6 +860,7 @@ function loadGameFromLevel(ev){
     canvasManager.ClearCanvas();
     if(idioma === "_esp"){
     puntuacionText = new TextObject("Puntos: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
+    
     daysText = new TextObject("Días completados: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
     daysText.textT = "Días completados: ";
     daysText.activate = false;
@@ -872,6 +873,7 @@ function loadGameFromLevel(ev){
         daysText.activate = false;
     }
 
+    puntuacionText.textElement.addClass("scoreText");
     puntuacionText.activate=false;
     puntuacionText.puntos = 0;
     gameObjects = [];
