@@ -859,7 +859,7 @@ function loadGameFromLevel(ev){
     StartLoad();
     canvasManager.ClearCanvas();
     if(idioma === "_esp"){
-    puntuacionText = new TextObject("Puntos: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
+    puntuacionText = new TextObject("Puntos: ",new Vector2(1,0),3,"Arial",canvasManager,"white");
     
     daysText = new TextObject("Días completados: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
     daysText.textT = "Días completados: ";
@@ -1195,7 +1195,7 @@ function EndLevel(){
             nextLevel--;
             puntuacionText.puntos = 0;
         }
-        puntuacionText.position = new Vector2(0,0);
+        puntuacionText.position = new Vector2(1,0);
         daysText.activate = false;
         LoadLevel("nivel"+(nextLevel)+"_mobile",gameObjects);
     }
@@ -1252,7 +1252,7 @@ function LoseLevel(){
         canvasManager.ClearCanvas();
         StartLoad();
         actualLevel = 1;
-        puntuacionText.position = new Vector2(0,0);
+        puntuacionText.position = new Vector2(1,0);
         WriteScore();
         daysText.activate = false;
         puntuacionText.puntos = 0;
