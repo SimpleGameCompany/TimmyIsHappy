@@ -882,18 +882,18 @@ function loadGameFromLevel(ev){
     StartLoad();
     canvasManager.ClearCanvas();
     if(idioma === "_esp"){
-    puntuacionText = new TextObject("Puntos: ",new Vector2(1,0),3,"Arial",canvasManager,"white");
+    puntuacionText = new TextObject("Puntos: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
     
     daysText = new TextObject("Días completados: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
     
     daysText.textT = "Días completados: ";
     daysText.activate = false;
-    scoreText = "Puntos: ";
+    scoreText = " Puntos: ";
     }else{
         puntuacionText = new TextObject("Score: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
         daysText = new TextObject("Completed days: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
         daysText.textT = "Completed days: ";
-        scoreText = "Score: " ;
+        scoreText = " Score: " ;
         daysText.activate = false;
     }
 
@@ -1196,7 +1196,7 @@ function EndLevel(){
         days++;
     daysText.activate = true;
     daysText.text = daysText.textT+days;
-    puntuacionText.position = new Vector2(15,40);
+    puntuacionText.position = new Vector2(14,40);
     let Continue
     if(idioma === "_esp")
         Continue = new HitableObject("continuar",new Vector2(850,460),"assets/img/Continue_button"+idioma+".png",71,306);
@@ -1225,7 +1225,7 @@ function EndLevel(){
         if(nextLevel > 3){
             nextLevel = 1;
         }
-        puntuacionText.position = new Vector2(1,0);
+        puntuacionText.position = new Vector2(0,0);
         daysText.activate = false;
         if(levelJson == "nivelprueba"){
             nextLevel--;
@@ -1258,7 +1258,7 @@ function LoseLevel(){
     gameMusic.trigger("pause");
     daysText.activate = true;
     daysText.text = daysText.textT+days;
-    puntuacionText.position = new Vector2(15,40);
+    puntuacionText.position = new Vector2(14,40);
     if(scoreArray.length == 0 || Math.abs(puntuacionText.puntos) >  scoreArray[0].puntos){
         recordText.activate = true;
     }
@@ -1287,7 +1287,7 @@ function LoseLevel(){
         canvasManager.ClearCanvas();
         StartLoad();
         actualLevel = 1;
-        puntuacionText.position = new Vector2(1,0);
+        puntuacionText.position = new Vector2(0,0);
         WriteScore();
         daysText.activate = false;
         puntuacionText.puntos = 0;

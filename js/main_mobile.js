@@ -472,7 +472,7 @@ class HTMLBackGround{
         this.b2.css("width",100*scale +"%");
         this.vel = vel;
         this.b1.pos = 0;
-        this.b2.pos = 99.60*scale;
+        this.b2.pos = 99.98*scale;
         this.scale = scale;
         this.active = true;
     }
@@ -482,10 +482,10 @@ class HTMLBackGround{
         this.b2.pos += (this.vel*deltaTime)
        
         if(this.b1.pos <=-100*this.scale){
-            this.b1.pos = 100*this.scale;
+            this.b1.pos = 99.98*scale;
         }
         if(this.b2.pos <=-100*this.scale){
-            this.b2.pos = 100*this.scale;
+            this.b2.pos = 99.98*scale;
         }
 
 
@@ -1184,7 +1184,7 @@ function EndLevel(){
         days++;
     daysText.activate = true;
     daysText.text = daysText.textT+days;
-    puntuacionText.position = new Vector2(15,40);
+    puntuacionText.position = new Vector2(14,40);
     let Continue
     if(idioma === "_esp")
         Continue = new HitableObject("continuar",new Vector2(850,460),"assets/img/Continue_button"+idioma+".png",71,306);
@@ -1217,7 +1217,7 @@ function EndLevel(){
             nextLevel--;
             puntuacionText.puntos = 0;
         }
-        puntuacionText.position = new Vector2(1,0);
+        puntuacionText.position = new Vector2(0,0);
         daysText.activate = false;
         LoadLevel("nivel"+(nextLevel)+"_mobile",gameObjects);
     }
@@ -1245,7 +1245,7 @@ function LoseLevel(){
     gameMusic.trigger("pause");
     daysText.activate = true;
     daysText.text = daysText.textT+days;
-    puntuacionText.position = new Vector2(15,40);
+    puntuacionText.position = new Vector2(14,40);
     if(scoreArray.length == 0 || Math.abs(puntuacionText.puntos) >  scoreArray[0].puntos){
         recordText.activate = true;
     }
@@ -1274,7 +1274,7 @@ function LoseLevel(){
         canvasManager.ClearCanvas();
         StartLoad();
         actualLevel = 1;
-        puntuacionText.position = new Vector2(1,0);
+        puntuacionText.position = new Vector2(0,0);
         WriteScore();
         daysText.activate = false;
         puntuacionText.puntos = 0;
