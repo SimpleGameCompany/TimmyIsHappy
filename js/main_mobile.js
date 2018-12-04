@@ -48,6 +48,7 @@ var volume = 1;
 var menuMusic;
 var gameMusic;
 var levelJson;
+var recordText;
 //#endregion
 
 //#region objetos
@@ -662,6 +663,7 @@ function OptionsMenu(){
                 pauseExit = new HitableObject("salir", new Vector2(640, 370), "assets/img/Pause_menu_exit" + idioma + ".png", 80, 163);
                 pauseExit.OnClick = function (ev) { canvasManager.ClearCanvas(); soundManager.StopAudio(); LoseLevel() }
                 pauseExit.anchor = new Vector2(0.5, 0.5);
+                recordText.text = "New record!"
                 actualizaDias();
             }
         }
@@ -693,6 +695,7 @@ function OptionsMenu(){
                 pauseExit = new HitableObject("salir", new Vector2(640, 370), "assets/img/Pause_menu_exit" + idioma + ".png", 80, 163);
                 pauseExit.OnClick = function (ev) { canvasManager.ClearCanvas(); soundManager.StopAudio(); LoseLevel() }
                 pauseExit.anchor = new Vector2(0.5, 0.5);
+                recordText.text = "¡Nuevo récord!";
                 actualizaDias();
             }
         }
@@ -876,7 +879,7 @@ function loadGameFromLevel(ev){
     sky = new HTMLBackGround("sun","none",0,0,1);
     road = new HTMLBackGround("road","none",-50,4,4);
     buildings = new HTMLBackGround("build","none",-35,3,4);
-    LoadLevel("nivel1_mobile",gameObjects);
+    LoadLevel("nivelprueba",gameObjects);
 }
 
 function LoadLevel(jsonName,container){
@@ -1249,6 +1252,7 @@ function LoseLevel(){
         daysText.activate = false;
         puntuacionText.puntos = 0;
         days = 0;
+        recordText.activate = false;
         LoadLevel("nivel1_mobile",gameObjects);
     }
 
@@ -1261,6 +1265,7 @@ function LoseLevel(){
         daysText.activate = false;
         StartMenuGame();
         puntuacionText.puntos = 0;
+        recordText.activate = false;
         days = 0;
     }
     canvasManager.AddObject(Continue,5);
@@ -1352,6 +1357,12 @@ window.addEventListener("load",function(ev){
         this.attr("src",src);
         this.trigger("play");
     }
+    if(idioma === "_esp")
+    recordText = new TextObject("¡Nuevo récord!",new Vector2(15,50),3,"Arial",canvasManager,"#e15d5d");
+    else
+    recordText = new TextObject("New record!",new Vector2(15,50),3,"Arial",canvasManager,"#e15d5d");
+
+recordText.activate = false;
     canvasManager.Start(); 
 })
 function stopAudio(){
