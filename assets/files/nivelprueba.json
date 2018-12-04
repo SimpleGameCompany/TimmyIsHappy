@@ -1,4 +1,4 @@
-[
+﻿[
     {
     "type":"tamaño",
     "valor":1500
@@ -10,9 +10,6 @@
     },
     {
         "type":"tutorialPoop",
-        "positionx":1000
-    },{
-        "type":"dog",
         "positionx":1000
     }
 ]
