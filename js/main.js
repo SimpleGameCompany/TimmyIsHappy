@@ -1233,7 +1233,7 @@ function LoseLevel(){
     daysText.activate = true;
     daysText.text = daysText.textT+days;
     puntuacionText.position = new Vector2(15,40);
-    if(scoreArray.length == 0 || puntuacionText.puntos > scoreArray[0].puntos){
+    if(scoreArray.length == 0 || Math.abs(puntuacionText.puntos) >  scoreArray[0].puntos){
         recordText.activate = true;
     }
     let Continue

@@ -472,7 +472,7 @@ class HTMLBackGround{
         this.b2.css("width",100*scale +"%");
         this.vel = vel;
         this.b1.pos = 0;
-        this.b2.pos = 99.75*scale;
+        this.b2.pos = 99.60*scale;
         this.scale = scale;
         this.active = true;
     }
@@ -1222,6 +1222,9 @@ function LoseLevel(){
     daysText.activate = true;
     daysText.text = daysText.textT+days;
     puntuacionText.position = new Vector2(15,40);
+    if(scoreArray.length == 0 || Math.abs(puntuacionText.puntos) >  scoreArray[0].puntos){
+        recordText.activate = true;
+    }
     let Continue
     if(idioma === "_esp")
         Continue = new HitableObject("continuar",new Vector2(815,464),"assets/img/PlayAgain_button"+idioma+".png",67,375);
