@@ -1,4 +1,4 @@
-# Timmy is Happy
+## ![image alt text](assets/GDD/Title.png)
 
 * * *
 
@@ -314,9 +314,23 @@ A continuación, se muestra el diagrama de flujo y transición entre pantallas d
 
 ## 3.2. Pantalla de Menú Principal
 
-A continuación se muestra el esquema básico de la pantalla de Menú Principal:
+A continuación se muestra el planteamiento inicial de la pantalla de Menú Principal:
 
  ![image alt text](assets/GDD/image_1.png)
+
+ Esta es la aparencia final del menú:
+
+ ![image alt text](assets/GDD/Main.png)
+
+ Esta es la aparencia del menú de opciones:
+
+  ![image alt text](assets/GDD/Options.png)
+
+
+ Por otra parte, esta pantalla aparece al iniciar una nueva partida, y sirve para que el usuario introduzca su nombre:
+
+  ![image alt text](assets/GDD/input.png)
+
 
 <div id="PantalladePuntuaciones></>
 
@@ -326,13 +340,23 @@ A continuación, se muestra el esquema básico de la pantalla de Puntuaciones:
 
 ![image alt text](assets/GDD/image_2.png)
 
+Esta es la apariencia final del menú:
+
+![image alt text](assets/GDD/Scores.png)
+
+
 <div id="PantallasdeCreditosyContacto"></>
 
 ## 3.4. Pantalla de Créditos y Contacto
 
-A continuación, se muestra el esquema básico de la pantalla de Contacto:
+A continuación, se muestra el planteamiento inicial de la pantalla de Contacto:
 
 ![image alt text](assets/GDD/image_3.png)
+
+Actualmente, este apartado se encuentra directamente en la página web, y esta es su apariencia final:
+
+![image alt text](assets/GDD/Credits.png)
+
 
 <div id="PantalladeNivel"></>
 
@@ -356,11 +380,34 @@ A continuación, se muestra el esquema básico de la pantalla de un nivel típic
 
 <div id="PantalladeFindeNivel(GameOver)"></>
 
+La apariencia final de la pantalla de juego es esta:
+
+![image alt text](assets/GDD/InGame.png)
+
+Además, se ha implementado un menú de pausa, mostrado a continuación:
+
+![image alt text](assets/GDD/Pause.png)
+
+
+Finalmente, la pantalla de nivel superado luce así:
+
+![image alt text](assets/GDD/Completed.png)
+
+
 ## 3.6. Pantalla de Fin de Nivel (Game Over)
 
-A continuación se muestra el esquema básico de la pantalla de Game Over:
+A continuación, se muestra el planteamiento inicial de la pantalla de Game Over:
 
 ![image alt text](assets/GDD/image_8.png)
+
+Actualmente, este proceso tiene dos pasos. Primero, se congela la escena, con un filtro de color sepia, mostrando al jugador cómo ha perdido:
+
+![image alt text](assets/GDD/Jojos.png)
+
+Después, se muestra el resumen de la partida:
+
+![image alt text](assets/GDD/GameOver.png)
+
 
 <div id="arteysonido"></>
 
@@ -382,7 +429,10 @@ A continuación, se muestran algunos bocetos conceptuales:
 
 ![image alt text](assets/GDD/image_12.png)
 
-El arte final se irá incorporando conforme se tengan los recursos necesarios.
+Algunos ejemplos de sprite con la estética final del juego se muestran a continuación:
+
+![image alt text](assets/GDD/Sprites.png)
+
 
 <div id="Sonido"></>
 
