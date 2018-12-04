@@ -48,6 +48,7 @@ var volume = 1;
 var menuMusic;
 var gameMusic;
 var levelJson;
+var recordText;
 //#endregion
 
 //#region objetos
@@ -662,6 +663,7 @@ function OptionsMenu(){
                 pauseExit = new HitableObject("salir", new Vector2(640, 370), "assets/img/Pause_menu_exit" + idioma + ".png", 80, 163);
                 pauseExit.OnClick = function (ev) { canvasManager.ClearCanvas(); soundManager.StopAudio(); LoseLevel() }
                 pauseExit.anchor = new Vector2(0.5, 0.5);
+                recordText.text = "New record!";
                 actualizaDias();
             }
         }
@@ -693,6 +695,7 @@ function OptionsMenu(){
                 pauseExit = new HitableObject("salir", new Vector2(640, 370), "assets/img/Pause_menu_exit" + idioma + ".png", 80, 163);
                 pauseExit.OnClick = function (ev) { canvasManager.ClearCanvas(); soundManager.StopAudio(); LoseLevel() }
                 pauseExit.anchor = new Vector2(0.5, 0.5);
+                recordText.text = "¡Nuevo récord!";
                 actualizaDias();
             }
         }
@@ -858,6 +861,7 @@ function loadGameFromLevel(ev){
     if(idioma === "_esp"){
     puntuacionText = new TextObject("Puntos: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
     daysText = new TextObject("Días completados: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
+    
     daysText.textT = "Días completados: ";
     daysText.activate = false;
     scoreText = "Puntos: ";
@@ -1229,6 +1233,9 @@ function LoseLevel(){
     daysText.activate = true;
     daysText.text = daysText.textT+days;
     puntuacionText.position = new Vector2(15,40);
+    if(scoreArray.length == 0 || puntuacionText.puntos > scoreArray[0].puntos){
+        recordText.activate = true;
+    }
     let Continue
     if(idioma === "_esp")
         Continue = new HitableObject("continuar",new Vector2(815,464),"assets/img/PlayAgain_button"+idioma+".png",67,375);
@@ -1259,6 +1266,7 @@ function LoseLevel(){
         daysText.activate = false;
         puntuacionText.puntos = 0;
         days = 0;
+        recordText.activate = false;
         LoadLevel("nivel1",gameObjects);
     }
 
@@ -1269,10 +1277,13 @@ function LoseLevel(){
         gameMusic.StopAudio();
         menuMusic.trigger("play");
         daysText.activate = false;
-        StartMenuGame();
+        recordText.activate = false;
         puntuacionText.puntos = 0;
         days = 0;
+        StartMenuGame();
+       
     }
+
     canvasManager.AddObject(Continue,5);
     canvasManager.AddObject(VolverAlMenu,5);
     canvasManager.AddObject(Completado,5);
@@ -1362,6 +1373,13 @@ window.addEventListener("load",function(ev){
         this.attr("src",src);
         this.trigger("play");
     }
+    if(idioma === "_esp")
+        recordText = new TextObject("¡Nuevo récord!",new Vector2(15,50),3,"Arial",canvasManager,"#e15d5d");
+    else
+        recordText = new TextObject("New record!",new Vector2(15,50),3,"Arial",canvasManager,"#e15d5d");
+
+    recordText.activate = false;
+    
     canvasManager.Start(); 
 })
 function stopAudio(){
