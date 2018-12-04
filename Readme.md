@@ -170,6 +170,8 @@ En esta sección, trataremos todas las cuestiones referentes al funcionamiento b
   </tr>
 </table>
 
+<br/>
+
 
 * **Progresión del jugador:** finalmente, los esfuerzos del jugador se verán recompensados en forma de puntos y total de niveles completados (agrupados en días, cada 3 niveles constituyen un día). Este sistema animará al jugador a volver a jugar otra partida para superar su puntuación o la de sus amigos, asegurándonos de que el jugador siempre recurra al juego para buscar un reto mayor.
 
@@ -302,7 +304,6 @@ Durante Timmy is Happy, tendremos tres tipos de niveles distintos, en el que pri
 
 <div id="DiagramadeFlujo"></>
 
-
 ## 3.1. Diagrama de Flujo
 
 A continuación, se muestra el diagrama de flujo y transición entre pantallas durante el desarrollo del juego:
@@ -373,8 +374,6 @@ A continuación, se muestra el esquema básico de la pantalla de un nivel típic
 
 ![image alt text](assets/GDD/image_7.png)
 
-<div id="PantalladeFindeNivel(GameOver)"></>
-
 La apariencia final de la pantalla de juego es esta:
 
 ![image alt text](assets/GDD/InGame.png)
@@ -386,6 +385,8 @@ Además, se ha implementado un menú de pausa, mostrado a continuación:
 Finalmente, la pantalla de nivel superado luce así:
 
 ![image alt text](assets/GDD/Completed.png)
+
+<div id="PantalladeFindeNivel(GameOver)"></>
 
 ## 3.6. Pantalla de Fin de Nivel (Game Over)
 
