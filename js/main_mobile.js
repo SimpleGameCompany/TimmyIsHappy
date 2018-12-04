@@ -472,7 +472,7 @@ class HTMLBackGround{
         this.b2.css("width",100*scale +"%");
         this.vel = vel;
         this.b1.pos = 0;
-        this.b2.pos = 99.99*scale;
+        this.b2.pos = 100*scale;
         this.scale = scale;
         this.active = true;
     }
@@ -481,13 +481,13 @@ class HTMLBackGround{
         this.b1.pos +=(this.vel*deltaTime)
         this.b2.pos += (this.vel*deltaTime)
        
+        
         if(this.b1.pos <=-100*this.scale){
-            this.b1.pos = 99.99*this.scale;
+            this.b1.pos = 100*this.scale-Math.abs(this.b2.pos);
         }
         if(this.b2.pos <=-100*this.scale){
-            this.b2.pos = 99.99*this.scale;
+            this.b2.pos = 100*this.scale-Math.abs(this.b1.pos);
         }
-
 
         this.b2.css("left",this.b2.pos + "%");
         this.b1.css("left",this.b1.pos + "%");
@@ -508,6 +508,10 @@ class HTMLBackGround{
     ChangeImg(imgSrc){
         this.b1.attr("src",imgSrc);
         this.b2.attr("src",imgSrc);
+    }
+    Reset(){
+        this.b1.pos = 0;
+        this.b2.pos = 100*this.scale;
     }
 }
 //#endregion
@@ -1219,6 +1223,7 @@ function EndLevel(){
         }
         puntuacionText.position = new Vector2(0,0);
         daysText.activate = false;
+        road.Reset();
         LoadLevel("nivel"+(nextLevel)+"_mobile",gameObjects);
     }
 
@@ -1280,6 +1285,8 @@ function LoseLevel(){
         puntuacionText.puntos = 0;
         days = 0;
         recordText.activate = false;
+        road.Reset();
+
         LoadLevel("nivel1_mobile",gameObjects);
     }
 
