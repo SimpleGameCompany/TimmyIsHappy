@@ -1,4 +1,4 @@
-# Timmy is Happy
+## ![image alt text](assets/GDD/Title.png)
 
 * * *
 
