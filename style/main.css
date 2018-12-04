@@ -58,6 +58,10 @@ canvas {
     -o-user-select: none;
     user-select: none;
     
+    
+}
+.scoreText{
+    background: #000000AA;
 }
 .divgamecontainer { 
     

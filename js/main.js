@@ -835,9 +835,9 @@ function InputName(){
 
     let continuar;
     if(idioma === "_esp")
-        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_input_button_esp.png",71,306);
+        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_input_button_esp.png",131,416);
     else
-        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_input_button_eng.png",71,278);
+        continuar = new HitableObject("continuar",new Vector2(640,550),"assets/img/Continue_input_button_eng.png",131,416);
     continuar.anchor = new Vector2(0.5,0.5);
     
     continuar.OnClick = function(ev){
@@ -858,7 +858,15 @@ function InputName(){
 
     }
 
-
+    flecha = new HitableObject("continuar", new Vector2(130,570),"assets/img/Flecha.png",52,106);
+    flecha.OnClick = function(ev){
+        soundManager.PlayButton1();
+        inputText.Hide();
+        fondoMenuInputName.Hide();
+        parrafoInput.activate = false;
+        StartMenuGame();
+    }
+    canvasManager.AddObject(flecha,1);
     canvasManager.AddObject(continuar,0);
     canvasManager.AddObject(parrafoInput,1);
 
@@ -871,6 +879,7 @@ function loadGameFromLevel(ev){
     canvasManager.ClearCanvas();
     if(idioma === "_esp"){
     puntuacionText = new TextObject("Puntos: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
+    
     daysText = new TextObject("Días completados: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
     
     daysText.textT = "Días completados: ";
@@ -884,6 +893,8 @@ function loadGameFromLevel(ev){
         daysText.activate = false;
     }
 
+
+    puntuacionText.textElement.addClass("scoreText");
     puntuacionText.activate=false;
     puntuacionText.puntos = 0;
     gameObjects = [];
