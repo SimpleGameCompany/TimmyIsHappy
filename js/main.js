@@ -472,7 +472,7 @@ class HTMLBackGround{
         this.b2.css("width",100*scale +"%");
         this.vel = vel;
         this.b1.pos = 0;
-        this.b2.pos = 100*scale;
+        this.b2.pos = 99.99*scale;
         this.scale = scale;
         this.active = true;
     }
