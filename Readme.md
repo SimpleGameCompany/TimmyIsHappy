@@ -307,7 +307,7 @@ Durante Timmy is Happy, tendremos tres tipos de niveles distintos, en el que pri
 
 A continuación, se muestra el diagrama de flujo y transición entre pantallas durante el desarrollo del juego:
 
-## ![image alt text](assets/GDD/image_0.png)
+![image alt text](assets/GDD/image_0.png)
 
 <div id="PantalladeMenuPrincipal"></>
 
@@ -315,19 +315,19 @@ A continuación, se muestra el diagrama de flujo y transición entre pantallas d
 
 A continuación se muestra el planteamiento inicial de la pantalla de Menú Principal:
 
- ![image alt text](assets/GDD/image_1.png)
+![image alt text](assets/GDD/image_1.png)
 
- Esta es la aparencia final del menú:
+Esta es la aparencia final del menú:
 
- ![image alt text](assets/GDD/Main.png)
+![image alt text](assets/GDD/Main.png)
 
- Esta es la aparencia del menú de opciones:
+Esta es la aparencia del menú de opciones:
 
- ![image alt text](assets/GDD/Options.png)
+![image alt text](assets/GDD/Options.png)
 
- Por otra parte, esta pantalla aparece al iniciar una nueva partida, y sirve para que el usuario introduzca su nombre:
+Por otra parte, esta pantalla aparece al iniciar una nueva partida, y sirve para que el usuario introduzca su nombre:
 
- ![image alt text](assets/GDD/Input.png)
+![image alt text](assets/GDD/Input.png)
  
 <div id="PantalladePuntuaciones></>
 
