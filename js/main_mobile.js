@@ -378,7 +378,7 @@ class Dog extends Obstacle{
             this._PerroAttackAudio.PlayOneShot();
             this.SetAnimation("run");
             clearInterval(this.interval);
-            this.velocity = new Vector2(speed-600,0).normalize().mult(300);
+            this.velocity = new Vector2(speed-1000,0);
             this._attacking = true;
         }else if(this.position.x <= 1280 && !this._stopped){
             this._PerroWarnAudio.PlayOneShot();
@@ -860,6 +860,7 @@ function loadGameFromLevel(ev){
     canvasManager.ClearCanvas();
     if(idioma === "_esp"){
     puntuacionText = new TextObject("Puntos: ",new Vector2(0,0),3,"Arial",canvasManager,"white");
+    
     daysText = new TextObject("Días completados: ", new Vector2(15,30),3,"Arial",canvasManager,"white");
     daysText.textT = "Días completados: ";
     daysText.activate = false;
@@ -872,6 +873,7 @@ function loadGameFromLevel(ev){
         daysText.activate = false;
     }
 
+    puntuacionText.textElement.addClass("scoreText");
     puntuacionText.activate=false;
     puntuacionText.puntos = 0;
     gameObjects = [];
@@ -923,7 +925,7 @@ function LoadLevel(jsonName,container){
                     container[4].push(tutpoop);
                 break;
                 case "speed":
-                    speed = obj.speed +(days*-10);
+                    speed = obj.speed +(days*-5);
                     LoadObjects(obj.nivel);
                 break;
                 case "tamaño":
@@ -965,7 +967,7 @@ function LoadLevel(jsonName,container){
                     let carAnim = new Animation("assets/img/Coche_spritesheet"+levelname+".png",8,557,184,1/12,0);
                     totalLoading +=1;
                     //car.anchor = new Vector2(0,0.5);
-                    car.velocity = new Vector2(speed - 20,0);
+                    car.velocity = new Vector2(speed - 40,0);
                     let carrotate = new Animation("assets/img/CocheRotando_spritesheet"+levelname+".png",8,557,622,1/16,0);
                     car.AddAnimation(carAnim,"idle");
                     car.AddAnimation(carrotate,"die");
